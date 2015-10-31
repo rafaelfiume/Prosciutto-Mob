@@ -1,0 +1,16 @@
+#Operating System Files
+.DS_Store
+nohup.out
+
+# Build Artifacts
+/build
+/captures
+
+#Android Studio
+.gradle
+/local.properties
+.idea
+/.idea/workspace.xml
+/.idea/libraries
+*.iml
+
