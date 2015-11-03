@@ -12,25 +12,34 @@
     tools:showIn="@layout/activity_adviser"
     tools:context=".AdviserActivity">
 
-
-    <RadioGroup android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+    <RadioGroup android:id="@+id/profile_options"
+        android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
         <RadioButton
-            android:layout_width="match_parent" android:layout_height="wrap_content" android:onClick="onMagicRadioButtonClicked"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:onClick="onMagicRadioButtonClicked"
             android:id="@+id/magic_option"
             android:text="@string/magic_option"/>
         <RadioButton
-            android:layout_width="match_parent" android:layout_height="wrap_content" android:onClick="onHealthyRadioButtonClicked"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:onClick="onHealthyRadioButtonClicked"
             android:id="@+id/healthy_option"
             android:text="@string/healthy_option"/>
         <RadioButton
-            android:layout_width="match_parent" android:layout_height="wrap_content" android:onClick="onExpertRadioButtonClicked"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:onClick="onExpertRadioButtonClicked"
             android:id="@+id/expert_option"
             android:text="@string/expert_option"/>
         <RadioButton
-            android:layout_width="match_parent" android:layout_height="wrap_content" android:onClick="onGourmetRadioButtonClicked"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:onClick="onGourmetRadioButtonClicked"
             android:id="@+id/gourmet_option"
             android:text="@string/gourmet_option"/>
     </RadioGroup>
 
+    <ListView
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_below="@id/profile_options"
+        android:paddingTop="16dp" android:paddingLeft="8dp"
+        android:id="@+id/products_list" />
 
 </RelativeLayout>

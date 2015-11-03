@@ -8,6 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdviserActivity extends AppCompatActivity {
 
@@ -27,10 +31,11 @@ public class AdviserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adviser);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,6 +43,14 @@ public class AdviserActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        final List<Product> dataSource = new ArrayList<Product>(){{
+            add(new Product("Traditional Salume"));
+            add(new Product("Premium Salume"));
+        }};
+
+        final ListView listView = (ListView) findViewById(R.id.products_list);
+        listView.setAdapter(new ProductAdapter(this, dataSource));
     }
 
     @Override
