@@ -42,7 +42,7 @@ dependencies {
     // Expresso Tests
     androidTestCompile 'commons-io:commons-io:2.3'
     androidTestCompile 'junit:junit:4.12'
-    androidTestCompile 'com.rafaelfiume:Supplier-Acceptance-Tests:0.1.7-SNAPSHOT'
+    androidTestCompile 'com.rafaelfiume:Supplier-Acceptance-Tests:0.1.7'
     androidTestCompile 'org.eclipse.jetty:jetty-server:8.1.18.v20150929'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.4.1'
