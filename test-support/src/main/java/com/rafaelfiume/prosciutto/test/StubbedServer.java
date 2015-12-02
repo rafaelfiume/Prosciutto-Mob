@@ -1,17 +1,17 @@
-package com.rafaelfiume.prosciutto.adviser.test;
+package com.rafaelfiume.prosciutto.test;
 
-import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ContextHandler;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceResponse;
 
 public class StubbedServer {
 
@@ -46,15 +46,5 @@ public class StubbedServer {
         }
     }
 
-    private static String supplierAdviceResponse() {
-        return readFile("com.rafaelfiume.salume.advisor.SalumeAdvisorHappyPathTest_Salume_advice_response_from_Supplier_to_Customer.txt");
-    }
 
-    private static String readFile(String resName) {
-        try (final InputStream is = AdviserEndToEndTest.class.getClassLoader().getResourceAsStream(resName)) {
-            return IOUtils.toString(is);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
