@@ -1,15 +1,11 @@
 package com.rafaelfiume.prosciutto.test;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceRequest;
 import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceResponse;
-import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertThat;
 
 public class SalumeApiContractExampleReaderTest {
 
