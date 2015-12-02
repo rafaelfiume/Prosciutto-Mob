@@ -45,8 +45,8 @@ public class AdviserActivity extends AppCompatActivity {
         });
 
         final List<Product> dataSource = new ArrayList<Product>(){{
-            add(new Product("Traditional Salume"));
-            add(new Product("Premium Salume"));
+            add(new Product("Traditional Salume", "", "", ""));
+            add(new Product("Premium Salume", "", "", ""));
         }};
 
         final ListView listView = (ListView) findViewById(R.id.products_list);
