@@ -45,7 +45,7 @@ public enum ProductAdviserQuery implements ProductAdviserServiceClient {
         return parser.parse(get(ADVISER_WEB_SERVICE + profile));
     }
 
-    private static final String ADVISER_WEB_SERVICE = "http://localhost:8081/salume/supplier/advise/for/";
+    private static final String ADVISER_WEB_SERVICE = ServerName.name() + "/advise/for/";
 
     private final ProductAdiviserParser parser = new ProductAdiviserParser();
 

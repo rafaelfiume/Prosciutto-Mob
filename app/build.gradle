@@ -5,11 +5,9 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.rafaelfiume.prosciutto.adviser"
         minSdkVersion 22
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -20,6 +18,23 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+
+    productFlavors {
+        dev {
+            applicationId "com.rafaelfiume.prosciutto.adviser.dev"
+            versionName "0.1-SNAPSHOT"
+        }
+
+        staging {
+            applicationId "com.rafaelfiume.prosciutto.adviser.staging"
+            versionName "0.1-SNAPSHOT"
+        }
+
+        prod {
+            applicationId "com.rafaelfiume.prosciutto.adviser"
+            versionName "0.1"
+        }
     }
 }
 

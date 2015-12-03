@@ -25,7 +25,7 @@ public class ProductAdviserQueryTest {
     }
 
     @Test
-    public void shouldReturnListOfSuggestedProductsWhenQueringAdiviserWebService() throws Exception {
+    public void shouldReturnListOfSuggestedProductsWhenQueryingAdviserWebService() throws Exception {
         assertThat(EXPERT.suggestedProducts(), hasSize(2));
     }
 }

@@ -1,31 +1,36 @@
 package com.rafaelfiume.prosciutto.adviser;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 
-import java.util.ArrayList;
+import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery;
+
 import java.util.List;
+
+import static com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.EXPERT;
+import static com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.GOURMET;
+import static com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.HEALTHY;
+import static com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.MAGIC;
 
 public class AdviserActivity extends AppCompatActivity {
 
-    public void onMagicRadioButtonClicked(View v) {
-    }
+    private ProductAdviserQuery query;
 
-    public void onHealthyRadioButtonClicked(View v) {
-    }
+    private ListView listView;
 
-    public void onExpertRadioButtonClicked(View v) {
-    }
-
-    public void onGourmetRadioButtonClicked(View v) {
-    }
+    public void onMagicRadioButtonClicked(View v) { this.query = MAGIC; }
+    public void onHealthyRadioButtonClicked(View v) { this.query = HEALTHY; }
+    public void onExpertRadioButtonClicked(View v) { this.query = EXPERT; }
+    public void onGourmetRadioButtonClicked(View v) { this.query = GOURMET; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,22 +40,25 @@ public class AdviserActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        this.listView = (ListView) findViewById(R.id.products_list);
+
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Requesting advice...", Snackbar.LENGTH_LONG).show();
+                new GetProductAdvice().execute();
             }
         });
 
-        final List<Product> dataSource = new ArrayList<Product>(){{
-            add(new Product("Traditional Salume", "", "", ""));
-            add(new Product("Premium Salume", "", "", ""));
-        }};
+        setMagicQuerySelectedByDefault();
+    }
 
-        final ListView listView = (ListView) findViewById(R.id.products_list);
-        listView.setAdapter(new ProductAdapter(this, dataSource));
+    private void setMagicQuerySelectedByDefault() {
+        final RadioGroup options = (RadioGroup) findViewById(R.id.profile_options);
+        options.check(R.id.magic_option);
+
+        this.query = MAGIC;
     }
 
     @Override
@@ -74,4 +82,27 @@ public class AdviserActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void updateSuggestedProductsList(List<Product> products) {
+        listView.setAdapter(new ProductAdapter(this, products));
+    }
+
+    class GetProductAdvice extends AsyncTask<Void, Void, List<Product>> {
+
+        @Override
+        protected List<Product> doInBackground(Void... nothing) {
+            try {
+                return query.suggestedProducts();
+            } catch (Exception e) {
+                // Sad path not played yet
+                throw new RuntimeException(e);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<Product> products) {
+            updateSuggestedProductsList(products);
+        }
+    }
+
 }
