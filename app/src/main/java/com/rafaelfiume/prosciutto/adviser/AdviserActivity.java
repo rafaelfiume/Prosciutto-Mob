@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.RadioGroup;
 
 import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.EXPERT;
@@ -25,12 +27,23 @@ public class AdviserActivity extends AppCompatActivity {
 
     private ProductAdviserQuery query;
 
-    private ListView listView;
+    private ProductAdapter adapter;
 
-    public void onMagicRadioButtonClicked(View v) { this.query = MAGIC; }
-    public void onHealthyRadioButtonClicked(View v) { this.query = HEALTHY; }
-    public void onExpertRadioButtonClicked(View v) { this.query = EXPERT; }
-    public void onGourmetRadioButtonClicked(View v) { this.query = GOURMET; }
+    public void onMagicRadioButtonClicked(View v) {
+        this.query = MAGIC;
+    }
+
+    public void onHealthyRadioButtonClicked(View v) {
+        this.query = HEALTHY;
+    }
+
+    public void onExpertRadioButtonClicked(View v) {
+        this.query = EXPERT;
+    }
+
+    public void onGourmetRadioButtonClicked(View v) {
+        this.query = GOURMET;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,21 +53,22 @@ public class AdviserActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.listView = (ListView) findViewById(R.id.products_list);
+        final ListView listView = (ListView) findViewById(R.id.products_list);
+        this.adapter = new ProductAdapter(this);
+        listView.setAdapter(this.adapter);
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Requesting advice...", Snackbar.LENGTH_LONG).show();
                 new GetProductAdvice().execute();
             }
         });
 
-        setMagicQuerySelectedByDefault();
+        setMagicOptionSelectedByDefault();
     }
 
-    private void setMagicQuerySelectedByDefault() {
+    private void setMagicOptionSelectedByDefault() {
         final RadioGroup options = (RadioGroup) findViewById(R.id.profile_options);
         options.check(R.id.magic_option);
 
@@ -83,26 +97,71 @@ public class AdviserActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateSuggestedProductsList(List<Product> products) {
-        listView.setAdapter(new ProductAdapter(this, products));
-    }
-
     class GetProductAdvice extends AsyncTask<Void, Void, List<Product>> {
+
+        private final Snackbar requestingAdviceMessage;
+        private final Snackbar failedMessage;
+
+        private boolean taskFailed = false;
+
+        GetProductAdvice() {
+            this.requestingAdviceMessage = Snackbar.make(findViewById(R.id.fab), "Asking for advice...", Snackbar.LENGTH_INDEFINITE);
+            this.failedMessage = Snackbar
+                    .make(findViewById(R.id.fab), "Failed", Snackbar.LENGTH_LONG)
+                    .setAction("Retry", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            new GetProductAdvice().execute();
+                        }
+                    }); // display option for user to retry
+
+            //this.requestingAdviceMessage.setCallback(new Snackbar.Callback() {
+            //  @Override
+            //  public void onDismissed(Snackbar snackbar, int event) {
+            //      if (taskFailed) {
+            //          failedMessage.show();
+            //      }
+            //  }
+            //});
+        }
+
+        @Override
+        protected void onPreExecute() {
+            cleanSuggestedProductsList();
+            requestingAdviceMessage.show();
+        }
 
         @Override
         protected List<Product> doInBackground(Void... nothing) {
             try {
                 return query.suggestedProducts();
+
             } catch (Exception e) {
-                // Sad path not played yet
-                throw new RuntimeException(e);
+                Log.e(AdviserActivity.class.getName(), "error when querying salume supplier", e);
+                this.taskFailed = true;
+                return new ArrayList<>();
             }
         }
 
         @Override
         protected void onPostExecute(List<Product> products) {
+            requestingAdviceMessage.dismiss();
             updateSuggestedProductsList(products);
+
+            if (taskFailed) {
+                failedMessage.show();
+            }
         }
+
+        private void updateSuggestedProductsList(List<Product> products) {
+            cleanSuggestedProductsList();
+            adapter.addAll(products);
+        }
+
+        private void cleanSuggestedProductsList() {
+            adapter.clear();
+        }
+
     }
 
 }

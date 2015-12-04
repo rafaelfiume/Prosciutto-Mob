@@ -53,7 +53,7 @@ public enum ProductAdviserQuery implements ProductAdviserServiceClient {
         HttpURLConnection http = (HttpURLConnection) new URL(url).openConnection();
 
         if (http.getResponseCode() != 200) {
-            throw new AssertionError(String.format(
+            throw new ResourceNotFoundException(String.format(
                     "Response code for url (%s) is: %s", url, http.getResponseCode()));
         }
 

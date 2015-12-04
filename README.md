@@ -15,7 +15,7 @@ Most commonly used command-line tasks are:
 
 ## User Stories
 
-### Request [!(Salume)[https://github.com/rafaelfiume/Salume]] Product Advice Based on Customer Profile (Parent Story)
+### Request [Salume](https://github.com/rafaelfiume/Salume) Advice Based on Customer Profile (Parent Story)
 * ~~Request advice happy path~~
-* Request advice sad path
+* ~~Request advice sad path~~
 * Improve UI displaying product price

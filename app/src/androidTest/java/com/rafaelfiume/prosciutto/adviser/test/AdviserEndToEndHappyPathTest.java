@@ -19,9 +19,11 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.rafaelfiume.prosciutto.adviser.R.id.expert_option;
+import static com.rafaelfiume.prosciutto.adviser.R.id.magic_option;
 import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertResponse;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
@@ -37,12 +39,12 @@ public class AdviserEndToEndHappyPathTest {
     public DependsOnServerRunningRule server = new DependsOnServerRunningRule();
 
     @Before
-    public void primeSuggestProductsForExpertResponse() {
+    public void primeExpertAdviceResponse() {
         server.primeSuccessfulResponse("/salume/supplier/advise/for/Expert", supplierAdviceForExpertResponse());
     }
 
     @Test
-    public void appDisplaySuggestedProductsWhenClientSelectsExpertProfileAndClicksOnSearchButton() {
+    public void appDisplaysSuggestedProductsWhenUserSelectsExpertProfileAndClicksOnSearchButton() {
         // Given the user selected expert profile
         onView(withId(expert_option)).perform(click());
         onView(withId(expert_option)).check(matches(ViewMatchers.isChecked()));
@@ -50,6 +52,7 @@ public class AdviserEndToEndHappyPathTest {
         // When user clicks on search button
         onView(withId(R.id.fab)).perform(click());
 
+        //Then...
         // Check list was loaded with two advices
         onData(is(instanceOf(Product.class)))
                 .inAdapterView(withId(R.id.products_list))

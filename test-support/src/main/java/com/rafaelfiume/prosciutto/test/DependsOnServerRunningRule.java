@@ -10,6 +10,14 @@ public class DependsOnServerRunningRule extends ExternalResource {
         server.primeSuccessfulResponse(contextPath, response);
     }
 
+    public void primeServerErrorWhenRequesting(String contextPath) {
+        server.primeServerErrorWhenRequesting(contextPath);
+    }
+
+    public void stop() throws Exception {
+        server.stop();
+    }
+
     @Override
     protected void before() throws Throwable {
         server.start();

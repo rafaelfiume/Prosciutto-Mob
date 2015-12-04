@@ -10,6 +10,8 @@ android {
         versionCode 1
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        testInstrumentationRunnerArguments disableAnalytics: 'true'
     }
 
     packagingOptions {

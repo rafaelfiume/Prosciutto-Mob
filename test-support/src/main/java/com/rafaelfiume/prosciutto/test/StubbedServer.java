@@ -35,10 +35,18 @@ public class StubbedServer {
     }
 
     public void primeSuccessfulResponse(String contextPath, String response) {
+        addHandler(contextPath, new XmlResponseHandler(response));
+    }
+
+    public void primeServerErrorWhenRequesting(String contextPath) {
+        addHandler(contextPath, new ThrowsExceptionHandler());
+    }
+
+    private void addHandler(String contextPath, AbstractHandler handler) {
         final ContextHandler context = new ContextHandler();
         context.setContextPath(contextPath);
         context.setClassLoader(Thread.currentThread().getContextClassLoader());
-        context.setHandler(new HelloHandler(response));
+        context.setHandler(handler);
         this.handlerCollection.addHandler(context);
         try {
             context.start();
@@ -47,10 +55,10 @@ public class StubbedServer {
         }
     }
 
-    static class HelloHandler extends AbstractHandler {
+    static class XmlResponseHandler extends AbstractHandler {
         private final String responseBody;
 
-        public HelloHandler(String responseBody) {
+        public XmlResponseHandler(String responseBody) {
             this.responseBody = responseBody;
         }
 
@@ -62,5 +70,12 @@ public class StubbedServer {
         }
     }
 
+    static class ThrowsExceptionHandler extends AbstractHandler {
+
+        @Override
+        public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+            throw new RuntimeException("primed for throwing exception... don't blame the messenger ;)");
+        }
+    }
 
 }
