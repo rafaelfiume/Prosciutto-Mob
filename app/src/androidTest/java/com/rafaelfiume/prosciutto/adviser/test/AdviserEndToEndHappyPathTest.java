@@ -21,12 +21,13 @@ import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.rafaelfiume.prosciutto.adviser.R.id.expert_option;
+import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertResponse;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
-public class AdviserEndToEndTest {
+public class AdviserEndToEndHappyPathTest {
 
     @Rule
     public ActivityTestRule<AdviserActivity> mActivityRule = new ActivityTestRule<>(AdviserActivity.class);
@@ -34,17 +35,22 @@ public class AdviserEndToEndTest {
     private StubbedServer server = new StubbedServer();
 
     @Before
-    public void primeSupplierResponse() throws Exception {
+    public void startServer() throws Exception {
         server.start();
     }
 
+    @Before
+    public void primeSuggestProductsForExpertResponse() {
+        server.primeSuccesfulResponse("/salume/supplier/advise/for/Expert", supplierAdviceForExpertResponse());
+    }
+
     @After
-    public void stopStubbedServer() throws Exception {
+    public void stopServer() throws Exception {
         server.stop();
     }
 
     @Test
-    public void checkAppReceivesAdvise() {
+    public void appDisplaySuggestedProductsWhenClientSelectsExpertProfileAndClicksOnSearchButton() {
         // Given the user selected expert profile
         onView(withId(expert_option)).perform(click());
         onView(withId(expert_option)).check(matches(ViewMatchers.isChecked()));

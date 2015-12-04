@@ -9,33 +9,45 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceRequest;
+import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertRequest;
+import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertResponse;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
 public class StubbedServerTest {
 
-    private StubbedServer server = new StubbedServer();
+    private final StubbedServer server = new StubbedServer();
 
     @Before
-    public void primeSupplierResponse() throws Exception {
+    public void startServer() throws Exception {
         server.start();
     }
 
+    @Before
+    public void primeSuggestProductsForExpertResponse() {
+        server.primeSuccesfulResponse("/salume/supplier/advise/for/Expert", supplierAdviceForExpertResponse());
+    }
+
     @After
-    public void stopStubbedServer() throws Exception {
+    public void stopServer() throws Exception {
         server.stop();
     }
 
     @Test
     public void checkFakeServerWorks() throws IOException {
-        assertThat(get(supplierAdviceRequest()), containsString("<product-advisor>"));
+        whenPrimingSupplierResponseWith(supplierAdviceForExpertResponse());
+        assertThat(get(supplierAdviceForExpertRequest()), containsString("<product-advisor>"));
+    }
+
+    private void whenPrimingSupplierResponseWith(String response) {
+        server.primeSuccesfulResponse("/salume/supplier/advise/for/Expert", response);
     }
 
     private static String get(String url) throws IOException {
         HttpURLConnection http = (HttpURLConnection) new URL(url).openConnection();
 
         if (http.getResponseCode() != 200) {
+            // Replace by ConnectedException
             throw new AssertionError(String.format(
                     "Response code for url (%s) is: %s", url, http.getResponseCode()));
         }

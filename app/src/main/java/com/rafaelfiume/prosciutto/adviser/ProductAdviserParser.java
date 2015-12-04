@@ -24,7 +24,7 @@ import javax.xml.xpath.XPathFactory;
 import static javax.xml.xpath.XPathConstants.NODESET;
 import static javax.xml.xpath.XPathConstants.STRING;
 
-public class ProductAdiviserParser {
+public class ProductAdviserParser {
 
     public List<Product> parse(String xml) throws Exception {
         final List<Product> suggestedProducts = new ArrayList<>();

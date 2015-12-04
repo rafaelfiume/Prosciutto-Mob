@@ -7,20 +7,20 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static com.rafaelfiume.prosciutto.adviser.ProductAdiviserParserTest.ProductMatcher.isAProductNamed;
-import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceResponse;
+import static com.rafaelfiume.prosciutto.adviser.ProductAdviserParserTest.ProductMatcher.isAProductNamed;
+import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertResponse;
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
 
-public class ProductAdiviserParserTest {
+public class ProductAdviserParserTest {
 
-    private final ProductAdiviserParser parser = new ProductAdiviserParser();
+    private final ProductAdviserParser parser = new ProductAdviserParser();
 
     @Test
-    public void additionIsCorrect() throws Exception {
+    public void shouldParseAdviceResponseIntoListOfProducts() throws Exception {
         // when
-        List<Product> suggestedProducts = parser.parse(supplierAdviceResponse());
+        List<Product> suggestedProducts = parser.parse(supplierAdviceForExpertResponse());
 
         // then
         assertThat(suggestedProducts, hasSize(2));

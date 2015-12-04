@@ -2,8 +2,8 @@ package com.rafaelfiume.prosciutto.test;
 
 import org.junit.Test;
 
-import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceRequest;
-import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceResponse;
+import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertRequest;
+import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertResponse;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
@@ -15,12 +15,12 @@ public class SalumeApiContractExampleReaderTest {
 
     @Test
     public void chekingRequestExampleIsNotNull() {
-        assertThat(supplierAdviceRequest(), containsString("/salume/supplier/advise/for/"));
+        assertThat(supplierAdviceForExpertRequest(), containsString("/salume/supplier/advise/for/"));
     }
 
     @Test
     public void chekingResponseExampleIsNotNull() {
-        assertThat(supplierAdviceResponse(), containsString("<product-advisor>"));
+        assertThat(supplierAdviceForExpertResponse(), containsString("<product-advisor>"));
     }
 
 }

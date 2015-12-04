@@ -1,7 +1,7 @@
 package com.rafaelfiume.prosciutto.adviser.integration;
 
 import com.rafaelfiume.prosciutto.adviser.Product;
-import com.rafaelfiume.prosciutto.adviser.ProductAdiviserParser;
+import com.rafaelfiume.prosciutto.adviser.ProductAdviserParser;
 
 import org.apache.commons.io.IOUtils;
 
@@ -47,7 +47,7 @@ public enum ProductAdviserQuery implements ProductAdviserServiceClient {
 
     private static final String ADVISER_WEB_SERVICE = ServerName.name() + "/advise/for/";
 
-    private final ProductAdiviserParser parser = new ProductAdiviserParser();
+    private final ProductAdviserParser parser = new ProductAdviserParser();
 
     private static String get(String url) throws IOException {
         HttpURLConnection http = (HttpURLConnection) new URL(url).openConnection();

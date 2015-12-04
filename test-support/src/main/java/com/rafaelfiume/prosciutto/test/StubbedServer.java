@@ -4,6 +4,7 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ContextHandler;
+import org.eclipse.jetty.server.handler.HandlerCollection;
 
 import java.io.IOException;
 
@@ -11,21 +12,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceResponse;
+import static java.lang.String.format;
+import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 public class StubbedServer {
 
     private final Server server;
 
+    private final HandlerCollection handlerCollection = new HandlerCollection(true);
+
     public StubbedServer() {
         this.server = new Server(8081);
-
-        ContextHandler context = new ContextHandler();
-        context.setContextPath("/salume/supplier/advise/for/Expert");
-        context.setClassLoader(Thread.currentThread().getContextClassLoader());
-        server.setHandler(context);
-
-        context.setHandler(new HelloHandler());
+        this.server.setHandler(handlerCollection);
     }
 
     public void start() throws Exception {
@@ -36,13 +34,31 @@ public class StubbedServer {
         server.stop();
     }
 
-    public class HelloHandler extends AbstractHandler {
-        public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
-                throws IOException, ServletException {
+    public void primeSuccesfulResponse(String contextPath, String response) {
+        final ContextHandler context = new ContextHandler();
+        context.setContextPath(contextPath);
+        context.setClassLoader(Thread.currentThread().getContextClassLoader());
+        context.setHandler(new HelloHandler(response));
+        this.handlerCollection.addHandler(context);
+        try {
+            context.start();
+        } catch (Exception e) {
+            throw new RuntimeException(format("failed to prime %s", contextPath), e);
+        }
+    }
+
+    static class HelloHandler extends AbstractHandler {
+        private final String responseBody;
+
+        public HelloHandler(String responseBody) {
+            this.responseBody = responseBody;
+        }
+
+        public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
             response.setContentType("application/xml;charset=utf-8");
-            response.setStatus(HttpServletResponse.SC_OK);
+            response.setStatus(SC_OK);
             baseRequest.setHandled(true);
-            response.getWriter().append(supplierAdviceResponse());
+            response.getWriter().append(responseBody);
         }
     }
 
