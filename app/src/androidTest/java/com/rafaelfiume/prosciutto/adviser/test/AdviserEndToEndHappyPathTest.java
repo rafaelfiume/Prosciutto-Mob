@@ -6,6 +6,7 @@ import android.support.test.rule.ActivityTestRule;
 import com.rafaelfiume.prosciutto.adviser.AdviserActivity;
 import com.rafaelfiume.prosciutto.adviser.Product;
 import com.rafaelfiume.prosciutto.adviser.R;
+import com.rafaelfiume.prosciutto.test.DependsOnServerRunningRule;
 import com.rafaelfiume.prosciutto.test.StubbedServer;
 
 import org.junit.After;
@@ -32,21 +33,12 @@ public class AdviserEndToEndHappyPathTest {
     @Rule
     public ActivityTestRule<AdviserActivity> mActivityRule = new ActivityTestRule<>(AdviserActivity.class);
 
-    private StubbedServer server = new StubbedServer();
-
-    @Before
-    public void startServer() throws Exception {
-        server.start();
-    }
+    @Rule
+    public DependsOnServerRunningRule server = new DependsOnServerRunningRule();
 
     @Before
     public void primeSuggestProductsForExpertResponse() {
-        server.primeSuccesfulResponse("/salume/supplier/advise/for/Expert", supplierAdviceForExpertResponse());
-    }
-
-    @After
-    public void stopServer() throws Exception {
-        server.stop();
+        server.primeSuccessfulResponse("/salume/supplier/advise/for/Expert", supplierAdviceForExpertResponse());
     }
 
     @Test

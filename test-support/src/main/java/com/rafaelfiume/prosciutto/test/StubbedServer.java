@@ -34,7 +34,7 @@ public class StubbedServer {
         server.stop();
     }
 
-    public void primeSuccesfulResponse(String contextPath, String response) {
+    public void primeSuccessfulResponse(String contextPath, String response) {
         final ContextHandler context = new ContextHandler();
         context.setContextPath(contextPath);
         context.setClassLoader(Thread.currentThread().getContextClassLoader());

@@ -3,6 +3,7 @@ package com.rafaelfiume.prosciutto.test;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,22 +17,8 @@ import static org.junit.Assert.assertThat;
 
 public class StubbedServerTest {
 
-    private final StubbedServer server = new StubbedServer();
-
-    @Before
-    public void startServer() throws Exception {
-        server.start();
-    }
-
-    @Before
-    public void primeSuggestProductsForExpertResponse() {
-        server.primeSuccesfulResponse("/salume/supplier/advise/for/Expert", supplierAdviceForExpertResponse());
-    }
-
-    @After
-    public void stopServer() throws Exception {
-        server.stop();
-    }
+    @Rule
+    public DependsOnServerRunningRule server = new DependsOnServerRunningRule();
 
     @Test
     public void checkFakeServerWorks() throws IOException {
@@ -40,7 +27,7 @@ public class StubbedServerTest {
     }
 
     private void whenPrimingSupplierResponseWith(String response) {
-        server.primeSuccesfulResponse("/salume/supplier/advise/for/Expert", response);
+        server.primeSuccessfulResponse("/salume/supplier/advise/for/Expert", response);
     }
 
     private static String get(String url) throws IOException {
