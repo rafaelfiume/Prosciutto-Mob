@@ -53,26 +53,20 @@ public class AdviserEndToEndHappyPathTest {
         onView(withId(R.id.fab)).perform(click());
 
         //Then...
-        // Check list was loaded with two advices
+        // Check list was loaded with two suggested products
         onData(is(instanceOf(Product.class)))
                 .inAdapterView(withId(R.id.products_list))
                 .atPosition(0)
-                .check(matches(hasDescendant(allOf(
-                        withId(R.id.product_name_text),
-                        withText(containsString("Traditional Salume"))))));
+                .check(matches(allOf(
+                        hasDescendant(withText(containsString("Traditional Salume"))),
+                        hasDescendant(withText(containsString("EUR 41,60"))))));
 
         onData(is(instanceOf(Product.class)))
                 .inAdapterView(withId(R.id.products_list))
                 .atPosition(1)
-                .check(matches(hasDescendant(allOf(
-                        withId(R.id.product_name_text),
-                        withText(containsString("Premium Salume"))))));
-
-        // The following works as well
-//            onView(withId(R.id.products_list))
-//                    .check(matches(withAdaptedData(withItemContent("Traditional Salume"))));
-
-
+                .check(matches(allOf(
+                        hasDescendant(withText(containsString("Premium Salume"))),
+                        hasDescendant(withText(containsString("EUR 73,23"))))));
     }
 
 }

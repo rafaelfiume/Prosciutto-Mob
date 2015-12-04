@@ -29,21 +29,10 @@ public class AdviserActivity extends AppCompatActivity {
 
     private ProductAdapter adapter;
 
-    public void onMagicRadioButtonClicked(View v) {
-        this.query = MAGIC;
-    }
-
-    public void onHealthyRadioButtonClicked(View v) {
-        this.query = HEALTHY;
-    }
-
-    public void onExpertRadioButtonClicked(View v) {
-        this.query = EXPERT;
-    }
-
-    public void onGourmetRadioButtonClicked(View v) {
-        this.query = GOURMET;
-    }
+    public void onMagicRadioButtonClicked(View v) { this.query = MAGIC; }
+    public void onHealthyRadioButtonClicked(View v) { this.query = HEALTHY; }
+    public void onExpertRadioButtonClicked(View v) { this.query = EXPERT; }
+    public void onGourmetRadioButtonClicked(View v) { this.query = GOURMET; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +136,6 @@ public class AdviserActivity extends AppCompatActivity {
         protected void onPostExecute(List<Product> products) {
             requestingAdviceMessage.dismiss();
             updateSuggestedProductsList(products);
-
             if (taskFailed) {
                 failedMessage.show();
             }
