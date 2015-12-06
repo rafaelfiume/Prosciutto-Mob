@@ -12,6 +12,7 @@ Most commonly used command-line tasks are:
     $./gradlew assembleDebug
     $./gradlew assembleRelease
     $./gradlew tasks
+    $./gradlew test --continue
 
 ## User Stories
 

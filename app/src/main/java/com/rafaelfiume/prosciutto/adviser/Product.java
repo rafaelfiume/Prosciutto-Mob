@@ -1,6 +1,8 @@
 package com.rafaelfiume.prosciutto.adviser;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable { // Yep... Not using Parcelable till I have a reason to do it
 
     private final String name;
     private final String price;

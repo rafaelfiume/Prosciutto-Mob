@@ -6,4 +6,5 @@
     <string name="healthy_option">Healthy</string>
     <string name="expert_option">Expert</string>
     <string name="gourmet_option">Gourmet</string>
+    <string name="title_activity_show_advised_product_details">Product Description</string>
 </resources>
