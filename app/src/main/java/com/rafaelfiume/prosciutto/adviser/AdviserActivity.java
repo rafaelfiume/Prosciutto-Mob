@@ -2,6 +2,7 @@ package com.rafaelfiume.prosciutto.adviser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,8 @@ import static com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery
 import static com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.MAGIC;
 
 public class AdviserActivity extends AppCompatActivity {
+
+    private static final String LIST_OF_RECOMENDED_PRODUCTS = "recommended_products";
 
     private ProductAdviserQuery query;
 
@@ -57,11 +60,18 @@ public class AdviserActivity extends AppCompatActivity {
         setMagicOptionSelectedByDefault();
     }
 
-    private void setMagicOptionSelectedByDefault() {
-        final RadioGroup options = (RadioGroup) findViewById(R.id.profile_options);
-        options.check(R.id.magic_option);
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
 
-        this.query = MAGIC;
+        savedInstanceState.putParcelableArrayList(LIST_OF_RECOMENDED_PRODUCTS, adapter.content());
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        this.adapter.addAll(savedInstanceState.<Product>getParcelableArrayList(LIST_OF_RECOMENDED_PRODUCTS));
     }
 
     @Override
@@ -84,6 +94,13 @@ public class AdviserActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setMagicOptionSelectedByDefault() {
+        final RadioGroup options = (RadioGroup) findViewById(R.id.profile_options);
+        options.check(R.id.magic_option);
+
+        this.query = MAGIC;
     }
 
     class GetProductAdvice extends AsyncTask<Void, Void, List<Product>> {

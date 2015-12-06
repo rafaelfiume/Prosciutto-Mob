@@ -2,12 +2,14 @@ package com.rafaelfiume.prosciutto.adviser;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends ArrayAdapter<Product> {
@@ -40,5 +42,15 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         });
 
         return itemView;
+    }
+
+    ArrayList<? extends Parcelable> content() {
+        // this is ugly! annoying not having a similar functionality returning a copy of the product list :(
+        // you forced me to do that!!
+        final ArrayList<Product> copy = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            copy.add(getItem(i));
+        }
+        return copy;
     }
 }

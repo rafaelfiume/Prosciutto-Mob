@@ -25,7 +25,7 @@ public class ShowAdvisedProductDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        final Product product = (Product) intent.getSerializableExtra(EXTRA_MESSAGE);
+        final Product product = intent.getParcelableExtra(EXTRA_MESSAGE);
 
         setValueFor(R.id.p_detail_name, product.name());
         setValueFor(R.id.p_detail_price, product.price());
