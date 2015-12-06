@@ -21,10 +21,12 @@ Most commonly used command-line tasks are:
 * ~~Request advice sad path~~
 * ~~Improve UI displaying product price~~
 * ~~Improve UI displaying product details when clicking on an item in the list~~
-* Improve UI displaying a illustrative picture of the product in the details view
+* ~~Improve UI displaying a illustrative picture of the product in the details view~~
 
-## Most Interesting Thing Happening Here...
+## Most Interesting Things Happening Here...
 
-The two end-to-end black-box tests describing (and testing) the Request Advice Based on Customer Profile: 
+* The two end-to-end black-box tests describing (and testing) the Request Advice Based on Customer Profile: 
 [AdviserEndToEndHappyPathTest](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/app/src/androidTest/java/com/rafaelfiume/prosciutto/adviser/test/AdviserEndToEndHappyPathTest.java) 
 and [AdviserEndToEndSadPathTest](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/app/src/androidTest/java/com/rafaelfiume/prosciutto/adviser/test/AdviserEndToEndSadPathTest.java)
+
+* The use of CollapsingToolbarLayout in the product details view.

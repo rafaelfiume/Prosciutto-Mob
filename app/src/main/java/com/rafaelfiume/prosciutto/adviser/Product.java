@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 public class Product implements Parcelable {
 
+    public static final String SALUME_IMAGE_URL = "https://upload.wikimedia.org/wikipedia/commons/b/b5/Formaggi_e_salumi_sardi.jpg";
+
     private final String name;
     private final String price;
     private final String reputation;
@@ -38,6 +40,10 @@ public class Product implements Parcelable {
 
     public String fatPercentage() {
         return fatPercentage;
+    }
+
+    public String imageUrl() {
+        return SALUME_IMAGE_URL;
     }
 
     @Override

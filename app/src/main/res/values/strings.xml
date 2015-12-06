@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Prosciutto Mobile</string>
+    <string name="app_name">Prosciutto</string>
     <string name="activity_title">Choose a Customer Profile</string>
     <string name="action_settings">Settings</string>
     <string name="magic_option">Magic</string>

@@ -44,6 +44,7 @@ public class AdviserActivity extends AppCompatActivity {
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle(R.string.activity_title);
 
         final ListView listView = (ListView) findViewById(R.id.products_list);
         this.adapter = new ProductAdapter(this);

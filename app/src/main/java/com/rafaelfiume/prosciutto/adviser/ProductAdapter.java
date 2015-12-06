@@ -35,9 +35,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Intent intent = new Intent(getContext(), ShowAdvisedProductDetails.class);
-                intent.putExtra(EXTRA_MESSAGE, product);
-                getContext().startActivity(intent);
+                ShowAdvisedProductDetails.navigate(getContext(), product);
             }
         });
 
