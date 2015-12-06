@@ -1,4 +1,4 @@
-# Prosciutto-Mob
+# Prosciutto-Mob [![Apache 2.0 License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/LICENSE)
 
 ## Running the App
 
