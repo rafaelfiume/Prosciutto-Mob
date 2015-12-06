@@ -20,7 +20,8 @@ Most commonly used command-line tasks are:
 * ~~Request advice happy path~~
 * ~~Request advice sad path~~
 * ~~Improve UI displaying product price~~
-* Improve UI displaying product details when clicking on an item in the list
+* ~~Improve UI displaying product details when clicking on an item in the list~~
+* Improve UI displaying a illustrative picture of the product in the details view
 
 ## Most Interesting Thing Happening Here...
 
