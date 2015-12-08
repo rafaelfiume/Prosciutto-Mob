@@ -1,7 +1,6 @@
 package com.rafaelfiume.prosciutto.adviser;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductAdapter extends ArrayAdapter<Product> {
 
-    public static final String EXTRA_MESSAGE = "com.rafaelfiume.prosciutto.adviser.ShowProductDetail";
+    private final OnSuggestedProductClickListenerFactory factory;
 
-    public ProductAdapter(Context context) {
+    public ProductAdapter(Context context, OnSuggestedProductClickListenerFactory factory) {
         super(context, 0);
+        this.factory = factory;
     }
 
     @Override
@@ -32,12 +31,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         final TextView tvPrice = (TextView) itemView.findViewById(R.id.product_price_text);
         tvPrice.setText(product.price());
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShowAdvisedProductDetails.navigate(getContext(), product);
-            }
-        });
+        itemView.setOnClickListener(factory.newOnClickListenerFor(product));
 
         return itemView;
     }

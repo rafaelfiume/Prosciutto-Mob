@@ -1,39 +1,33 @@
 package com.rafaelfiume.prosciutto.adviser;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.rafaelfiume.prosciutto.adviser.R;
-
-import static com.rafaelfiume.prosciutto.adviser.ProductAdapter.EXTRA_MESSAGE;
 
 public class ShowAdvisedProductDetails extends AppCompatActivity {
 
-    public static void navigate(Context context, Product product) {
-        final Intent intent = new Intent(context, ShowAdvisedProductDetails.class);
-        intent.putExtra(EXTRA_MESSAGE, product);
-        context.startActivity(intent);
+    public static final String EXTRA_MESSAGE = "com.rafaelfiume.prosciutto.adviser.ShowProductDetail";
+
+    public static void navigate(Activity callingActivity, Product product) {
+        callingActivity.startActivity(newIntent(callingActivity, product));
 
         // TODO RF 06/12/15 This is pretty cool. See https://github.com/codepath/android_guides/wiki/Shared-Element-Activity-Transition
         //ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionImage, EXTRA_IMAGE);
         //ActivityCompat.startActivity(activity, intent, options.toBundle());
+    }
+
+    public static Intent newIntent(Context context, Product product) {
+        final Intent intent = new Intent(context, ShowAdvisedProductDetails.class);
+        intent.putExtra(EXTRA_MESSAGE, product);
+        return intent;
     }
 
     @Override

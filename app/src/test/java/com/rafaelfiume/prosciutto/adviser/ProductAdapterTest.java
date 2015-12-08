@@ -23,8 +23,8 @@ public class ProductAdapterTest {
         // Roboletric is blowing up right here ...
         // java.lang.IllegalStateException: You need to use a Theme.AppCompat theme (or descendant) with this activity.
         // TODO RF 05/12/15 Come back and address this issue
-        final Context context1 = Robolectric.setupActivity(AdviserActivity.class);
-        this.adapter = new ProductAdapter(context1){{
+        final Context context = Robolectric.setupActivity(AdviserActivity.class);
+        this.adapter = new ProductAdapter(context, null){{
             add(aFatSalume);
         }};
     }

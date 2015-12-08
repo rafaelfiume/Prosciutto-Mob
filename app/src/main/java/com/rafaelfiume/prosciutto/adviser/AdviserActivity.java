@@ -2,7 +2,6 @@ package com.rafaelfiume.prosciutto.adviser;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -47,7 +46,7 @@ public class AdviserActivity extends AppCompatActivity {
         setTitle(R.string.activity_title);
 
         final ListView listView = (ListView) findViewById(R.id.products_list);
-        this.adapter = new ProductAdapter(this);
+        this.adapter = new ProductAdapter(this, new OnSuggestedProductClickListenerFactory(this));
         listView.setAdapter(this.adapter);
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -62,6 +61,13 @@ public class AdviserActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_adviser, menu);
+        return true;
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
@@ -73,13 +79,6 @@ public class AdviserActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
 
         this.adapter.addAll(savedInstanceState.<Product>getParcelableArrayList(LIST_OF_RECOMENDED_PRODUCTS));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_adviser, menu);
-        return true;
     }
 
     @Override

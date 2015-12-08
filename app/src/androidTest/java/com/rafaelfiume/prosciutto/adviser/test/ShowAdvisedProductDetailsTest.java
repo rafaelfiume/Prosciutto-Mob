@@ -13,42 +13,51 @@ import com.rafaelfiume.prosciutto.adviser.ShowAdvisedProductDetails;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.List;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.rafaelfiume.prosciutto.adviser.ProductAdapter.EXTRA_MESSAGE;
 import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertResponse;
 
 public class ShowAdvisedProductDetailsTest {
 
-    private final Product advisedProduct;
-
     @Rule
     public ActivityTestRule<ShowAdvisedProductDetails> mActivityRule =
-            new ActivityTestRule(ShowAdvisedProductDetails.class) {
+            new ActivityTestRule<ShowAdvisedProductDetails>(ShowAdvisedProductDetails.class) {
                 @Override
                 protected Intent getActivityIntent() {
                     Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-                    Intent result = new Intent(targetContext, ShowAdvisedProductDetails.class);
-                    result.putExtra(EXTRA_MESSAGE, advisedProduct);
-                    return result;
+                    return ShowAdvisedProductDetails.newIntent(targetContext, mainSuggestion());
                 }
             };
-
-    public ShowAdvisedProductDetailsTest() throws Exception {
-        this.advisedProduct = new ProductAdviserParser().parse(supplierAdviceForExpertResponse()).get(0);
-    }
 
     @Test
     public void appDisplaysProductDetailsWhenReceivingItFromAnIntent() {
         // when activity received a product with an intent (check priming above)
 
         // then
-        onView(withId(R.id.p_detail_name)).check(matches(withText(advisedProduct.name())));
-        onView(withId(R.id.p_detail_price)).check(matches(withText(advisedProduct.price())));
-        onView(withId(R.id.p_detail_reputation)).check(matches(withText(advisedProduct.reputation())));
-        onView(withId(R.id.p_detail_fat)).check(matches(withText(advisedProduct.fatPercentage())));
+        onView(withId(R.id.p_detail_name)).check(matches(withText(mainSuggestion().name())));
+        onView(withId(R.id.p_detail_price)).check(matches(withText(mainSuggestion().price())));
+        onView(withId(R.id.p_detail_reputation)).check(matches(withText(mainSuggestion().reputation())));
+        onView(withId(R.id.p_detail_fat)).check(matches(withText(mainSuggestion().fatPercentage())));
+    }
+
+    private Product mainSuggestion() {
+        return allSuggestedProductsForCustomer().get(0);
+    }
+
+    private List<Product> allSuggestedProductsForCustomer() {
+        final List<Product> suggestions;
+        try {
+            suggestions = new ProductAdviserParser().parse(supplierAdviceForExpertResponse());
+        } catch (Exception e) {
+            throw new RuntimeException("test setup failed", e);
+        }
+        suggestions.add(new Product("Salame Colonial", "EUR 49,23", "Artesanal", "29,00"));
+        suggestions.add(new Product("Salame da Fazenda", "EUR 48,45", "Artesanal", "27,00"));
+        return suggestions;
     }
 
 }

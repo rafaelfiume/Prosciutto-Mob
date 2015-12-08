@@ -21,7 +21,8 @@ Most commonly used command-line tasks are:
 * ~~Request advice sad path~~
 * ~~Improve UI displaying product price~~
 * ~~Improve UI displaying product details when clicking on an item in the list~~
-* ~~Improve UI displaying a illustrative picture of the product in the details view~~
+* ~~Improve UI displaying a illustrative picture of the product in the Details View~~
+* Displays other suggested products in the Details View so user doesn't need to switch views back and forth to see other product details
 
 ## Most Interesting Things Happening Here...
 
