@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 
 public class ShowAdvisedProductDetails extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.rafaelfiume.prosciutto.adviser.ShowProductDetail";
+    public static final String EXTRA_SUGGESTED_PRODUCT = "com.rafaelfiume.prosciutto.adviser.ShowProductDetail.extra.suggestion";
 
     public static void navigate(Activity callingActivity, Product product) {
         callingActivity.startActivity(newIntent(callingActivity, product));
@@ -26,7 +26,7 @@ public class ShowAdvisedProductDetails extends AppCompatActivity {
 
     public static Intent newIntent(Context context, Product product) {
         final Intent intent = new Intent(context, ShowAdvisedProductDetails.class);
-        intent.putExtra(EXTRA_MESSAGE, product);
+        intent.putExtra(EXTRA_SUGGESTED_PRODUCT, product);
         return intent;
     }
 
@@ -40,7 +40,7 @@ public class ShowAdvisedProductDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Intent intent = getIntent();
-        final Product product = intent.getParcelableExtra(EXTRA_MESSAGE);
+        final Product product = intent.getParcelableExtra(EXTRA_SUGGESTED_PRODUCT);
 
         setValueFor(R.id.p_detail_name, product.name());
         setValueFor(R.id.p_detail_price, product.price());

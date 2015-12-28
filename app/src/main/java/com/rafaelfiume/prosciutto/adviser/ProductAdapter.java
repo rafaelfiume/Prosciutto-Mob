@@ -37,8 +37,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
     }
 
     ArrayList<? extends Parcelable> content() {
-        // this is ugly! annoying not having a similar functionality returning a copy of the product list :(
-        // you forced me to do that!!
+        // Annoying not having a similar functionality returning a copy of the product list :(
+        // Android, you forced me to do that!!
         final ArrayList<Product> copy = new ArrayList<>();
         for (int i = 0; i < getCount(); i++) {
             copy.add(getItem(i));

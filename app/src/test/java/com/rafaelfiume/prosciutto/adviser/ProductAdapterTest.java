@@ -39,7 +39,7 @@ public class ProductAdapterTest {
 
         // then
         //verify(context).startActivity(captor.capture());
-        //assertThat(captor.getValue().getStringExtra(EXTRA_MESSAGE), is("59,00"));
+        //assertThat(captor.getValue().getStringExtra(EXTRA_SUGGESTED_PRODUCT), is("59,00"));
     }
 
 }

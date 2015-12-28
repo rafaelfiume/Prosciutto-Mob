@@ -7,7 +7,6 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 
 import com.rafaelfiume.prosciutto.adviser.AdviserActivity;
-import com.rafaelfiume.prosciutto.adviser.Product;
 import com.rafaelfiume.prosciutto.adviser.R;
 import com.rafaelfiume.prosciutto.test.DependsOnServerRunningRule;
 
@@ -18,21 +17,15 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.rafaelfiume.prosciutto.adviser.R.id.expert_option;
 import static com.rafaelfiume.prosciutto.adviser.R.id.magic_option;
-import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertResponse;
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
 public class AdviserEndToEndSadPathTest {
@@ -62,14 +55,14 @@ public class AdviserEndToEndSadPathTest {
         onView(withId(R.id.fab)).perform(click());
 
         // Then...
-        onView(withId(R.id.products_list)).check(matches(anEmptyList()));
+        onView(withId(R.id.suggested_products_list)).check(matches(anEmptyList()));
         onView(withText("Failed")).check(matches(isDisplayed()));
 
         // Trying again...
         onView(withText("Retry")).perform(click());
 
         // Still nothing. Server is not behaving
-        onView(withId(R.id.products_list)).check(matches(anEmptyList()));
+        onView(withId(R.id.suggested_products_list)).check(matches(anEmptyList()));
         onView(withText("Failed")).check(matches(isDisplayed()));
     }
 
@@ -86,7 +79,7 @@ public class AdviserEndToEndSadPathTest {
         onView(withId(R.id.fab)).perform(click());
 
         // Then...
-        onView(withId(R.id.products_list)).check(matches(anEmptyList()));
+        onView(withId(R.id.suggested_products_list)).check(matches(anEmptyList()));
         onView(withText("Failed")).check(matches(isDisplayed()));
         onView(withText("Retry")).check(matches(isDisplayed()));
     }

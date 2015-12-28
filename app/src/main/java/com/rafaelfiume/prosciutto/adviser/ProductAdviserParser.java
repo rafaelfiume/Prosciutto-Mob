@@ -26,7 +26,15 @@ import static javax.xml.xpath.XPathConstants.STRING;
 
 public class ProductAdviserParser {
 
-    public List<Product> parse(String xml) throws Exception {
+    public List<Product> parse(String xml) {
+        try {
+            return doParse(xml);
+        } catch (Exception e) {
+            throw new RuntimeException("could not parse advice xml: " + xml, e);
+        }
+    }
+
+    public List<Product> doParse(String xml) throws Exception {
         final List<Product> suggestedProducts = new ArrayList<>();
 
         final NodeList productsNode = (NodeList) xpath().evaluate("//product", xmlFrom(xml), NODESET);
@@ -39,7 +47,7 @@ public class ProductAdviserParser {
     }
 
     @NonNull
-    private Product newProductFrom(Node item) throws Exception {
+    private Product newProductFrom(Node item) throws XPathExpressionException {
         return new Product(
                 getValueFrom(item, "name")
                 , getValueFrom(item, "price")

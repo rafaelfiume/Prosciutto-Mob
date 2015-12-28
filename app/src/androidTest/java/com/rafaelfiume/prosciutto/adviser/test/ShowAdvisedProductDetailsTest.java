@@ -13,6 +13,7 @@ import com.rafaelfiume.prosciutto.adviser.ShowAdvisedProductDetails;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -37,11 +38,14 @@ public class ShowAdvisedProductDetailsTest {
     public void appDisplaysProductDetailsWhenReceivingItFromAnIntent() {
         // when activity received a product with an intent (check priming above)
 
-        // then
+        // then the main suggested product is...
         onView(withId(R.id.p_detail_name)).check(matches(withText(mainSuggestion().name())));
         onView(withId(R.id.p_detail_price)).check(matches(withText(mainSuggestion().price())));
         onView(withId(R.id.p_detail_reputation)).check(matches(withText(mainSuggestion().reputation())));
         onView(withId(R.id.p_detail_fat)).check(matches(withText(mainSuggestion().fatPercentage())));
+        
+        // then show product description...
+
     }
 
     private Product mainSuggestion() {
@@ -49,15 +53,12 @@ public class ShowAdvisedProductDetailsTest {
     }
 
     private List<Product> allSuggestedProductsForCustomer() {
-        final List<Product> suggestions;
-        try {
-            suggestions = new ProductAdviserParser().parse(supplierAdviceForExpertResponse());
-        } catch (Exception e) {
-            throw new RuntimeException("test setup failed", e);
-        }
-        suggestions.add(new Product("Salame Colonial", "EUR 49,23", "Artesanal", "29,00"));
-        suggestions.add(new Product("Salame da Fazenda", "EUR 48,45", "Artesanal", "27,00"));
-        return suggestions;
+        return new ArrayList<Product>() {{
+                add(new Product("Salame Colonial", "EUR 49,23", "Artesanal", "29,00"));
+                add(new Product("Salame da Fazenda", "EUR 48,45", "Artesanal", "27,00"));
+                add(new Product("Salame da Embolorado Não Faz Mal", "EUR 33,33", "Artesanal", "27,00"));
+                addAll(new ProductAdviserParser().parse(supplierAdviceForExpertResponse()));
+            }};
     }
 
 }

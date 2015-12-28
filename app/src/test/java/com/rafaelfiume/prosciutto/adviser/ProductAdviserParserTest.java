@@ -18,7 +18,7 @@ public class ProductAdviserParserTest {
     private final ProductAdviserParser parser = new ProductAdviserParser();
 
     @Test
-    public void shouldParseAdviceResponseIntoListOfProducts() throws Exception {
+    public void shouldParseAdviceXmlIntoListOfSuggestedProducts() {
         // when
         List<Product> suggestedProducts = parser.parse(supplierAdviceForExpertResponse());
 
@@ -32,25 +32,12 @@ public class ProductAdviserParserTest {
                 isAProductNamed("Premium Salume", costing("EUR 73,23"), regardedAs("traditional"), withFatPercentageOf("38,00")));
     }
 
-    private String costing(String s) {
-        return s;
-    }
+    private String costing(String s)             { return s; }
+    private String regardedAs(String s)          { return s; }
+    private String withFatPercentageOf(String s) { return s; }
 
-    private String regardedAs(String s) {
-        return s;
-    }
-
-    private String withFatPercentageOf(String s) {
-        return s;
-    }
-
-    private Product firstOf(List<Product> suggestedProducts) {
-        return suggestedProducts.get(0);
-    }
-
-    private Product secondOf(List<Product> suggestedProducts) {
-        return suggestedProducts.get(1);
-    }
+    private Product firstOf(List<Product> suggestedProducts)  { return suggestedProducts.get(0); }
+    private Product secondOf(List<Product> suggestedProducts) { return suggestedProducts.get(1); }
 
     public static class ProductMatcher extends TypeSafeMatcher<Product> {
 
