@@ -54,14 +54,14 @@ public class AdviserEndToEndHappyPathTest {
                 .inAdapterView(withId(R.id.suggested_products_list))
                 .atPosition(0)
                 .check(matches(allOf(
-                        hasDescendant(withText(containsString("Traditional Salume"))),
+                        hasDescendant(withText(containsString("(Traditional Less Expensive) Salume"))),
                         hasDescendant(withText(containsString("EUR 41,60"))))));
 
         onData(is(instanceOf(Product.class)))
                 .inAdapterView(withId(R.id.suggested_products_list))
                 .atPosition(1)
                 .check(matches(allOf(
-                        hasDescendant(withText(containsString("Premium Salume"))),
+                        hasDescendant(withText(containsString("(Traditional More Expensive) Premium"))),
                         hasDescendant(withText(containsString("EUR 73,23"))))));
     }
 

@@ -25,8 +25,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.rafaelfiume.prosciutto.adviser.R.id.magic_option;
 import static java.lang.String.format;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 
 public class AdviserEndToEndSadPathTest {
 

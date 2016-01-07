@@ -26,10 +26,10 @@ public class ProductAdviserParserTest {
         assertThat(suggestedProducts, hasSize(2));
 
         assertThat(firstOf(suggestedProducts),
-                isAProductNamed("Traditional Salume", costing("EUR 41,60"), regardedAs("traditional"), withFatPercentageOf("37,00")));
+                isAProductNamed("(Traditional Less Expensive) Salume", costing("EUR 41,60"), regardedAs("traditional"), withFatPercentageOf("37,00")));
 
         assertThat(secondOf(suggestedProducts),
-                isAProductNamed("Premium Salume", costing("EUR 73,23"), regardedAs("traditional"), withFatPercentageOf("38,00")));
+                isAProductNamed("(Traditional More Expensive) Premium", costing("EUR 73,23"), regardedAs("traditional"), withFatPercentageOf("38,00")));
     }
 
     private String costing(String s)             { return s; }

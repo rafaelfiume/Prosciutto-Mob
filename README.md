@@ -10,7 +10,7 @@ and [AdviserEndToEndSadPathTest](https://github.com/rafaelfiume/Prosciutto-Mob/b
 
 ## User Stories
 
-### Request [Salume](https://github.com/rafaelfiume/Salume) Advice Based on Customer Profile (Parent Story)
+### Request <a href="http://rafaelfiume.github.io/Salume/com/rafaelfiume/salume/acceptance/adviser/AdviseProductBasedOnCustomerProfileEndToEndTest.html" target="blank">Advice Based on Customer Profile</a> (Parent Story)
 * ~~Request advice happy path~~
 * ~~Request advice sad path~~
 * ~~Improve UI displaying product price~~
