@@ -3,6 +3,8 @@ package com.rafaelfiume.prosciutto.adviser;
 import android.content.Context;
 import android.view.View;
 
+import com.rafaelfiume.prosciutto.adviser.domain.Product;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

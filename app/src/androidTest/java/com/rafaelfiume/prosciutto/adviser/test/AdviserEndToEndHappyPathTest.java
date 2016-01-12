@@ -4,7 +4,7 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 
 import com.rafaelfiume.prosciutto.adviser.AdviserActivity;
-import com.rafaelfiume.prosciutto.adviser.Product;
+import com.rafaelfiume.prosciutto.adviser.domain.Product;
 import com.rafaelfiume.prosciutto.adviser.R;
 import com.rafaelfiume.prosciutto.test.DependsOnServerRunningRule;
 

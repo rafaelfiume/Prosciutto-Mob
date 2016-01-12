@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.rafaelfiume.prosciutto.adviser.domain.Product;
+
 import java.util.ArrayList;
 
 public class ProductAdapter extends ArrayAdapter<Product> {

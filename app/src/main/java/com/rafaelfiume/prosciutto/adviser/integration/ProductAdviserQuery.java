@@ -1,6 +1,6 @@
 package com.rafaelfiume.prosciutto.adviser.integration;
 
-import com.rafaelfiume.prosciutto.adviser.Product;
+import com.rafaelfiume.prosciutto.adviser.domain.Product;
 import com.rafaelfiume.prosciutto.adviser.ProductAdviserParser;
 
 import org.apache.commons.io.IOUtils;

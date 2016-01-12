@@ -2,9 +2,9 @@
 
 ## Most Interesting Things Happening Here...
 
-* The two end-to-end black-box tests describing (and testing) the Request Advice Based on Customer Profile: 
+* The end-to-end black-box tests describing (and testing) the Request Advice Based on Customer Profile, specially: 
 [AdviserEndToEndHappyPathTest](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/app/src/androidTest/java/com/rafaelfiume/prosciutto/adviser/test/AdviserEndToEndHappyPathTest.java) 
-and [AdviserEndToEndSadPathTest](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/app/src/androidTest/java/com/rafaelfiume/prosciutto/adviser/test/AdviserEndToEndSadPathTest.java)
+and [ShowAdvisedProductDetailsTest.java](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/app/src/androidTest/java/com/rafaelfiume/prosciutto/adviser/test/ShowAdvisedProductDetailsTest.java)
 
 * The use of CollapsingToolbarLayout in the product details view.
 

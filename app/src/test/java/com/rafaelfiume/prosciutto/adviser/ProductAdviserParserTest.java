@@ -1,5 +1,7 @@
 package com.rafaelfiume.prosciutto.adviser;
 
+import com.rafaelfiume.prosciutto.adviser.domain.Product;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;

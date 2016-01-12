@@ -1,11 +1,8 @@
 package com.rafaelfiume.prosciutto.adviser.integration;
 
-import com.rafaelfiume.prosciutto.adviser.Product;
+import com.rafaelfiume.prosciutto.adviser.domain.Product;
 import com.rafaelfiume.prosciutto.test.DependsOnServerRunningRule;
-import com.rafaelfiume.prosciutto.test.StubbedServer;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 

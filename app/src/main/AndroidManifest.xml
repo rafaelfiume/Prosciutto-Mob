@@ -20,7 +20,7 @@
         </activity>
 
         <activity
-            android:name=".ShowAdvisedProductDetails"
+            android:name=".ShowAdvisedProductDetailsActivity"
             android:label="@string/title_activity_show_advised_product_details"
             android:parentActivityName=".AdviserActivity"
             android:theme="@style/AppTheme.NoActionBar">

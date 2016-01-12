@@ -1,4 +1,4 @@
-package com.rafaelfiume.prosciutto.adviser;
+package com.rafaelfiume.prosciutto.adviser.domain;
 
 import android.os.Parcel;
 import android.os.Parcelable;

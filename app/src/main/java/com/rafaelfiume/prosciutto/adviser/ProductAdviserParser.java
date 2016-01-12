@@ -2,6 +2,8 @@ package com.rafaelfiume.prosciutto.adviser;
 
 import android.support.annotation.NonNull;
 
+import com.rafaelfiume.prosciutto.adviser.domain.Product;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

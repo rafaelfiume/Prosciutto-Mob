@@ -3,6 +3,8 @@ package com.rafaelfiume.prosciutto.adviser;
 import android.app.Activity;
 import android.view.View;
 
+import com.rafaelfiume.prosciutto.adviser.domain.Product;
+
 // Use an interface when having more factories like this one?
 public class OnSuggestedProductClickListenerFactory {
 
@@ -16,7 +18,7 @@ public class OnSuggestedProductClickListenerFactory {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowAdvisedProductDetails.navigate(callingActivity, product);
+                ShowAdvisedProductDetailsActivity.navigate(callingActivity, product);
             }
         };
     }

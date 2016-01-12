@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 
+import com.rafaelfiume.prosciutto.adviser.domain.Product;
 import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery;
 
 import java.util.ArrayList;

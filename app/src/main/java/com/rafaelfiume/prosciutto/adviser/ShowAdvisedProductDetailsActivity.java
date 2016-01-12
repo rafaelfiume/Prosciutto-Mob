@@ -11,8 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.rafaelfiume.prosciutto.adviser.domain.Product;
 
-public class ShowAdvisedProductDetails extends AppCompatActivity {
+public class ShowAdvisedProductDetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_SUGGESTED_PRODUCT = "com.rafaelfiume.prosciutto.adviser.ShowProductDetail.extra.suggestion";
 
@@ -25,7 +26,7 @@ public class ShowAdvisedProductDetails extends AppCompatActivity {
     }
 
     public static Intent newIntent(Context context, Product product) {
-        final Intent intent = new Intent(context, ShowAdvisedProductDetails.class);
+        final Intent intent = new Intent(context, ShowAdvisedProductDetailsActivity.class);
         intent.putExtra(EXTRA_SUGGESTED_PRODUCT, product);
         return intent;
     }

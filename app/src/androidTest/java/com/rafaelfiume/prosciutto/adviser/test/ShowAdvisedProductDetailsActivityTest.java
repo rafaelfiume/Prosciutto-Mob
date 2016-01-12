@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 
-import com.rafaelfiume.prosciutto.adviser.Product;
+import com.rafaelfiume.prosciutto.adviser.domain.Product;
 import com.rafaelfiume.prosciutto.adviser.ProductAdviserParser;
 import com.rafaelfiume.prosciutto.adviser.R;
-import com.rafaelfiume.prosciutto.adviser.ShowAdvisedProductDetails;
+import com.rafaelfiume.prosciutto.adviser.ShowAdvisedProductDetailsActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,20 +22,20 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertResponse;
 
-public class ShowAdvisedProductDetailsTest {
+public class ShowAdvisedProductDetailsActivityTest {
 
     @Rule
-    public ActivityTestRule<ShowAdvisedProductDetails> mActivityRule =
-            new ActivityTestRule<ShowAdvisedProductDetails>(ShowAdvisedProductDetails.class) {
+    public ActivityTestRule<ShowAdvisedProductDetailsActivity> mActivityRule =
+            new ActivityTestRule<ShowAdvisedProductDetailsActivity>(ShowAdvisedProductDetailsActivity.class) {
                 @Override
                 protected Intent getActivityIntent() {
                     Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-                    return ShowAdvisedProductDetails.newIntent(targetContext, mainSuggestion());
+                    return ShowAdvisedProductDetailsActivity.newIntent(targetContext, mainSuggestion());
                 }
             };
 
     @Test
-    public void appDisplaysProductDetailsWhenReceivingItFromAnIntent() {
+    public void appDisplaysProductDetailsWhenReceivingThemFromAnIntent() {
         // when activity received a product with an intent (check priming above)
 
         // then the main suggested product is...
