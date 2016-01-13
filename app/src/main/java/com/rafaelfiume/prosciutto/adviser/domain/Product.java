@@ -5,21 +5,27 @@ import android.os.Parcelable;
 
 public class Product implements Parcelable {
 
-    public static final String SALUME_IMAGE_URL = "https://upload.wikimedia.org/wikipedia/commons/b/b5/Formaggi_e_salumi_sardi.jpg";
-
     private final String name;
     private final String price;
     private final String reputation;
     private final String fatPercentage;
     private final String variety;
+    private final String imageUrl;
     private final String descriptionUrl;
 
-    public Product(String name, String variety, String price, String reputation, String fatPercentage, String descriptionUrl) {
+    public Product(String name,
+                   String variety,
+                   String price,
+                   String reputation,
+                   String fatPercentage,
+                   String imageUrl,
+                   String descriptionUrl) {
         this.name = name;
         this.variety = variety;
         this.price = price;
         this.reputation = reputation;
         this.fatPercentage = fatPercentage;
+        this.imageUrl = imageUrl;
         this.descriptionUrl = descriptionUrl;
     }
 
@@ -29,6 +35,7 @@ public class Product implements Parcelable {
         this.price = in.readString();
         this.reputation = in.readString();
         this.fatPercentage = in.readString();
+        this.imageUrl = in.readString();
         this.descriptionUrl = in.readString();
     }
 
@@ -53,7 +60,7 @@ public class Product implements Parcelable {
     }
 
     public String imageUrl() {
-        return SALUME_IMAGE_URL;
+        return imageUrl;
     }
 
     public String descriptionUrl() {
@@ -72,6 +79,7 @@ public class Product implements Parcelable {
         out.writeString(this.price);
         out.writeString(this.reputation);
         out.writeString(this.fatPercentage);
+        out.writeString(this.imageUrl);
         out.writeString(this.descriptionUrl);
     }
 

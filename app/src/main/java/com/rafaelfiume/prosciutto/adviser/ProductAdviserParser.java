@@ -47,6 +47,7 @@ public class ProductAdviserParser {
                 , getValueFrom(item, "price")
                 , getValueFrom(item, "reputation")
                 , getValueFrom(item, "fat-percentage")
+                , getValueFrom(item, "image")
                 , getValueFrom(item, "description"));
     }
 

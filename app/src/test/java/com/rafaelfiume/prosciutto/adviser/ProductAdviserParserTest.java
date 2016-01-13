@@ -33,6 +33,7 @@ public class ProductAdviserParserTest {
                         costing("EUR 41,60"),
                         regardedAs("traditional"),
                         withFatPercentageOf("37,00"),
+                        withImageUrl("https://upload.wikimedia.org/wikipedia/commons/3/3f/Palacioschorizo.jpg"),
                         withDescriptionUrl("https://it.wikipedia.org/w/api.php?format=xml&action=query&prop=extracts&exintro=&explaintext=&titles=Chorizo")));
 
         assertThat(secondOf(suggestedProducts),
@@ -41,6 +42,7 @@ public class ProductAdviserParserTest {
                         costing("EUR 73,23"),
                         regardedAs("traditional"),
                         withFatPercentageOf("38,00"),
+                        withImageUrl("https://upload.wikimedia.org/wikipedia/commons/3/3f/Palacioschorizo.jpg"),
                         withDescriptionUrl("https://it.wikipedia.org/w/api.php?format=xml&action=query&prop=extracts&exintro=&explaintext=&titles=Chorizo")));
     }
 
@@ -48,7 +50,8 @@ public class ProductAdviserParserTest {
     private String costing(String s)             { return s; }
     private String regardedAs(String s)          { return s; }
     private String withFatPercentageOf(String s) { return s; }
-    private String withDescriptionUrl(String s) { return s; }
+    private String withImageUrl(String s)        { return s; }
+    private String withDescriptionUrl(String s)  { return s; }
 
     private Product firstOf(List<Product> suggestedProducts)  { return suggestedProducts.get(0); }
     private Product secondOf(List<Product> suggestedProducts) { return suggestedProducts.get(1); }
@@ -60,21 +63,23 @@ public class ProductAdviserParserTest {
         private final String price;
         private final String reputation;
         private final String fatPercentage;
+        private final String imageUrl;
         private final String descriptionUrl;
 
-        public ProductMatcher(String name, String variety, String price, String reputation, String fatPercentage, String descriptionUrl) {
+        public ProductMatcher(String name, String variety, String price, String reputation, String fatPercentage, String imageUrl, String descriptionUrl) {
             this.name = name;
             this.variety = variety;
             this.price = price;
             this.reputation = reputation;
             this.fatPercentage = fatPercentage;
+            this.imageUrl = imageUrl;
             this.descriptionUrl = descriptionUrl;
         }
 
         static Matcher<? super Product> isAProductNamed(
-                String name, String variety, String price, String reputation, String fatPercentage, String descriptionUrl) {
+                String name, String variety, String price, String reputation, String fatPercentage, String imageUrl, String descriptionUrl) {
 
-            return new ProductMatcher(name, variety, price, reputation, fatPercentage, descriptionUrl);
+            return new ProductMatcher(name, variety, price, reputation, fatPercentage, imageUrl, descriptionUrl);
         }
 
         @Override
@@ -84,22 +89,23 @@ public class ProductAdviserParserTest {
                     && price.equals(actualProduct.price())
                     && reputation.equals(actualProduct.reputation())
                     && fatPercentage.equals(actualProduct.fatPercentage())
+                    && imageUrl.equals(actualProduct.imageUrl())
                     && descriptionUrl.equals(actualProduct.descriptionUrl());
         }
 
         @Override
         public void describeTo(Description description) {
             description.appendText(format(
-                    "a product with: name \"%s\"; variety \"%s\"; price \"%s\"; reputation \"%s\"; fatPercentage \"%s\"; descriptionUrl \"%s\"",
-                    name, variety, price, reputation, fatPercentage, descriptionUrl
+                    "a product with: name \"%s\"; variety \"%s\"; price \"%s\"; reputation \"%s\"; fatPercentage \"%s\"; imageUrl \"%s\"; descriptionUrl \"%s\"",
+                    name, variety, price, reputation, fatPercentage, imageUrl, descriptionUrl
             ));
         }
 
         @Override
         protected void describeMismatchSafely(Product actual, Description mismatchDescription) {
             mismatchDescription.appendText(format(
-                    "product had name \"%s\"; variety \"%s\"; price \"%s\"; reputation \"%s\"; fatPercentage \"%s\"; descriptionUrl \"%s\"",
-                    actual.name(), actual.variety(), actual.price(), actual.reputation(), actual.fatPercentage(), actual.descriptionUrl()
+                    "product had name \"%s\"; variety \"%s\"; price \"%s\"; reputation \"%s\"; fatPercentage \"%s\"; imageUrl \"%s\"; descriptionUrl \"%s\"",
+                    actual.name(), actual.variety(), actual.price(), actual.reputation(), actual.fatPercentage(), actual.imageUrl(), actual.descriptionUrl()
             ));
         }
     }

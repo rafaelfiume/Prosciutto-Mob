@@ -57,9 +57,9 @@ public class ShowAdvisedProductDetailsActivityTest {
 
     private List<Product> allSuggestedProductsForCustomer() {
         return new ArrayList<Product>() {{
-                add(new Product("Salame Colonial", "'Nduja", "EUR 49,23", "traditional", "29,00", "https://it.wikipedia.org/w/api.php?format=xml&action=query&prop=extracts&exintro=&explaintext=&titles='Nduja"));
-                add(new Product("Salame da Fazenda", "Chorizo", "EUR 48,45", "special", "27,00", ""));
-                add(new Product("Salame da Embolorado Não Faz Mal", "Salame Brianza D.O.P.", "EUR 33,33", "special", "27,00", ""));
+                add(new Product("Salame Colonial", "'Nduja", "EUR 49,23", "traditional", "29,00", "http://image.url", "https://it.wikipedia.org/w/api.php?format=xml&action=query&prop=extracts&exintro=&explaintext=&titles='Nduja"));
+                add(new Product("Salame da Fazenda", "Chorizo", "EUR 48,45", "special", "27,00", "http://image.url", ""));
+                add(new Product("Salame da Embolorado Não Faz Mal", "Salame Brianza D.O.P.", "EUR 33,33", "special", "27,00", "http://image.url", ""));
                 addAll(new ProductAdviserParser().parse(supplierAdviceForExpertResponse()));
             }};
     }

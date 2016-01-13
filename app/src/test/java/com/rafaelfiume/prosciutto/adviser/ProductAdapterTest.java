@@ -17,7 +17,7 @@ import org.robolectric.annotation.Config;
 @Config(constants = BuildConfig.class, sdk = 21)
 public class ProductAdapterTest {
 
-    private Product aFatSalume = new Product("A Fat Salume", "Chorizo", "", "", "59,00", "http://description-url");
+    private Product aFatSalume = new Product("A Fat Salume", "Chorizo", "", "", "59,00", "http://image.url", "http://description-url");
     private ProductAdapter adapter;
 
     @Before
