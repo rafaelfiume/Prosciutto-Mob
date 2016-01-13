@@ -31,6 +31,16 @@
         android:layout_gravity="left"
         android:layout_column="0"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Variety:" />
+
+    <TextView
+        android:id="@+id/p_detail_variety"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:layout_gravity="left"
+        android:layout_column="0"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Price:" />
 
     <TextView
@@ -61,16 +71,14 @@
         android:id="@+id/description_label"
         android:paddingTop="16dp"
         android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Description:" />
 
     <TextView
+        android:id="@+id/p_detail_description"
         android:layout_gravity="fill_horizontal"
         android:layout_columnSpan="2"
-        android:text="Il salame è un salume insaccato e stagionato ottenuto a partire da una miscela di macinato di carne e grasso. Il nome deriva dall'operazione di salatura che si rende necessaria per assicurarne la conservazione.
-Alla carne e al grasso vengono aggiunti sale e spezie che variano localmente (tra le quali: aglio, pepe nero o bianco, macinato o in grani, finocchio, macis). La carne maggiormente usata è tradizionalmente quella di maiale, considerata per quest'uso di maggior pregio, tanto che la normativa italiana vigente, impone al produttore di dichiarare sull'etichetta che accompagna il prodotto, la tipologia di carne impiegata, se solo suino o misto suino, infatti, in molti prodotti tradizionali è specificato puro suino. Prodotti tipici vengono preparati con carne di: capra, pecora, cavallo, asino, oca, selvaggina come il cinghiale o frattaglie. Altri ingredienti, a secondo delle tradizioni locali, possono essere le rape o il sangue. Il grasso è sempre suino, per motivi organolettici e di conservazione.
-Il processo di stagionatura può essere favorito dall'introduzione di alcuni ingredienti quali latte, vino, destrosio, nitriti e nitrati. L'insieme delle spezie e degli aromi aggiunti alla carne prende il nome di concia.
-L'impasto può essere insaccato in un involucro di budello animale (solitamente suino, ma anche ovino, bovino o equino), o artificiale (cellulosa o collagene quelli più utilizzati). La lunghezza varia dai 10 ai 60 cm, il diametro (calibro) varia da 3 (Salame Cacciatore DOP) a circa 20 cm (crespone). Una volta insaccato il salame passa di norma un periodo in locali di asciugatura (circa una settimana) per passare poi alla stagionatura vera e propria, che varia a seconda della grandezza del salame (da 2 settimane per le salsicce stagionate fino anche a 6 mesi per prodotti tradizionali).
-Il salame prende i nomi dai tipi di budello usato o dai componenti e dalle località in cui viene prodotto." />
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <TextView
         android:layout_gravity="fill_horizontal"

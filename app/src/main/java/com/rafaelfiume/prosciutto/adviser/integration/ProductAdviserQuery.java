@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import static com.rafaelfiume.prosciutto.adviser.integration.Get.get;
+
 public enum ProductAdviserQuery implements ProductAdviserServiceClient {
 
     MAGIC {
@@ -49,18 +51,4 @@ public enum ProductAdviserQuery implements ProductAdviserServiceClient {
 
     private final ProductAdviserParser parser = new ProductAdviserParser();
 
-    private static String get(String url) throws IOException {
-        HttpURLConnection http = (HttpURLConnection) new URL(url).openConnection();
-
-        if (http.getResponseCode() != 200) {
-            throw new ResourceNotFoundException(String.format(
-                    "Response code for url (%s) is: %s", url, http.getResponseCode()));
-        }
-
-        try {
-            return IOUtils.toString(http.getInputStream());
-        } finally {
-            http.disconnect();
-        }
-    }
 }

@@ -3,15 +3,19 @@ package com.rafaelfiume.prosciutto.adviser;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.rafaelfiume.prosciutto.adviser.domain.Product;
+import com.rafaelfiume.prosciutto.adviser.domain.ProductDescription;
+import com.rafaelfiume.prosciutto.adviser.integration.ProductDescriptionQuery;
 
 public class ShowAdvisedProductDetailsActivity extends AppCompatActivity {
 
@@ -43,7 +47,9 @@ public class ShowAdvisedProductDetailsActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         final Product product = intent.getParcelableExtra(EXTRA_SUGGESTED_PRODUCT);
 
+        loadProductDescription(product.descriptionUrl());
         setValueFor(R.id.p_detail_name, product.name());
+        setValueFor(R.id.p_detail_variety, product.variety());
         setValueFor(R.id.p_detail_price, product.price());
         setValueFor(R.id.p_detail_reputation, product.reputation());
         setValueFor(R.id.p_detail_fat, product.fatPercentage());
@@ -57,9 +63,39 @@ public class ShowAdvisedProductDetailsActivity extends AppCompatActivity {
         Glide.with(this).load(product.imageUrl()).centerCrop().into(imageView);
     }
 
-    private void setValueFor(int p_detail_name, String name) {
-        TextView tvName = (TextView) findViewById(p_detail_name);
-        tvName.setText(name);
+    private void setValueFor(int viewId, String value) {
+        TextView tvName = (TextView) findViewById(viewId);
+        tvName.setText(value);
+    }
+
+    private void loadProductDescription(String descriptionUrl) {
+        new GetProductProductDescription(descriptionUrl).execute();
+    }
+
+    class GetProductProductDescription extends AsyncTask<Void, Void, ProductDescription> {
+
+        private final ProductDescriptionQuery descriptionQuery = new ProductDescriptionQuery();
+        private final String descriptionUrl;
+
+        GetProductProductDescription(String descriptionUrl) {
+            this.descriptionUrl = descriptionUrl;
+        }
+
+        @Override
+        protected ProductDescription doInBackground(Void... nothing) {
+            try {
+                return descriptionQuery.query(descriptionUrl);
+
+            } catch (Exception e) {
+                return ProductDescription.empty();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(ProductDescription description) {
+            setValueFor(R.id.p_detail_description, description.value());
+        }
+
     }
 
 }

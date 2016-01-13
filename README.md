@@ -13,9 +13,9 @@ and [ShowAdvisedProductDetailsTest.java](https://github.com/rafaelfiume/Prosciut
 ### Request <a href="http://rafaelfiume.github.io/Salume/com/rafaelfiume/salume/acceptance/adviser/AdviseProductBasedOnCustomerProfileEndToEndTest.html" target="blank">Advice Based on Customer Profile</a> (Parent Story)
 * ~~Request advice happy path~~
 * ~~Request advice sad path~~
-* ~~Improve UI displaying product price~~
 * ~~Improve UI displaying product details when clicking on an item in the list~~
 * ~~Improve UI displaying a illustrative picture of the product in the Details View~~
+* Show a picture and description of the product according to the product variety (wip) 
 
 ## Running the App
 
