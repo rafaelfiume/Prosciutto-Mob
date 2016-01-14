@@ -15,7 +15,7 @@ and [ShowAdvisedProductDetailsTest.java](https://github.com/rafaelfiume/Prosciut
 * ~~Request advice sad path~~
 * ~~Improve UI displaying product details when clicking on an item in the list~~
 * ~~Improve UI displaying a illustrative picture of the product in the Details View~~
-* Show a picture and description of the product according to the product variety (wip) 
+* ~~Show a picture and description of the product according to the product variety~~ 
 
 ## Running the App
 

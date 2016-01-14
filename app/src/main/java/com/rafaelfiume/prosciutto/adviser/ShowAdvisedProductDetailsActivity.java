@@ -17,6 +17,8 @@ import com.rafaelfiume.prosciutto.adviser.domain.Product;
 import com.rafaelfiume.prosciutto.adviser.domain.ProductDescription;
 import com.rafaelfiume.prosciutto.adviser.integration.ProductDescriptionQuery;
 
+import static java.lang.String.format;
+
 public class ShowAdvisedProductDetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_SUGGESTED_PRODUCT = "com.rafaelfiume.prosciutto.adviser.ShowProductDetail.extra.suggestion";
@@ -47,9 +49,8 @@ public class ShowAdvisedProductDetailsActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         final Product product = intent.getParcelableExtra(EXTRA_SUGGESTED_PRODUCT);
 
-        loadProductDescription(product.descriptionUrl());
+        loadProductDescription(product);
         setValueFor(R.id.p_detail_name, product.name());
-        setValueFor(R.id.p_detail_variety, product.variety());
         setValueFor(R.id.p_detail_price, product.price());
         setValueFor(R.id.p_detail_reputation, product.reputation());
         setValueFor(R.id.p_detail_fat, product.fatPercentage());
@@ -68,23 +69,23 @@ public class ShowAdvisedProductDetailsActivity extends AppCompatActivity {
         tvName.setText(value);
     }
 
-    private void loadProductDescription(String descriptionUrl) {
-        new GetProductProductDescription(descriptionUrl).execute();
+    private void loadProductDescription(Product product) {
+        new GetProductProductDescription(product).execute();
     }
 
     class GetProductProductDescription extends AsyncTask<Void, Void, ProductDescription> {
 
         private final ProductDescriptionQuery descriptionQuery = new ProductDescriptionQuery();
-        private final String descriptionUrl;
+        private final Product product;
 
-        GetProductProductDescription(String descriptionUrl) {
-            this.descriptionUrl = descriptionUrl;
+        GetProductProductDescription(Product product) {
+            this.product = product;
         }
 
         @Override
         protected ProductDescription doInBackground(Void... nothing) {
             try {
-                return descriptionQuery.query(descriptionUrl);
+                return descriptionQuery.query(product.descriptionUrl());
 
             } catch (Exception e) {
                 return ProductDescription.empty();
@@ -93,6 +94,7 @@ public class ShowAdvisedProductDetailsActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ProductDescription description) {
+            setValueFor(R.id.description_label, format("About the %s Variety:", product.variety()));
             setValueFor(R.id.p_detail_description, description.value());
         }
 

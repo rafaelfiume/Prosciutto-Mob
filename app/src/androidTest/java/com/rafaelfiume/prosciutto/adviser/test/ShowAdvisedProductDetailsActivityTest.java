@@ -42,12 +42,12 @@ public class ShowAdvisedProductDetailsActivityTest {
 
         // then the main suggested product is...
         onView(withId(R.id.p_detail_name)).check(matches(withText(mainSuggestion().name())));
-        onView(withId(R.id.p_detail_variety)).check(matches(withText(mainSuggestion().variety())));
         onView(withId(R.id.p_detail_price)).check(matches(withText(mainSuggestion().price())));
         onView(withId(R.id.p_detail_reputation)).check(matches(withText(mainSuggestion().reputation())));
         onView(withId(R.id.p_detail_fat)).check(matches(withText(mainSuggestion().fatPercentage())));
 
         // then show product description...
+        onView(withId(R.id.description_label)).check(matches(withText(containsString("About the 'Nduja Variety:"))));
         onView(withId(R.id.p_detail_description)).check(matches(withText(containsString("La 'nduja è un salume di consistenza morbida e dal gusto particolarmente piccante."))));
     }
 
