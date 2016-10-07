@@ -17,6 +17,8 @@ and [ShowAdvisedProductDetailsTest.java](https://github.com/rafaelfiume/Prosciut
 * ~~Improve UI displaying a illustrative picture of the product in the Details View~~
 * ~~Show a picture and description of the product according to the product variety~~ 
 
+Todo: Consider to use fragments to compose the view and [Dagger](http://google.github.io/dagger/) for dependency injection. 
+
 ## Running the App
 
 The following environment variable must be set:
