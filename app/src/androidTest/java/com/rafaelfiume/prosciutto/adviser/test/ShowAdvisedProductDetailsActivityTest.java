@@ -48,7 +48,7 @@ public class ShowAdvisedProductDetailsActivityTest {
 
         // then show product description...
         onView(withId(R.id.description_label)).check(matches(withText(containsString("About the 'Nduja Variety:"))));
-        onView(withId(R.id.p_detail_description)).check(matches(withText(containsString("La 'nduja è un salume di consistenza morbida e dal gusto particolarmente piccante."))));
+        onView(withId(R.id.p_detail_description)).check(matches(withText(containsString("La 'nduja è un salume Calabrese di consistenza morbida e dal gusto particolarmente piccante."))));
     }
 
     private Product mainSuggestion() {
