@@ -10,7 +10,6 @@ import com.rafaelfiume.prosciutto.adviser.R;
 import com.rafaelfiume.prosciutto.adviser.ShowAdvisedProductDetailsActivity;
 import com.rafaelfiume.prosciutto.adviser.domain.Product;
 
-import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -32,7 +31,7 @@ public class ShowAdvisedProductDetailsActivityTest {
                 @Override
                 protected Intent getActivityIntent() {
                     Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-                    return ShowAdvisedProductDetailsActivity.newIntent(targetContext, mainSuggestion());
+                    return ShowAdvisedProductDetailsActivity.Companion.newIntent(targetContext, mainSuggestion());
                 }
             };
 
