@@ -23,11 +23,13 @@ import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.GOURME
 import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.HEALTHY
 import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.MAGIC
 
+private const val LIST_OF_RECOMMENDED_PRODUCTS = "recommended_products"
+
 class AdviserActivity : AppCompatActivity() {
 
-    private var query: ProductAdviserQuery? = null
+    lateinit private var query: ProductAdviserQuery
 
-    private var adapter: ProductAdapter? = null
+    lateinit private var adapter: ProductAdapter
 
     fun onMagicRadioButtonClicked(v: View) {
         this.query = MAGIC
@@ -72,13 +74,13 @@ class AdviserActivity : AppCompatActivity() {
     public override fun onSaveInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)
 
-        savedInstanceState.putParcelableArrayList(LIST_OF_RECOMMENDED_PRODUCTS, adapter!!.content())
+        savedInstanceState.putParcelableArrayList(LIST_OF_RECOMMENDED_PRODUCTS, adapter.content())
     }
 
     public override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        this.adapter!!.addAll(savedInstanceState.getParcelableArrayList<Product>(LIST_OF_RECOMMENDED_PRODUCTS)!!)
+        this.adapter.addAll(savedInstanceState.getParcelableArrayList<Product>(LIST_OF_RECOMMENDED_PRODUCTS)!!)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -121,7 +123,7 @@ class AdviserActivity : AppCompatActivity() {
 
         override fun doInBackground(vararg nothing: Void): List<Product> {
             try {
-                return query!!.suggestedProducts()
+                return query.suggestedProducts()
 
             } catch (e: Exception) {
                 Log.e(AdviserActivity::class.java.name, "error when querying salume supplier", e)
@@ -140,17 +142,12 @@ class AdviserActivity : AppCompatActivity() {
 
         private fun updateSuggestedProductsList(products: List<Product>) {
             cleanSuggestedProductsList()
-            adapter!!.addAll(products)
+            adapter.addAll(products)
         }
 
         private fun cleanSuggestedProductsList() {
-            adapter!!.clear()
+            adapter.clear()
         }
-    }
-
-    companion object {
-
-        private val LIST_OF_RECOMMENDED_PRODUCTS = "recommended_products"
     }
 
 }

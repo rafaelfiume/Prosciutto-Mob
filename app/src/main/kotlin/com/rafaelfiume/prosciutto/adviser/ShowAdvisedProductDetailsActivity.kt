@@ -16,6 +16,8 @@ import com.rafaelfiume.prosciutto.adviser.domain.ProductDescription
 import com.rafaelfiume.prosciutto.adviser.integration.ProductDescriptionQuery
 import java.lang.String.format
 
+private const val EXTRA_SUGGESTED_PRODUCT = "com.rafaelfiume.prosciutto.adviser.ShowProductDetail.extra.suggestion"
+
 class ShowAdvisedProductDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,12 +71,9 @@ class ShowAdvisedProductDetailsActivity : AppCompatActivity() {
             setValueFor(R.id.description_label, format("About the %s Variety:", product.variety))
             setValueFor(R.id.p_detail_description, description.value)
         }
-
     }
 
     companion object {
-
-        val EXTRA_SUGGESTED_PRODUCT = "com.rafaelfiume.prosciutto.adviser.ShowProductDetail.extra.suggestion"
 
         fun navigate(callingActivity: Activity, product: Product) {
             callingActivity.startActivity(newIntent(callingActivity, product))
