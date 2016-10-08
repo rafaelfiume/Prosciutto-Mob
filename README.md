@@ -6,9 +6,9 @@ This [post](https://rafaelfiume.com/2013/04/07/dragons-unicorns-and-titans-an-ag
 
 ## Most Interesting Things Happening Here...
 
-* Written with Kotlin :)
+* Written in Kotlin :)
 * It consumes a [microservice](https://github.com/rafaelfiume/Salume) deployed into Heroku
-* A few end-to-end black-box tests describing (and testing) the Request Advice Based on Customer Profile, specially: 
+* A few end-to-end black-box tests, specially: 
 [AdviserEndToEndHappyPathTest](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/app/src/androidTest/kotlin/com/rafaelfiume/prosciutto/adviser/test/AdviserEndToEndHappyPathTest.kt) and [ShowAdvisedProductDetailsTest](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/app/src/androidTest/kotlin/com/rafaelfiume/prosciutto/adviser/test/ShowAdvisedProductDetailsActivityTest.kt)
 * The use of CollapsingToolbarLayout in the product details view.
 
