@@ -18,7 +18,7 @@ class ProductDescriptionQueryTest {
     @Test
     @Throws(IOException::class)
     fun shouldRetrieveAndParseProductDescription() {
-        assertThat(underTest.query(url).value(), containsString(expectedDescription))
+        assertThat(underTest.query(url).value, containsString(expectedDescription))
     }
 
 }

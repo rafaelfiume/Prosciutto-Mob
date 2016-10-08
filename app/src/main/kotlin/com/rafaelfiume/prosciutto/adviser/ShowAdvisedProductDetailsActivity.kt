@@ -68,7 +68,7 @@ class ShowAdvisedProductDetailsActivity : AppCompatActivity() {
 
         override fun onPostExecute(description: ProductDescription) {
             setValueFor(R.id.description_label, format("About the %s Variety:", product.variety))
-            setValueFor(R.id.p_detail_description, description.value())
+            setValueFor(R.id.p_detail_description, description.value)
         }
 
     }

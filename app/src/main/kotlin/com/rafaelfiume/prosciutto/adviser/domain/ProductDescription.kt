@@ -1,10 +1,6 @@
 package com.rafaelfiume.prosciutto.adviser.domain
 
-class ProductDescription(private val value: String) {
-
-    fun value(): String {
-        return value
-    }
+class ProductDescription(val value: String) {
 
     companion object {
 
