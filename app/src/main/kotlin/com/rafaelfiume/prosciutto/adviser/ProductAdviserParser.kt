@@ -20,7 +20,7 @@ class ProductAdviserParser {
         try {
             return doParse(xml)
         } catch (e: Exception) {
-            throw RuntimeException("could not parse advice xml: " + xml, e)
+            throw RuntimeException("could not parse advice xml: $xml", e)
         }
     }
 
@@ -40,7 +40,14 @@ class ProductAdviserParser {
     @Throws(XPathExpressionException::class)
     private fun newProductFrom(item: Node): Product {
         return Product(
-                getValueFrom(item, "name"), getValueFrom(item, "variety"), getValueFrom(item, "price"), getValueFrom(item, "reputation"), getValueFrom(item, "fat-percentage"), getValueFrom(item, "image"), getValueFrom(item, "description"))
+                getValueFrom(item, "name"),
+                getValueFrom(item, "variety"),
+                getValueFrom(item, "price"),
+                getValueFrom(item, "reputation"),
+                getValueFrom(item, "fat-percentage"),
+                getValueFrom(item, "image"),
+                getValueFrom(item, "description")
+        )
     }
 
 }

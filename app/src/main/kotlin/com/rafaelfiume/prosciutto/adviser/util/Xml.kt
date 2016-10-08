@@ -32,12 +32,8 @@ object Xml {
     }
 
     @Throws(XPathExpressionException::class)
-    fun getValueFrom(item: Node, xpath: String): String {
-        return xpath().evaluate(xpath + "/text()", item, STRING) as String
-    }
+    fun getValueFrom(item: Node, xpath: String) = xpath().evaluate(xpath + "/text()", item, STRING) as String
 
-    fun xpath(): XPath {
-        return XPathFactory.newInstance().newXPath()
-    }
+    fun xpath(): XPath = XPathFactory.newInstance().newXPath()
 
-}// not instantiable
+}

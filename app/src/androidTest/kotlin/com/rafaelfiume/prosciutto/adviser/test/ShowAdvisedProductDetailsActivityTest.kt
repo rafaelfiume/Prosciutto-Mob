@@ -45,14 +45,12 @@ class ShowAdvisedProductDetailsActivityTest {
 
     private fun mainSuggestion(): Product = allSuggestedProductsForCustomer()[0]
 
-    private fun allSuggestedProductsForCustomer(): List<Product> {
-        return object : ArrayList<Product>() {
-            init {
-                add(Product("Salame Colonial", "'Nduja", "EUR 49,23", "traditional", "29,00", "http://image.url", "https://it.wikipedia.org/w/api.php?format=xml&action=query&prop=extracts&exintro=&explaintext=&titles='Nduja"))
-                add(Product("Salame da Fazenda", "Chorizo", "EUR 48,45", "special", "27,00", "http://image.url", ""))
-                add(Product("Salame da Embolorado Não Faz Mal", "Salame Brianza D.O.P.", "EUR 33,33", "special", "27,00", "http://image.url", ""))
-                addAll(ProductAdviserParser().parse(supplierAdviceForExpertResponse()))
-            }
+    private fun allSuggestedProductsForCustomer(): List<Product> = object : ArrayList<Product>() {
+        init {
+            add(Product("Salame Colonial", "'Nduja", "EUR 49,23", "traditional", "29,00", "http://image.url", "https://it.wikipedia.org/w/api.php?format=xml&action=query&prop=extracts&exintro=&explaintext=&titles='Nduja"))
+            add(Product("Salame da Fazenda", "Chorizo", "EUR 48,45", "special", "27,00", "http://image.url", ""))
+            add(Product("Salame da Embolorado Não Faz Mal", "Salame Brianza D.O.P.", "EUR 33,33", "special", "27,00", "http://image.url", ""))
+            addAll(ProductAdviserParser().parse(supplierAdviceForExpertResponse()))
         }
     }
 

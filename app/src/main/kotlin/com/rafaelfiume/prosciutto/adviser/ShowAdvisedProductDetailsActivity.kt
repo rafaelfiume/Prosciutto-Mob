@@ -26,7 +26,6 @@ class ShowAdvisedProductDetailsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val intent = intent
         val product = intent.getParcelableExtra<Product>(EXTRA_SUGGESTED_PRODUCT)
 
         loadProductDescription(product)

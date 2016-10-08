@@ -13,12 +13,12 @@ class ProductDescriptionQueryTest {
 
     private val expectedDescription = "I bastardei sono un prodotto agroalimentare tradizionale della Lombardia, consistente in salamini in budello naturale di carne mista bovina e suina."
 
-    private val underTest = ProductDescriptionQuery()
+    private val subject = ProductDescriptionQuery()
 
     @Test
     @Throws(IOException::class)
     fun shouldRetrieveAndParseProductDescription() {
-        assertThat(underTest.query(url).value, containsString(expectedDescription))
+        assertThat(subject.query(url).value, containsString(expectedDescription))
     }
 
 }

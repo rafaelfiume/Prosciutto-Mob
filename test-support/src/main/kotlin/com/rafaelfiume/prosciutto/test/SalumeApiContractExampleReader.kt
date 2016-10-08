@@ -5,13 +5,9 @@ import java.io.IOException
 
 object SalumeApiContractExampleReader {
 
-    fun supplierAdviceForExpertRequest(): String {
-        return readFile("AdviseProductBasedOnCustomerProfileEndToEndTest/request.onlySuggestTraditionalProductsWithCheapestOnesFirstToExperts.txt")
-    }
+    fun supplierAdviceForExpertRequest(): String = readFile("AdviseProductBasedOnCustomerProfileEndToEndTest/request.onlySuggestTraditionalProductsWithCheapestOnesFirstToExperts.txt")
 
-    fun supplierAdviceForExpertResponse(): String {
-        return readFile("AdviseProductBasedOnCustomerProfileEndToEndTest/response.onlySuggestTraditionalProductsWithCheapestOnesFirstToExperts.txt")
-    }
+    fun supplierAdviceForExpertResponse(): String = readFile("AdviseProductBasedOnCustomerProfileEndToEndTest/response.onlySuggestTraditionalProductsWithCheapestOnesFirstToExperts.txt")
 
     fun readFile(resName: String): String {
         try {

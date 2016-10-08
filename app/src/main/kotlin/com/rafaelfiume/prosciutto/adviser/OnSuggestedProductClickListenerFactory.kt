@@ -5,7 +5,6 @@ import android.view.View
 
 import com.rafaelfiume.prosciutto.adviser.domain.Product
 
-// Use an interface when having more factories like this one?
 class OnSuggestedProductClickListenerFactory(private val callingActivity: Activity) {
 
     fun newOnClickListenerFor(product: Product): View.OnClickListener {

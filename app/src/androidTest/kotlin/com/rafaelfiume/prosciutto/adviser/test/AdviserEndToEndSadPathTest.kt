@@ -82,25 +82,20 @@ class AdviserEndToEndSadPathTest {
         server.stop()
     }
 
-    private fun anEmptyList(): Matcher<View> {
-        return object : TypeSafeMatcher<View>() {
-            public override fun matchesSafely(view: View): Boolean {
-                if (view !is AdapterView<*>) {
-                    return false
-                }
-
-                val adapter = view.adapter
-                return adapter.count == 0
+    private fun anEmptyList() = object : TypeSafeMatcher<View>() {
+        public override fun matchesSafely(view: View): Boolean {
+            if (view !is AdapterView<*>) {
+                return false
             }
 
-            override fun describeTo(description: Description) {
-                description.appendText("an empty list view")
-            }
-
-            override fun describeMismatchSafely(actual: View, mismatchDescription: Description) {
-                mismatchDescription.appendText(format("found a view \"%s\"", actual))
-            }
+            return view.adapter.count == 0
         }
+
+        override fun describeTo(description: Description) {
+            description.appendText("an empty list view")
+        }
+
     }
+
 
 }

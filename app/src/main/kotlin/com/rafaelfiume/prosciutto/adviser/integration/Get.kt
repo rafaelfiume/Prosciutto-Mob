@@ -13,8 +13,7 @@ object Get {
         val http = URL(url).openConnection() as HttpURLConnection
 
         if (http.responseCode != 200) {
-            throw ResourceNotFoundException(String.format(
-                    "Response code for url (%s) is: %s", url, http.responseCode))
+            throw ResourceNotFoundException("Response code for url $url is: ${http.responseCode}")
         }
 
         try {
@@ -23,4 +22,4 @@ object Get {
             http.disconnect()
         }
     }
-}// not instantiable
+}

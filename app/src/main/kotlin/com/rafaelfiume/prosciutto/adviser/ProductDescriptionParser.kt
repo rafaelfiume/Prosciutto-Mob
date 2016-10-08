@@ -13,8 +13,8 @@ class ProductDescriptionParser {
         try {
             return ProductDescription(getValueFrom(xmlFrom(xml), "//extract"))
         } catch (e: Exception) {
-            Log.e(ProductDescriptionParser::class.java.name, "error when parsing xml " + xml, e)
-            throw RuntimeException("could not parse advice xml: " + xml, e)
+            Log.e(ProductDescriptionParser::class.java.name, "error when parsing xml $xml", e)
+            throw RuntimeException("could not parse advice xml: $xml", e)
         }
 
     }

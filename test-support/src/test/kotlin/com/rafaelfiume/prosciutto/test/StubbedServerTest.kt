@@ -57,11 +57,11 @@ class StubbedServerTest {
 
             if (http.responseCode != 200) {
                 // Replace by ConnectedException
-                throw RuntimeException(String.format(
-                        "Response code for url (%s) is: %s", url, http.responseCode))
+                throw RuntimeException("Response code for url $url is: ${http.responseCode}")
             }
 
             return IOUtils.toString(http.inputStream)
+            
         } finally {
             http!!.disconnect()
         }

@@ -8,37 +8,27 @@ enum class ProductAdviserQuery : ProductAdviserServiceClient {
 
     MAGIC {
         @Throws(Exception::class)
-        override fun suggestedProducts(): List<Product> {
-            return retrieveProductsSuggestionsFor("Magic")
-        }
+        override fun suggestedProducts(): List<Product> = retrieveProductsSuggestionsFor("Magic")
     },
 
     HEALTHY {
         @Throws(Exception::class)
-        override fun suggestedProducts(): List<Product> {
-            return retrieveProductsSuggestionsFor("Healthy")
-        }
+        override fun suggestedProducts(): List<Product> = retrieveProductsSuggestionsFor("Healthy")
     },
 
     GOURMET {
         @Throws(Exception::class)
-        override fun suggestedProducts(): List<Product> {
-            return retrieveProductsSuggestionsFor("Gourmet")
-        }
+        override fun suggestedProducts(): List<Product> = retrieveProductsSuggestionsFor("Gourmet")
     },
 
     // Missing integration tests for the other three methods above
     EXPERT {
         @Throws(Exception::class)
-        override fun suggestedProducts(): List<Product> {
-            return this.retrieveProductsSuggestionsFor("Expert")
-        }
+        override fun suggestedProducts(): List<Product> = this.retrieveProductsSuggestionsFor("Expert")
     };
 
     @Throws(Exception::class)
-    protected fun retrieveProductsSuggestionsFor(profile: String): List<Product> {
-        return parser.parse(get(ADVISER_WEB_SERVICE + profile))
-    }
+    protected fun retrieveProductsSuggestionsFor(profile: String): List<Product> =  parser.parse(get(ADVISER_WEB_SERVICE + profile))
 
     private val parser = ProductAdviserParser()
 

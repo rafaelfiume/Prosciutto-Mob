@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse.SC_OK
 class StubbedServer {
 
     private val server: Server
-
     private val handlerCollection = HandlerCollection(true)
 
     init {

@@ -72,13 +72,13 @@ class AdviserActivity : AppCompatActivity() {
     public override fun onSaveInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)
 
-        savedInstanceState.putParcelableArrayList(LIST_OF_RECOMENDED_PRODUCTS, adapter!!.content())
+        savedInstanceState.putParcelableArrayList(LIST_OF_RECOMMENDED_PRODUCTS, adapter!!.content())
     }
 
     public override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        this.adapter!!.addAll(savedInstanceState.getParcelableArrayList<Product>(LIST_OF_RECOMENDED_PRODUCTS)!!)
+        this.adapter!!.addAll(savedInstanceState.getParcelableArrayList<Product>(LIST_OF_RECOMMENDED_PRODUCTS)!!)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -128,7 +128,6 @@ class AdviserActivity : AppCompatActivity() {
                 this.taskFailed = true
                 return ArrayList()
             }
-
         }
 
         override fun onPostExecute(products: List<Product>) {
@@ -147,12 +146,11 @@ class AdviserActivity : AppCompatActivity() {
         private fun cleanSuggestedProductsList() {
             adapter!!.clear()
         }
-
     }
 
     companion object {
 
-        private val LIST_OF_RECOMENDED_PRODUCTS = "recommended_products"
+        private val LIST_OF_RECOMMENDED_PRODUCTS = "recommended_products"
     }
 
 }

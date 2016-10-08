@@ -18,10 +18,8 @@ class ProductAdviserQueryTest {
     fun shouldReturnListOfSuggestedProductsWhenQueryingAdviserWebService() {
         givenASuccessfulAdviceResponseForExpertsIs(supplierAdviceForExpertResponse())
 
-        //when
         val suggestedProducts = EXPERT.suggestedProducts()
 
-        // then
         assertThat(suggestedProducts, hasSize<Any>(2))
     }
 
