@@ -30,18 +30,18 @@ class ShowAdvisedProductDetailsActivity : AppCompatActivity() {
         val product = intent.getParcelableExtra<Product>(EXTRA_SUGGESTED_PRODUCT)
 
         loadProductDescription(product)
-        setValueFor(R.id.p_detail_name, product.name())
-        setValueFor(R.id.p_detail_price, product.price())
-        setValueFor(R.id.p_detail_reputation, product.reputation())
-        setValueFor(R.id.p_detail_fat, product.fatPercentage())
+        setValueFor(R.id.p_detail_name, product.name)
+        setValueFor(R.id.p_detail_price, product.price)
+        setValueFor(R.id.p_detail_reputation, product.reputation)
+        setValueFor(R.id.p_detail_fat, product.fatPercentage)
 
         val collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
-        collapsingToolbarLayout.setTitle(product.name())
+        collapsingToolbarLayout.setTitle(product.name)
         // collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.holo_red_dark));
         collapsingToolbarLayout.setContentScrimColor(android.R.color.background_dark)
 
         val imageView = findViewById(R.id.backdrop) as ImageView
-        Glide.with(this).load(product.imageUrl()).centerCrop().into(imageView)
+        Glide.with(this).load(product.imageUrl).centerCrop().into(imageView)
     }
 
     private fun setValueFor(viewId: Int, value: String) {
@@ -59,7 +59,7 @@ class ShowAdvisedProductDetailsActivity : AppCompatActivity() {
 
         override fun doInBackground(vararg nothing: Void): ProductDescription {
             try {
-                return descriptionQuery.query(product.descriptionUrl())
+                return descriptionQuery.query(product.descriptionUrl)
 
             } catch (e: Exception) {
                 return ProductDescription.empty()
@@ -67,7 +67,7 @@ class ShowAdvisedProductDetailsActivity : AppCompatActivity() {
         }
 
         override fun onPostExecute(description: ProductDescription) {
-            setValueFor(R.id.description_label, format("About the %s Variety:", product.variety()))
+            setValueFor(R.id.description_label, format("About the %s Variety:", product.variety))
             setValueFor(R.id.p_detail_description, description.value())
         }
 

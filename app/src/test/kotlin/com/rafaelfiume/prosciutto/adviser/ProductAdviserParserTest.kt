@@ -9,18 +9,17 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Test
 
 import com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertResponse
-import java.lang.String.format
 import org.hamcrest.Matchers.hasSize
 import org.junit.Assert.assertThat
 
 class ProductAdviserParserTest {
 
-    private val parser = ProductAdviserParser()
+    private val subject = ProductAdviserParser()
 
     @Test
     fun shouldParseAdviceXmlIntoListOfSuggestedProducts() {
         // when
-        val suggestedProducts = parser.parse(supplierAdviceForExpertResponse())
+        val suggestedProducts = subject.parse(supplierAdviceForExpertResponse())
 
         // then
         assertThat(suggestedProducts, hasSize<Any>(2))
@@ -64,25 +63,17 @@ class ProductAdviserParserTest {
             private val descriptionUrl: String) : TypeSafeMatcher<Product>() {
 
         override fun matchesSafely(actualProduct: Product): Boolean {
-            return name == actualProduct.name()
-                    && variety == actualProduct.variety()
-                    && price == actualProduct.price()
-                    && reputation == actualProduct.reputation()
-                    && fatPercentage == actualProduct.fatPercentage()
-                    && imageUrl == actualProduct.imageUrl()
-                    && descriptionUrl == actualProduct.descriptionUrl()
+            return name == actualProduct.name
+                    && variety == actualProduct.variety
+                    && price == actualProduct.price
+                    && reputation == actualProduct.reputation
+                    && fatPercentage == actualProduct.fatPercentage
+                    && imageUrl == actualProduct.imageUrl
+                    && descriptionUrl == actualProduct.descriptionUrl
         }
 
         override fun describeTo(description: Description) {
-            description.appendText(format(
-                    "a product with: name \"%s\"; variety \"%s\"; price \"%s\"; reputation \"%s\"; fatPercentage \"%s\"; imageUrl \"%s\"; descriptionUrl \"%s\"",
-                    name, variety, price, reputation, fatPercentage, imageUrl, descriptionUrl))
-        }
-
-        override fun describeMismatchSafely(actual: Product, mismatchDescription: Description) {
-            mismatchDescription.appendText(format(
-                    "product had name \"%s\"; variety \"%s\"; price \"%s\"; reputation \"%s\"; fatPercentage \"%s\"; imageUrl \"%s\"; descriptionUrl \"%s\"",
-                    actual.name(), actual.variety(), actual.price(), actual.reputation(), actual.fatPercentage(), actual.imageUrl(), actual.descriptionUrl()))
+            description.appendValue(Product(name, variety, price, reputation, fatPercentage, imageUrl, descriptionUrl))
         }
 
         companion object {

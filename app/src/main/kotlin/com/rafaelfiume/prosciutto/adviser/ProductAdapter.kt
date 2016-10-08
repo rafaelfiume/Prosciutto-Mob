@@ -19,9 +19,9 @@ open class ProductAdapter(context: Context, private val factory: OnSuggestedProd
 
         val product = getItem(position)
         val tvName = itemView.findViewById(R.id.product_name_text) as TextView
-        tvName.text = product!!.name()
+        tvName.text = product!!.name
         val tvPrice = itemView.findViewById(R.id.product_price_text) as TextView
-        tvPrice.text = product.price()
+        tvPrice.text = product.price
 
         itemView.setOnClickListener(factory.newOnClickListenerFor(product))
 

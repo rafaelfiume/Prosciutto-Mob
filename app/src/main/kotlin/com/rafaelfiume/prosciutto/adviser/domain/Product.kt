@@ -3,68 +3,22 @@ package com.rafaelfiume.prosciutto.adviser.domain
 import android.os.Parcel
 import android.os.Parcelable
 
-class Product : Parcelable {
+data class Product(val name: String,
+                   val variety: String,
+                   val price: String,
+                   val reputation: String,
+                   val fatPercentage: String,
+                   val imageUrl: String,
+                   val descriptionUrl: String): Parcelable {
 
-    private val name: String
-    private val price: String
-    private val reputation: String
-    private val fatPercentage: String
-    private val variety: String
-    private val imageUrl: String
-    private val descriptionUrl: String
-
-    constructor(name: String,
-                variety: String,
-                price: String,
-                reputation: String,
-                fatPercentage: String,
-                imageUrl: String,
-                descriptionUrl: String) {
-        this.name = name
-        this.variety = variety
-        this.price = price
-        this.reputation = reputation
-        this.fatPercentage = fatPercentage
-        this.imageUrl = imageUrl
-        this.descriptionUrl = descriptionUrl
-    }
-
-    private constructor(`in`: Parcel) {
-        this.name = `in`.readString()
-        this.variety = `in`.readString()
-        this.price = `in`.readString()
-        this.reputation = `in`.readString()
-        this.fatPercentage = `in`.readString()
-        this.imageUrl = `in`.readString()
-        this.descriptionUrl = `in`.readString()
-    }
-
-    fun name(): String {
-        return name
-    }
-
-    fun variety(): String {
-        return variety
-    }
-
-    fun price(): String {
-        return price
-    }
-
-    fun reputation(): String {
-        return reputation
-    }
-
-    fun fatPercentage(): String {
-        return fatPercentage
-    }
-
-    fun imageUrl(): String {
-        return imageUrl
-    }
-
-    fun descriptionUrl(): String {
-        return descriptionUrl
+    private constructor(`in`: Parcel) : this(
+            `in`.readString(),
+            `in`.readString(),
+            `in`.readString(),
+            `in`.readString(),
+            `in`.readString(),
+            `in`.readString(),
+            `in`.readString()){
     }
 
     override fun describeContents(): Int {

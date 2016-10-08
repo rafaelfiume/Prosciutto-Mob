@@ -33,10 +33,10 @@ class ShowAdvisedProductDetailsActivityTest {
         // when activity received a product with an intent (check priming above)
 
         // then the main suggested product is...
-        onView(withId(R.id.p_detail_name)).check(matches(withText(mainSuggestion().name())))
-        onView(withId(R.id.p_detail_price)).check(matches(withText(mainSuggestion().price())))
-        onView(withId(R.id.p_detail_reputation)).check(matches(withText(mainSuggestion().reputation())))
-        onView(withId(R.id.p_detail_fat)).check(matches(withText(mainSuggestion().fatPercentage())))
+        onView(withId(R.id.p_detail_name)).check(matches(withText(mainSuggestion().name)))
+        onView(withId(R.id.p_detail_price)).check(matches(withText(mainSuggestion().price)))
+        onView(withId(R.id.p_detail_reputation)).check(matches(withText(mainSuggestion().reputation)))
+        onView(withId(R.id.p_detail_fat)).check(matches(withText(mainSuggestion().fatPercentage)))
 
         // then show product description...
         onView(withId(R.id.description_label)).check(matches(withText(containsString("About the 'Nduja Variety:"))))
