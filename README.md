@@ -6,11 +6,11 @@ Select a customer profile to see a list of suggested products for him/her.
 
  ![app](docs/image/choose-profile.png) ![app](docs/image/list-of-products.png)
 
-Click in one of the listed products to know more about them. 
+Click in one of the listed products to know more about it. 
 
  ![app](docs/image/prod-desc-expanded.png) ![app](docs/image/prod-desc-collapsed.png) 
 
-Image and description are retrieved from Wikipedia.  
+Images and the content in the "About Variety" section are retrieved from Wikipedia.  
  
  ![app](docs/image/prod-desc-expanded-hor.png)
 
