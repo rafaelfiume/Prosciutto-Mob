@@ -2,7 +2,17 @@
 
 This [post](https://rafaelfiume.com/2013/04/07/dragons-unicorns-and-titans-an-agile-software-developer-tail/) explains what this app is for.
 
- ![app](docs/image/choose-profile.png) ![app](docs/image/list-of-products.png) ![app](docs/image/prod-desc-expanded.png) ![app](docs/image/prod-desc-collapsed.png) ![app](docs/image/prod-desc-expanded-hor.png)
+Select a customer profile to see a list of suggested products for him/her. 
+
+ ![app](docs/image/choose-profile.png) ![app](docs/image/list-of-products.png)
+
+Click in one of the listed products to know more about them. 
+
+ ![app](docs/image/prod-desc-expanded.png) ![app](docs/image/prod-desc-collapsed.png) 
+
+Image and description are retrieved from Wikipedia.  
+ 
+ ![app](docs/image/prod-desc-expanded-hor.png)
 
 ## Most Interesting Things Happening Here...
 
