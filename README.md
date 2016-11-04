@@ -10,7 +10,7 @@ Click in one of the listed products to know more about it.
 
  ![app](docs/image/prod-desc-expanded.png) ![app](docs/image/prod-desc-collapsed.png) 
 
-Images and the content in the "About Variety" section are retrieved from Wikipedia.  
+Images and content in the "About Variety" section are retrieved from Wikipedia.  
  
  ![app](docs/image/prod-desc-expanded-hor.png)
 
@@ -18,7 +18,7 @@ Images and the content in the "About Variety" section are retrieved from Wikiped
 
 * Written in Kotlin :)
 * It consumes a [microservice](https://github.com/rafaelfiume/Salume) deployed into Heroku
-* A few end-to-end black-box tests, specially: 
+* A few acceptance tests, specially: 
 [AdviserEndToEndHappyPathTest](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/app/src/androidTest/kotlin/com/rafaelfiume/prosciutto/adviser/test/AdviserEndToEndHappyPathTest.kt) and [ShowAdvisedProductDetailsTest](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/app/src/androidTest/kotlin/com/rafaelfiume/prosciutto/adviser/test/ShowAdvisedProductDetailsActivityTest.kt)
 * The use of CollapsingToolbarLayout in the product details view.
 
