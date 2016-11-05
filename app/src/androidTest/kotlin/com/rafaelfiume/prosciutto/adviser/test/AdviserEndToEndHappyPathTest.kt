@@ -19,6 +19,7 @@ import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.hasDescendant
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withText
+import android.support.test.filters.LargeTest
 import com.rafaelfiume.prosciutto.adviser.R.id.expert_option
 import com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertResponse
 import org.hamcrest.Matchers.allOf
@@ -26,6 +27,7 @@ import org.hamcrest.Matchers.containsString
 import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.`is`
 
+@LargeTest
 class AdviserEndToEndHappyPathTest {
 
     @Rule @JvmField

@@ -5,6 +5,7 @@ import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.view.View
 import android.widget.AdapterView
@@ -20,6 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.lang.String.format
 
+@LargeTest
 class AdviserEndToEndSadPathTest {
 
     @Rule @JvmField
