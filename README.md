@@ -40,7 +40,7 @@ The following environment variable must be set:
 
 Most commonly used command-line tasks are:
 
-    $./gradlew connectedDevDebugAndroidTest
+    $./gradlew connectedDevDebugAndroidTest -PdisablePreDex
     $./gradlew testDevDebugUnitTest
     $./gradlew assembleDebug
     $./gradlew assembleRelease
