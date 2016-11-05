@@ -1,7 +1,12 @@
+## Customized dependencies
+dependencies:
+  pre:
+    - if [ ! -d "/usr/local/android-sdk-linux/platforms/android-25" ]; then echo y | android update sdk --no-ui --all --filter "tools,platform-tools,android-25,extra-android-m2repository,extra-android-support"; fi
+
 test:
   override:
     # start the emulator
-    - emulator -avd circleci-android22 -no-audio -no-window:
+    - emulator -avd circleci-android23 -no-audio -no-window:
         background: true
         parallel: true
     # wait for it to have booted
