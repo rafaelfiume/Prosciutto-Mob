@@ -1,4 +1,4 @@
-# Prosciutto-Mob [![Apache 2.0 License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/LICENSE)
+# Prosciutto-Mob [![Circle CI](https://circleci.com/gh/rafaelfiume/Prosciutto-Mob.png?style=badge)](https://circleci.com/gh/rafaelfiume/Prosciutto-Mob) [![Apache 2.0 License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/LICENSE)
 
 This [post](https://rafaelfiume.com/2013/04/07/dragons-unicorns-and-titans-an-agile-software-developer-tail/) explains what this app is for.
 
@@ -22,17 +22,6 @@ Images and content in the "About Variety" section are retrieved from Wikipedia.
 [AdviserEndToEndHappyPathTest](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/app/src/androidTest/kotlin/com/rafaelfiume/prosciutto/adviser/test/AdviserEndToEndHappyPathTest.kt) and [ShowAdvisedProductDetailsTest](https://github.com/rafaelfiume/Prosciutto-Mob/blob/master/app/src/androidTest/kotlin/com/rafaelfiume/prosciutto/adviser/test/ShowAdvisedProductDetailsActivityTest.kt)
 * The use of CollapsingToolbarLayout in the product details view.
 
-## User Stories
-
-### Request <a href="http://rafaelfiume.github.io/Salume/com/rafaelfiume/salume/acceptance/adviser/AdviseProductBasedOnCustomerProfileEndToEndTest.html" target="blank">Advice Based on Customer Profile</a> (Parent Story)
-* ~~Request advice happy path~~
-* ~~Request advice sad path~~
-* ~~Improve UI displaying product details when clicking on an item in the list~~
-* ~~Improve UI displaying a illustrative picture of the product in the Details View~~
-* ~~Show a picture and description of the product according to the product variety~~ 
-
-Todo: Consider to use fragments to compose the view and [Dagger](http://google.github.io/dagger/) for dependency injection. 
-
 ## Running the App
 
 The following environment variable must be set:
@@ -46,3 +35,19 @@ Most commonly used command-line tasks are:
     $./gradlew assembleRelease
     $./gradlew tasks
     $./gradlew test --continue
+    
+## Circle CI Build
+
+* [Circle CI Espresso Sample](https://github.com/circleci/EspressoSample)
+* [Test Android Applications](https://circleci.com/docs/android/)
+
+## User Stories
+
+### Request <a href="http://rafaelfiume.github.io/Salume/com/rafaelfiume/salume/acceptance/adviser/AdviseProductBasedOnCustomerProfileEndToEndTest.html" target="blank">Advice Based on Customer Profile</a> (Parent Story)
+* ~~Request advice happy path~~
+* ~~Request advice sad path~~
+* ~~Improve UI displaying product details when clicking on an item in the list~~
+* ~~Improve UI displaying a illustrative picture of the product in the Details View~~
+* ~~Show a picture and description of the product according to the product variety~~ 
+
+Todo: Consider to use fragments to compose the view and [Dagger](http://google.github.io/dagger/) for dependency injection. 
