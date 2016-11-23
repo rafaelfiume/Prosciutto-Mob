@@ -24,7 +24,7 @@ class ShowAdvisedProductDetailsActivity : AppCompatActivity() {
         val product = intent.getParcelableExtra<Product>(EXTRA_SUGGESTED_PRODUCT)
         val fragment = ShowAdvisedProductDetailsFragment.newInstance(product)
         fragmentManager.beginTransaction()
-                .add(R.id.show_advised_product_fragment_container, fragment).commit();
+                .add(R.id.show_advised_product_fragment_container, fragment).commit()
     }
 
     companion object {

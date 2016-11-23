@@ -14,12 +14,12 @@ class SalumeApiContractExampleReaderTest {
     //
 
     @Test
-    fun chekingRequestExampleIsNotNull() {
+    fun checkingRequestExampleIsNotNull() {
         assertThat(supplierAdviceForExpertRequest(), containsString("/salume/supplier/advise/for/"))
     }
 
     @Test
-    fun chekingResponseExampleIsNotNull() {
+    fun checkingResponseExampleIsNotNull() {
         assertThat(supplierAdviceForExpertResponse(), containsString("<product-advisor>"))
     }
 

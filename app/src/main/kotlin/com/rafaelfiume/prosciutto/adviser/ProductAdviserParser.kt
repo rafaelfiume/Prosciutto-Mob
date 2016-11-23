@@ -26,15 +26,10 @@ class ProductAdviserParser {
 
     @Throws(Exception::class)
     fun doParse(xml: String): List<Product> {
-        val suggestedProducts = ArrayList<Product>()
 
         val productsNode = xpath().evaluate("//product", xmlFrom(xml), NODESET) as NodeList
-        for (i in 0..productsNode.length - 1) {
-            val pNode = productsNode.item(i)
-            suggestedProducts.add(newProductFrom(pNode))
-        }
-
-        return suggestedProducts
+        return (0..productsNode.length - 1)
+                .mapTo(ArrayList<Product>()) { newProductFrom(productsNode.item(it)) }
     }
 
     @Throws(XPathExpressionException::class)

@@ -14,12 +14,10 @@ import com.rafaelfiume.prosciutto.adviser.R
 import com.rafaelfiume.prosciutto.adviser.R.id.magic_option
 import com.rafaelfiume.prosciutto.test.DependsOnServerRunningRule
 import org.hamcrest.Description
-import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.lang.String.format
 
 @LargeTest
 class AdviserEndToEndSadPathTest {

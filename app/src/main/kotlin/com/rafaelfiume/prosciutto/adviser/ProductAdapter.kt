@@ -33,10 +33,6 @@ open class ProductAdapter(
     internal fun content(): ArrayList<out Parcelable> {
         // Annoying not having a similar functionality returning a copy of the product list :(
         // Android, you forced me to do that!!
-        val copy = ArrayList<Product>()
-        for (i in 0..count - 1) {
-            copy.add(getItem(i))
-        }
-        return copy
+        return (0..count - 1).mapTo(ArrayList<Product>()) { getItem(it) }
     }
 }

@@ -20,7 +20,7 @@ class StubbedServerTest {
     var server = DependsOnServerRunningRule()
 
     @Rule @JvmField
-    var exception = ExpectedException.none()
+    var exception: ExpectedException = ExpectedException.none()
 
     @Test
     @Throws(IOException::class)

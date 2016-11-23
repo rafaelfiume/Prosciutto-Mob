@@ -53,6 +53,7 @@ class ProductAdviserParserTest {
     private fun firstOf(suggestedProducts: List<Product>): Product = suggestedProducts[0]
     private fun secondOf(suggestedProducts: List<Product>): Product = suggestedProducts[1]
 
+    @Suppress("unused") // Being used via Companion #isAProductNamed
     class ProductMatcher(
             private val name: String,
             private val variety: String,
