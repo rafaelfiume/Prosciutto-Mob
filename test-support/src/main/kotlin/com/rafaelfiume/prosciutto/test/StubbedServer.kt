@@ -52,7 +52,7 @@ class StubbedServer {
         try {
             context.start()
         } catch (e: Exception) {
-            throw RuntimeException(format("failed to prime %s", contextPath), e)
+            throw RuntimeException("failed to prime $contextPath", e)
         }
     }
 

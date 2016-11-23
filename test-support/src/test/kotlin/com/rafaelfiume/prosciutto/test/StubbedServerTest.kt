@@ -35,7 +35,7 @@ class StubbedServerTest {
         whenPrimingServerErrorWhenRequesting("/I/would/like/to/buy/bananas")
 
         exception.expect(RuntimeException::class.java)
-        exception.expectMessage("Response code for url (http://localhost:8081/I/would/like/to/buy/bananas) is: 500")
+        exception.expectMessage("Response code for url <<http://localhost:8081/I/would/like/to/buy/bananas>> is: 500")
 
         get("http://localhost:8081/I/would/like/to/buy/bananas")
     }
@@ -48,7 +48,7 @@ class StubbedServerTest {
         server.primeServerErrorWhenRequesting(response)
     }
 
-    // Duplicated :( See integration package
+    // TODO Duplicated :( See integration package
     @Throws(IOException::class)
     private operator fun get(url: String): String {
         var http: HttpURLConnection? = null
@@ -56,8 +56,7 @@ class StubbedServerTest {
             http = URL(url).openConnection() as HttpURLConnection
 
             if (http.responseCode != 200) {
-                // Replace by ConnectedException
-                throw RuntimeException("Response code for url $url is: ${http.responseCode}")
+                throw RuntimeException("Response code for url <<$url>> is: ${http.responseCode}")
             }
 
             return IOUtils.toString(http.inputStream)

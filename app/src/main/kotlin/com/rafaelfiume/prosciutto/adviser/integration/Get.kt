@@ -13,7 +13,7 @@ object Get {
         val http = URL(url).openConnection() as HttpURLConnection
 
         if (http.responseCode != 200) {
-            throw ResourceNotFoundException("Response code for url $url is: ${http.responseCode}")
+            throw ResourceNotFoundException("Response code for url <<$url>> is: ${http.responseCode}")
         }
 
         try {

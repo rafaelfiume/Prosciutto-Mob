@@ -29,19 +29,21 @@ The following environment variable must be set:
 
 Most commonly used command-line tasks are:
 
-    $./gradlew connectedDevDebugAndroidTest -PdisablePreDex
-    $./gradlew testDevDebugUnitTest
-    $./gradlew assembleDebug
-    $./gradlew assembleRelease
-    $./gradlew tasks
-    $./gradlew test --continue
+    λ → gradlew connectedDevDebugAndroidTest -PdisablePreDex
+    λ → gradlew testDevDebugUnitTest --continue
+    λ → gradlew :test-support:test
+    λ → gradlew assembleDebug
+    λ → gradlew assembleRelease
+    λ → gradlew tasks
     
-## Circle CI Build
+    
+# Circle CI Build
 
 * [Circle CI Espresso Sample](https://github.com/circleci/EspressoSample)
 * [Test Android Applications](https://circleci.com/docs/android/)
 
-## User Stories
+
+# User Stories
 
 ### Request <a href="http://rafaelfiume.github.io/Salume/com/rafaelfiume/salume/acceptance/adviser/AdviseProductBasedOnCustomerProfileEndToEndTest.html" target="blank">Advice Based on Customer Profile</a> (Parent Story)
 * ~~Request advice happy path~~
