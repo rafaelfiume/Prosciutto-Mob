@@ -32,47 +32,35 @@ class ShowAdvisedProductDetailsFragment : Fragment() {
         }
     }
 
-   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_show_advised_product_details, container, false)
-
-        val toolbar = view.findViewById(R.id.toolbar) as Toolbar
-        val appCompatActivity = (activity!! as AppCompatActivity) // this smells like... smell
-        appCompatActivity.setSupportActionBar(toolbar)
-        //appCompatActivity.supportActionBar!!.setDisplayHomeAsUpEnabled(true) // TODO
-
-        loadProductDescription(product, view)
-        setValueFor(R.id.p_detail_name, product.name, view)
-        setValueFor(R.id.p_detail_price, product.price, view)
-        setValueFor(R.id.p_detail_reputation, product.reputation, view)
-        setValueFor(R.id.p_detail_fat, product.fatPercentage, view)
-
-        val collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
-        collapsingToolbarLayout.title = product.name
-        collapsingToolbarLayout.setExpandedTitleColor(resources.getColor(android.R.color.holo_red_dark))
-        collapsingToolbarLayout.setContentScrimColor(android.R.color.background_dark)
-
-        val imageView = view.findViewById(R.id.backdrop) as ImageView
-        Glide.with(this).load(product.imageUrl).centerCrop().into(imageView)
+        loadScreen(product, view)
 
         return view
     }
 
     fun updateProduct(product: Product) {
         val view = activity.findViewById(R.id.fragment_show_advised_product_details)
+        loadScreen(product, view)
+    }
 
-        loadProductDescription(product, view)
+    private fun loadScreen(product: Product, view: View) {
+        val collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
+        collapsingToolbarLayout.title = product.name
+
+        val toolbar = view.findViewById(R.id.toolbar) as Toolbar
+        val appCompatActivity = (activity!! as AppCompatActivity) // this smells like... smell
+        appCompatActivity.setSupportActionBar(toolbar)
+        //appCompatActivity.supportActionBar!!.setDisplayHomeAsUpEnabled(true) // TODO
+
+        val imageView = view.findViewById(R.id.backdrop) as ImageView
+        Glide.with(this).load(product.imageUrl).centerCrop().into(imageView)
+
         setValueFor(R.id.p_detail_name, product.name, view)
         setValueFor(R.id.p_detail_price, product.price, view)
         setValueFor(R.id.p_detail_reputation, product.reputation, view)
         setValueFor(R.id.p_detail_fat, product.fatPercentage, view)
-
-        val collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
-        collapsingToolbarLayout.title = product.name
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.holo_red_dark));
-        collapsingToolbarLayout.setContentScrimColor(android.R.color.background_dark)
-
-        val imageView = view.findViewById(R.id.backdrop) as ImageView
-        Glide.with(this).load(product.imageUrl).centerCrop().into(imageView)
+        loadProductDescription(product, view)
     }
 
     private fun loadProductDescription(product: Product, view: View) {
