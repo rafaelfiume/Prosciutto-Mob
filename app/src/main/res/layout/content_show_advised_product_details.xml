@@ -32,50 +32,58 @@
             android:useDefaultMargins="true">
 
             <TextView
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_columnSpan="2"
                 android:textStyle="bold"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Description:" />
 
             <TextView
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:text="Name:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/p_detail_name"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:ems="10"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:layout_column="0"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:text="Price:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/p_detail_price"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:layout_column="0"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:text="Reputation:"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/p_detail_reputation"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:layout_column="0"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:text="Fat (%):"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/p_detail_fat"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </GridLayout>
     </android.support.v7.widget.CardView>
