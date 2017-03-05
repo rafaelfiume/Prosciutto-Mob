@@ -14,7 +14,9 @@ import java.util.ArrayList
 
 open class ProductAdapter(
         context: Context,
-        private val factory: OnSuggestedProductClickListenerFactory) : ArrayAdapter<Product>(context, 0) {
+        //private val factory: OnSuggestedProductClickListenerFactory
+        private val factory: OnSuggestedProductClickListenerFactory2
+) : ArrayAdapter<Product>(context, 0) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val itemView = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_product, parent, false)

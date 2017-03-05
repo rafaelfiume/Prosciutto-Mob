@@ -1,7 +1,6 @@
 package com.rafaelfiume.prosciutto.adviser
 
-import android.app.Fragment
-import android.net.Uri
+import android.support.v4.app.Fragment
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -18,37 +17,50 @@ import com.rafaelfiume.prosciutto.adviser.domain.Product
 import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery
 import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.*
 import java.util.*
+import android.content.Context
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 
 private const val LIST_OF_RECOMMENDED_PRODUCTS = "recommended_products"
 
 /**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [ChooseProfileAndProductFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
  * Use the [ChooseProfileAndProductFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class ChooseProfileAndProductFragment : Fragment() {
 
-    private var mListener: OnFragmentInteractionListener? = null
+    interface OnProductSelectedListener {
+        fun onFragmentInteraction(product: Product)
+    }
 
+    private var mCallback: OnProductSelectedListener? = null
     lateinit private var query: ProductAdviserQuery
-
     lateinit private var adapter: ProductAdapter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        ensureContainerActivityHasImplementedCallbackInterface(context)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_choose_profile_and_product, container, false)
 
+        // TODO Only if in dual pane mode
+        val toolbar = view.findViewById(R.id.main_toolbar) as Toolbar
+        val appCompatActivity = (activity!! as AppCompatActivity) // this smells like... smell
+        appCompatActivity.setSupportActionBar(toolbar)
+        toolbar.setTitle(R.string.main_toolbar_title)
+
         val listView = view.findViewById(R.id.suggested_products_list) as ListView
-        this.adapter = ProductAdapter(this.activity, OnSuggestedProductClickListenerFactory(this.activity))
+        this.adapter = ProductAdapter(this.activity, OnSuggestedProductClickListenerFactory2(this.mCallback!!))
         listView.adapter = this.adapter
 
         val fab = view.findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { GetProductAdvice(view).execute() }
 
         val profileOptions = view.findViewById(R.id.profile_options) as RadioGroup
-        profileOptions.setOnCheckedChangeListener { group, checkedId ->
+        profileOptions.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.magic_option -> this.query = MAGIC
                 R.id.healthy_option -> this.query = HEALTHY
@@ -56,46 +68,40 @@ class ChooseProfileAndProductFragment : Fragment() {
                 R.id.gourmet_option -> this.query = GOURMET
             }
         }
-
         setMagicOptionSelectedByDefault(view)
-
         return view
     }
 
      override fun onSaveInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)
-
         savedInstanceState.putParcelableArrayList(LIST_OF_RECOMMENDED_PRODUCTS, adapter.content())
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) { // equivalent to Activity#onRestoreInstanceState
         super.onActivityCreated(savedInstanceState)
-
         val parcelable = savedInstanceState?.getParcelableArrayList<Product>(LIST_OF_RECOMMENDED_PRODUCTS)
         if (parcelable != null) {
             this.adapter.addAll(parcelable)
         }
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        mCallback = null
+    }
+
+    private fun ensureContainerActivityHasImplementedCallbackInterface(context: Context) {
+        try {
+            mCallback = context as OnProductSelectedListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException(context.toString() + " must implement OnProductSelectedListener")
+        }
+    }
+
     private fun setMagicOptionSelectedByDefault(v: View) {
         val options = v.findViewById(R.id.profile_options) as RadioGroup
         options.check(R.id.magic_option)
-
         this.query = MAGIC
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
     }
 
     internal inner class GetProductAdvice(view: View) : AsyncTask<Void, Void, List<Product>>() {

@@ -1,6 +1,6 @@
 package com.rafaelfiume.prosciutto.adviser
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.CollapsingToolbarLayout
@@ -17,18 +17,13 @@ import com.rafaelfiume.prosciutto.adviser.domain.ProductDescription
 import com.rafaelfiume.prosciutto.adviser.integration.ProductDescriptionQuery
 
 /**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [ShowAdvisedProductDetailsFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
  * Use the [ShowAdvisedProductDetailsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class ShowAdvisedProductDetailsFragment : Fragment() {
 
-    private lateinit var product: Product
-
-    // TODO private var mListener: OnFragmentInteractionListener? = null
+    // TODO private lateinit var product: Product
+    private var product: Product = Product("", "", "", "", "", "", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,13 +32,13 @@ class ShowAdvisedProductDetailsFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_show_advised_product_details, container, false)
 
         val toolbar = view.findViewById(R.id.toolbar) as Toolbar
         val appCompatActivity = (activity!! as AppCompatActivity) // this smells like... smell
         appCompatActivity.setSupportActionBar(toolbar)
-        appCompatActivity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        //appCompatActivity.supportActionBar!!.setDisplayHomeAsUpEnabled(true) // TODO
 
         loadProductDescription(product, view)
         setValueFor(R.id.p_detail_name, product.name, view)
@@ -53,7 +48,7 @@ class ShowAdvisedProductDetailsFragment : Fragment() {
 
         val collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
         collapsingToolbarLayout.title = product.name
-        // collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.holo_red_dark));
+        collapsingToolbarLayout.setExpandedTitleColor(resources.getColor(android.R.color.holo_red_dark))
         collapsingToolbarLayout.setContentScrimColor(android.R.color.background_dark)
 
         val imageView = view.findViewById(R.id.backdrop) as ImageView
@@ -62,19 +57,23 @@ class ShowAdvisedProductDetailsFragment : Fragment() {
         return view
     }
 
-//    override fun onAttach(context: Context) {
-//        super.onAttach(activity) // TODO
-//        if (context is OnFragmentInteractionListener) {
-//            mListener = context
-//        } else {
-//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-//        }
-//    }
-//
-//    override fun onDetach() {
-//        super.onDetach()
-//        mListener = null
-//    }
+    fun updateProduct(product: Product) {
+        val view = activity.findViewById(R.id.fragment_show_advised_product_details)
+
+        loadProductDescription(product, view)
+        setValueFor(R.id.p_detail_name, product.name, view)
+        setValueFor(R.id.p_detail_price, product.price, view)
+        setValueFor(R.id.p_detail_reputation, product.reputation, view)
+        setValueFor(R.id.p_detail_fat, product.fatPercentage, view)
+
+        val collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
+        collapsingToolbarLayout.title = product.name
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.holo_red_dark));
+        collapsingToolbarLayout.setContentScrimColor(android.R.color.background_dark)
+
+        val imageView = view.findViewById(R.id.backdrop) as ImageView
+        Glide.with(this).load(product.imageUrl).centerCrop().into(imageView)
+    }
 
     private fun loadProductDescription(product: Product, view: View) {
         GetProductDescription(product, view).execute()
@@ -106,22 +105,6 @@ class ShowAdvisedProductDetailsFragment : Fragment() {
         }
     }
 
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
-     */
-//    interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        fun onFragmentInteraction(uri: Uri)
-//    }
-
     companion object {
         // TODO: Rename parameter arguments, choose names that match  the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
         private val PRODUCT_PARAM = "product_param"
@@ -134,5 +117,6 @@ class ShowAdvisedProductDetailsFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+
     }
 }
