@@ -8,12 +8,14 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
+import android.view.WindowManager
 import com.rafaelfiume.prosciutto.adviser.ProductAdviserParser
 import com.rafaelfiume.prosciutto.adviser.R
 import com.rafaelfiume.prosciutto.adviser.ShowAdvisedProductDetailsActivity
 import com.rafaelfiume.prosciutto.adviser.domain.Product
 import com.rafaelfiume.prosciutto.test.SalumeApiContractExampleReader.supplierAdviceForExpertResponse
 import org.hamcrest.Matchers.containsString
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.util.*
@@ -27,6 +29,17 @@ class ShowAdvisedProductDetailsActivityTest {
             val targetContext = InstrumentationRegistry.getInstrumentation().targetContext
             return ShowAdvisedProductDetailsActivity.newIntent(targetContext, mainSuggestion())
         }
+    }
+
+    @Before
+    fun unlockScreen() {
+        val activity = mActivityRule.activity
+        val wakeUpDevice = Runnable {
+            activity.window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
+        activity.runOnUiThread(wakeUpDevice)
     }
 
     @Test // TODO Check also the labels

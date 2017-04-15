@@ -26,6 +26,7 @@ import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.containsString
 import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.`is`
+import android.view.WindowManager
 
 @LargeTest
 class AdviserEndToEndHappyPathTest {
@@ -35,6 +36,17 @@ class AdviserEndToEndHappyPathTest {
 
     @Rule @JvmField
     var server = DependsOnServerRunningRule()
+
+    @Before
+    fun unlockScreen() {
+        val activity = mActivityRule.activity
+        val wakeUpDevice = Runnable {
+            activity.window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
+        activity.runOnUiThread(wakeUpDevice)
+    }
 
     @Before
     fun primeExpertAdviceResponse() {
