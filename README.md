@@ -35,21 +35,3 @@ Most commonly used command-line tasks are:
     λ → gradlew assembleDebug
     λ → gradlew assembleRelease
     λ → gradlew tasks
-    
-    
-# Circle CI Build
-
-* [Circle CI Espresso Sample](https://github.com/circleci/EspressoSample)
-* [Test Android Applications](https://circleci.com/docs/android/)
-
-
-# User Stories
-
-### Request <a href="http://rafaelfiume.github.io/Salume/com/rafaelfiume/salume/acceptance/adviser/AdviseProductBasedOnCustomerProfileEndToEndTest.html" target="blank">Advice Based on Customer Profile</a> (Parent Story)
-* ~~Request advice happy path~~
-* ~~Request advice sad path~~
-* ~~Improve UI displaying product details when clicking on an item in the list~~
-* ~~Improve UI displaying a illustrative picture of the product in the Details View~~
-* ~~Show a picture and description of the product according to the product variety~~ 
-
-Todo: Consider to use fragments to compose the view and [Dagger](http://google.github.io/dagger/) for dependency injection. 
