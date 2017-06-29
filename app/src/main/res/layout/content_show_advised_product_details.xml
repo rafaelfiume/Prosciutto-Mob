@@ -9,7 +9,6 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:paddingTop="8dp"
-    tools:context=".ShowAdvisedProductDetailsActivity"
     tools:showIn="@layout/activity_show_advised_product_details">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"

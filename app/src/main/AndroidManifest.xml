@@ -19,16 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ShowAdvisedProductDetailsActivity"
-            android:label="@string/title_activity_show_advised_product_details"
-            android:parentActivityName=".AdviserActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rafaelfiume.prosciutto.adviser.AdviserActivity" />
-        </activity>
     </application>
 
 </manifest>

@@ -53,7 +53,7 @@ class ChooseProfileAndProductFragment : Fragment() {
         toolbar.setTitle(R.string.main_toolbar_title)
 
         val listView = view.findViewById(R.id.suggested_products_list) as ListView
-        this.adapter = ProductAdapter(this.activity, OnSuggestedProductClickListenerFactory2(this.mCallback!!))
+        this.adapter = ProductAdapter(this.activity, OnSuggestedProductClickListenerFactory(this.mCallback!!))
         listView.adapter = this.adapter
 
         val fab = view.findViewById(R.id.fab) as FloatingActionButton

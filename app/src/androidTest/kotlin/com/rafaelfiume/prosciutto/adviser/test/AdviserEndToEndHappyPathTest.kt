@@ -50,27 +50,30 @@ class AdviserEndToEndHappyPathTest {
 
     @Before
     fun primeExpertAdviceResponse() {
+        // TODO See issue #9 : Invoke this priming in the given section of the tests and make it return a Product for a better readability
         server.primeSuccessfulResponse("/salume/supplier/advise/for/Expert", supplierAdviceForExpertResponse())
     }
 
     @Test
-    fun appDisplaysSuggestedProductsWhenUserSelectsExpertProfileAndClicksOnSearchButton() {
-        // Given the user selected expert profile
+    fun appShowsProductDetails_WhenUserSelectsOneOfTheListedProducts() {
+        // Given the user selected a product
         onView(withId(expert_option)).perform(click())
         onView(withId(expert_option)).check(matches(ViewMatchers.isChecked()))
-
-        // When user clicks on search button
         onView(withId(R.id.fab)).perform(click())
 
-        //Then...
-        // Check list was loaded with two suggested products
-        onData(`is`(instanceOf<Any>(Product::class.java))).inAdapterView(withId(R.id.suggested_products_list)).atPosition(0).check(matches(allOf(
-                hasDescendant(withText(containsString("(Traditional Less Expensive) Salume"))),
-                hasDescendant(withText(containsString("EUR 41,60"))))))
-
+        // When the user selects the second listed product
         onData(`is`(instanceOf<Any>(Product::class.java))).inAdapterView(withId(R.id.suggested_products_list)).atPosition(1).check(matches(allOf(
                 hasDescendant(withText(containsString("(Traditional More Expensive) Premium"))),
-                hasDescendant(withText(containsString("EUR 73,23"))))))
+                hasDescendant(withText(containsString("EUR 73,23")))))).perform(click())
+
+        // Then the suggested product is...
+        onView(withId(R.id.p_detail_name)).check(matches(withText("(Traditional More Expensive) Premium")))
+        onView(withId(R.id.p_detail_price)).check(matches(withText("EUR 73,23")))
+        onView(withId(R.id.p_detail_reputation)).check(matches(withText("traditional")))
+        onView(withId(R.id.p_detail_fat)).check(matches(withText("38,00")))
+        onView(withId(R.id.description_label)).check(matches(withText(containsString("About the Chorizo Variety:"))))
+        // TODO See issue #9 : This is brittle since it depends on real content from production
+        onView(withId(R.id.p_detail_description)).check(matches(withText(containsString("Chorizo (chouriço in portoghese, chorizu in asturiano, chourizo in galiziano, xoriço in catalano)"))))
     }
 
 }

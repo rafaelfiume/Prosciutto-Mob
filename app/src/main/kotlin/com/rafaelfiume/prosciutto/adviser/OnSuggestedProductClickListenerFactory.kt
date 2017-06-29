@@ -1,13 +1,11 @@
 package com.rafaelfiume.prosciutto.adviser
 
-import android.app.Activity
 import android.view.View
-
 import com.rafaelfiume.prosciutto.adviser.domain.Product
 
-class OnSuggestedProductClickListenerFactory(private val callingActivity: Activity) {
+class OnSuggestedProductClickListenerFactory(private val mCallback: ChooseProfileAndProductFragment.OnProductSelectedListener) {
 
     fun newOnClickListenerFor(product: Product): View.OnClickListener {
-        return View.OnClickListener { ShowAdvisedProductDetailsActivity.navigate(callingActivity, product) }
+        return View.OnClickListener { mCallback.onFragmentInteraction(product) }
     }
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList
 open class ProductAdapter(
         context: Context,
         //private val factory: OnSuggestedProductClickListenerFactory
-        private val factory: OnSuggestedProductClickListenerFactory2
+        private val factory: OnSuggestedProductClickListenerFactory
 ) : ArrayAdapter<Product>(context, 0) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
