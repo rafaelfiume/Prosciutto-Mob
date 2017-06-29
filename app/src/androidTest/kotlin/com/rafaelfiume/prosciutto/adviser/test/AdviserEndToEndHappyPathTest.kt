@@ -1,5 +1,6 @@
 package com.rafaelfiume.prosciutto.adviser.test
 
+import android.support.test.espresso.Espresso.*
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.rule.ActivityTestRule
 
@@ -12,8 +13,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-import android.support.test.espresso.Espresso.onData
-import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.hasDescendant
@@ -74,6 +73,26 @@ class AdviserEndToEndHappyPathTest {
         onView(withId(R.id.description_label)).check(matches(withText(containsString("About the Chorizo Variety:"))))
         // TODO See issue #9 : This is brittle since it depends on real content from production
         onView(withId(R.id.p_detail_description)).check(matches(withText(containsString("Chorizo (chouriço in portoghese, chorizu in asturiano, chourizo in galiziano, xoriço in catalano)"))))
+    }
+
+    @Test
+    fun appShowsPreviousListOfProducts_WhenBackFromDetails() {
+        // Given the user selected a product
+        onView(withId(expert_option)).perform(click())
+        onView(withId(expert_option)).check(matches(ViewMatchers.isChecked()))
+        onView(withId(R.id.fab)).perform(click())
+        onData(`is`(instanceOf<Any>(Product::class.java))).inAdapterView(withId(R.id.suggested_products_list)).atPosition(1).check(matches(allOf(
+                hasDescendant(withText(containsString("(Traditional More Expensive) Premium"))),
+                hasDescendant(withText(containsString("EUR 73,23")))))).perform(click())
+
+        // When...
+        pressBack()
+        //onView(withId(R.id.fab)).perform(click())
+
+        // Then
+        onData(`is`(instanceOf<Any>(Product::class.java))).inAdapterView(withId(R.id.suggested_products_list)).atPosition(1).check(matches(allOf(
+                hasDescendant(withText(containsString("(Traditional More Expensive) Premium"))),
+                hasDescendant(withText(containsString("EUR 73,23"))))))
     }
 
 }

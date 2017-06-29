@@ -34,8 +34,8 @@ class ChooseProfileAndProductFragment : Fragment() {
     }
 
     private var mCallback: OnProductSelectedListener? = null
+    private var adapter: ProductAdapter? = null
     lateinit private var query: ProductAdviserQuery
-    lateinit private var adapter: ProductAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -53,7 +53,9 @@ class ChooseProfileAndProductFragment : Fragment() {
         toolbar.setTitle(R.string.main_toolbar_title)
 
         val listView = view.findViewById(R.id.suggested_products_list) as ListView
-        this.adapter = ProductAdapter(this.activity, OnSuggestedProductClickListenerFactory(this.mCallback!!))
+        if (this.adapter == null) {
+            this.adapter = ProductAdapter(this.activity, OnSuggestedProductClickListenerFactory(this.mCallback!!))
+        }
         listView.adapter = this.adapter
 
         val fab = view.findViewById(R.id.fab) as FloatingActionButton
@@ -74,14 +76,14 @@ class ChooseProfileAndProductFragment : Fragment() {
 
      override fun onSaveInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)
-        savedInstanceState.putParcelableArrayList(LIST_OF_RECOMMENDED_PRODUCTS, adapter.content())
+        savedInstanceState.putParcelableArrayList(LIST_OF_RECOMMENDED_PRODUCTS, adapter!!.content())
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) { // equivalent to Activity#onRestoreInstanceState
         super.onActivityCreated(savedInstanceState)
         val parcelable = savedInstanceState?.getParcelableArrayList<Product>(LIST_OF_RECOMMENDED_PRODUCTS)
         if (parcelable != null) {
-            this.adapter.addAll(parcelable)
+            this.adapter!!.addAll(parcelable)
         }
     }
 
@@ -146,11 +148,11 @@ class ChooseProfileAndProductFragment : Fragment() {
 
         private fun updateSuggestedProductsList(products: List<Product>) {
             cleanSuggestedProductsList()
-            adapter.addAll(products)
+            adapter!!.addAll(products)
         }
 
         private fun cleanSuggestedProductsList() {
-            adapter.clear()
+            adapter!!.clear()
         }
     }
 
