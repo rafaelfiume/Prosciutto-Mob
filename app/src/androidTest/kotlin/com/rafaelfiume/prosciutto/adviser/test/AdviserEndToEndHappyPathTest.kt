@@ -87,7 +87,6 @@ class AdviserEndToEndHappyPathTest {
 
         // When...
         pressBack()
-        //onView(withId(R.id.fab)).perform(click())
 
         // Then
         onData(`is`(instanceOf<Any>(Product::class.java))).inAdapterView(withId(R.id.suggested_products_list)).atPosition(1).check(matches(allOf(
