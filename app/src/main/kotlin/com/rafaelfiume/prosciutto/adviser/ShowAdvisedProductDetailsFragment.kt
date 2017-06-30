@@ -48,11 +48,6 @@ class ShowAdvisedProductDetailsFragment : Fragment() {
         val collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
         collapsingToolbarLayout.title = product.name
 
-        val toolbar = view.findViewById(R.id.toolbar) as Toolbar
-        val appCompatActivity = (activity!! as AppCompatActivity) // this smells like... smell
-        appCompatActivity.setSupportActionBar(toolbar)
-        //appCompatActivity.supportActionBar!!.setDisplayHomeAsUpEnabled(true) // TODO
-
         val imageView = view.findViewById(R.id.backdrop) as ImageView
         Glide.with(this).load(product.imageUrl).centerCrop().into(imageView)
 
