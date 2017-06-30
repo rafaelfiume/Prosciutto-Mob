@@ -7,4 +7,11 @@
     <string name="expert_option">Expert</string>
     <string name="gourmet_option">Gourmet</string>
     <string name="title_activity_show_advised_product_details">Product Description</string>
+    <string name="item_description">Description:</string>
+    <string name="item_name">Name:</string>
+    <string name="item_price">Price:</string>
+    <string name="item_reputation">Reputation:</string>
+    <string name="item_fat">Fat (%):</string>
+    <string name="item_source_of_info">(Source: Wikipedia)</string>
+    <string name="product_illustration">product illustration</string>
 </resources>

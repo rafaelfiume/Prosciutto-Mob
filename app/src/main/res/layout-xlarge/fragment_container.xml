@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:baselineAligned="false">
 
     <fragment
         android:id="@+id/fragment_choose_profile_and_product"
         android:name="com.rafaelfiume.prosciutto.adviser.ChooseProfileAndProductFragment"
-        android:layout_height="match_parent"
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         tools:layout="@layout/fragment_choose_profile_and_product" />
 
