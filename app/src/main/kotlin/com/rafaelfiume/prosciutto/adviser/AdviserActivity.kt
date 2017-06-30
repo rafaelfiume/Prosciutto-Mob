@@ -2,7 +2,6 @@ package com.rafaelfiume.prosciutto.adviser
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import com.rafaelfiume.prosciutto.adviser.domain.Product
@@ -27,7 +26,7 @@ class AdviserActivity : AppCompatActivity(), ChooseProfileAndProductFragment.OnP
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.show_products)
+        setContentView(R.layout.fragment_container)
 
         if (savedInstanceState != null) {
             return
