@@ -3,10 +3,6 @@ package com.rafaelfiume.prosciutto.adviser
 import android.support.v4.app.Fragment
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
-import android.support.design.widget.Snackbar.LENGTH_INDEFINITE
-import android.support.design.widget.Snackbar.LENGTH_LONG
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +14,6 @@ import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery
 import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.*
 import java.util.*
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 
 private const val LIST_OF_RECOMMENDED_PRODUCTS = "recommended_products"
 
@@ -33,33 +27,33 @@ class ChooseProfileAndProductFragment : Fragment() {
         fun onFragmentInteraction(product: Product)
     }
 
-    private var mCallback: OnProductSelectedListener? = null
+    interface OnFetchingProductsListener {
+        fun onStarted()
+        fun onCompleted()
+        fun onFailure()
+    }
+
+    private var productSelectedListener: OnProductSelectedListener? = null
+    private var fetchingProductsListener: OnFetchingProductsListener? = null
     private var adapter: ProductAdapter? = null
     lateinit private var query: ProductAdviserQuery
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        ensureContainerActivityHasImplementedCallbackInterface(context)
+        // TODO 05/07/2017 : Issue #11 : move this two ugly checks to a unit test
+        ensureActivityHasImplementedProductSelectListenerInterface(context)
+        ensureActivityHasImplementedFetchingProductsListenerInterface(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_choose_profile_and_product, container, false)
 
-        // TODO Only if in dual pane mode
-        val toolbar = view.findViewById(R.id.main_toolbar) as Toolbar
-        val appCompatActivity = (activity!! as AppCompatActivity) // this smells like... smell
-        appCompatActivity.setSupportActionBar(toolbar)
-        toolbar.setTitle(R.string.main_toolbar_title)
-
         val listView = view.findViewById(R.id.suggested_products_list) as ListView
         if (this.adapter == null) {
-            this.adapter = ProductAdapter(this.activity, OnSuggestedProductClickListenerFactory(this.mCallback!!))
+            this.adapter = ProductAdapter(this.activity, OnSuggestedProductClickListenerFactory(this.productSelectedListener!!))
         }
         listView.adapter = this.adapter
-
-        val fab = view.findViewById(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener { GetProductAdvice(view).execute() }
 
         val profileOptions = view.findViewById(R.id.profile_options) as RadioGroup
         profileOptions.setOnCheckedChangeListener { _, checkedId ->
@@ -89,14 +83,26 @@ class ChooseProfileAndProductFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        mCallback = null
+        productSelectedListener = null
+        fetchingProductsListener = null
     }
 
-    private fun ensureContainerActivityHasImplementedCallbackInterface(context: Context) {
+    fun fetchSalumes() {
+        GetProductAdvice(fetchingProductsListener).execute()
+    }
+
+    private fun ensureActivityHasImplementedProductSelectListenerInterface(context: Context) {
         try {
-            mCallback = context as OnProductSelectedListener
+            productSelectedListener = context as OnProductSelectedListener
         } catch (e: ClassCastException) {
             throw ClassCastException(context.toString() + " must implement OnProductSelectedListener")
+        }
+    }
+    private fun ensureActivityHasImplementedFetchingProductsListenerInterface(context: Context) {
+        try {
+            fetchingProductsListener = context as OnFetchingProductsListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException(context.toString() + " must implement OnFetchingProductsListener")
         }
     }
 
@@ -106,25 +112,13 @@ class ChooseProfileAndProductFragment : Fragment() {
         this.query = MAGIC
     }
 
-    internal inner class GetProductAdvice(view: View) : AsyncTask<Void, Void, List<Product>>() {
-
-        private val requestingAdviceMessage: Snackbar
-        private val failedMessage: Snackbar
+    inner class GetProductAdvice(val fetchingProductsListener: OnFetchingProductsListener?) : AsyncTask<Void, Void, List<Product>>() {
 
         private var taskFailed = false
 
-        init {
-            this.requestingAdviceMessage = Snackbar
-                    .make(view.findViewById(R.id.fab), "Asking for advice...", LENGTH_INDEFINITE)
-
-            this.failedMessage = Snackbar
-                    .make(view.findViewById(R.id.fab), "Failed", LENGTH_LONG)
-                    .setAction("Retry") { GetProductAdvice(view).execute() }
-        }
-
         override fun onPreExecute() {
             cleanSuggestedProductsList()
-            requestingAdviceMessage.show()
+            fetchingProductsListener!!.onStarted()
         }
 
         override fun doInBackground(vararg nothing: Void): List<Product> {
@@ -132,17 +126,17 @@ class ChooseProfileAndProductFragment : Fragment() {
                 return query.suggestedProducts()
 
             } catch (e: Exception) {
-                Log.e(AdviserActivity::class.java.name, "error when querying salume supplier", e)
+                Log.e("CHOOSE_PROF_PROD_FRAG", "error when querying salume supplier", e)
                 this.taskFailed = true
                 return ArrayList()
             }
         }
 
         override fun onPostExecute(products: List<Product>) {
-            requestingAdviceMessage.dismiss()
+            fetchingProductsListener?.onCompleted()
             updateSuggestedProductsList(products)
             if (taskFailed) {
-                failedMessage.show()
+                fetchingProductsListener?.onFailure()
             }
         }
 
