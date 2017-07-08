@@ -21,7 +21,17 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </android.support.design.widget.AppBarLayout>
 
-   <include layout="@layout/content_choose_profile_and_product" />
+    <RelativeLayout
+        android:id="@+id/choose_root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_between_content_areas"
+        android:layout_marginStart="@dimen/screen_edge_horizontal_margins_mobile"
+        android:layout_marginEnd="@dimen/screen_edge_horizontal_margins_mobile"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <include layout="@layout/content_choose_profile_and_product" />
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
