@@ -14,14 +14,24 @@ import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery
 import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.*
 import java.util.*
 import android.content.Context
+import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 
 private const val LIST_OF_RECOMMENDED_PRODUCTS = "recommended_products"
 
 /**
- * Use the [ChooseProfileAndProductFragment.newInstance] factory method to
+ * Use the [ChooseProfileAndProductFragment.newInstanceForSinglePaneMode] factory method to
  * create an instance of this fragment.
  */
-class ChooseProfileAndProductFragment : Fragment() {
+class ChooseProfileAndProductFragment() : Fragment() {
+
+    private var paneMode: PaneMode = PaneMode(single = false)
+
+    constructor(paneMode: PaneMode) : this() {
+        this.paneMode = paneMode
+    }
 
     interface OnProductSelectedListener {
         fun onFragmentInteraction(product: Product)
@@ -68,16 +78,32 @@ class ChooseProfileAndProductFragment : Fragment() {
         return view
     }
 
-     override fun onSaveInstanceState(savedInstanceState: Bundle) {
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)
+        savedInstanceState.putParcelable("pane_mode", paneMode)
         savedInstanceState.putParcelableArrayList(LIST_OF_RECOMMENDED_PRODUCTS, adapter!!.content())
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) { // equivalent to Activity#onRestoreInstanceState
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val parcelable = savedInstanceState?.getParcelableArrayList<Product>(LIST_OF_RECOMMENDED_PRODUCTS)
-        if (parcelable != null) {
-            this.adapter!!.addAll(parcelable)
+        val savedListOfProducts = savedInstanceState?.getParcelableArrayList<Product>(LIST_OF_RECOMMENDED_PRODUCTS)
+        if (savedListOfProducts != null) {
+            this.adapter!!.addAll(savedListOfProducts)
+        }
+        val paneMode = savedInstanceState?.getParcelable<PaneMode>("pane_mode")
+        if (paneMode != null) {
+            this.paneMode = paneMode
+        }
+
+        // adjustSinglePaneModeLayout
+        if (this.paneMode.single) {
+            val toolbar = view!!.findViewById(R.id.main_toolbar) as Toolbar
+            val appCompatActivity = (activity!! as AppCompatActivity) // this smells like... smell
+            appCompatActivity.setSupportActionBar(toolbar)
+            toolbar.setTitle(R.string.main_toolbar_title)
+
+            val fab = view!!.findViewById(R.id.fab) as FloatingActionButton
+            fab.setOnClickListener { fetchSalumes() }
         }
     }
 
@@ -98,6 +124,7 @@ class ChooseProfileAndProductFragment : Fragment() {
             throw ClassCastException(context.toString() + " must implement OnProductSelectedListener")
         }
     }
+
     private fun ensureActivityHasImplementedFetchingProductsListenerInterface(context: Context) {
         try {
             fetchingProductsListener = context as OnFetchingProductsListener
@@ -116,9 +143,27 @@ class ChooseProfileAndProductFragment : Fragment() {
 
         private var taskFailed = false
 
+        private val requestingAdviceMessage: Snackbar?
+        private val failedMessage: Snackbar?
+
+        init {
+            // initialise sanackbars if in single pane mode
+            if (paneMode.single) {
+                this.requestingAdviceMessage =
+                        Snackbar.make(view!!.findViewById(R.id.coordinator_layout), "Asking for advice...", Snackbar.LENGTH_INDEFINITE)
+                this.failedMessage = Snackbar
+                        .make(view!!.findViewById(R.id.coordinator_layout), "Failed", Snackbar.LENGTH_LONG)
+                        .setAction("Retry") { fetchSalumes() }
+            }
+            else {
+                this.requestingAdviceMessage = null
+                this.failedMessage = null
+            }
+        }
+
         override fun onPreExecute() {
             cleanSuggestedProductsList()
-            fetchingProductsListener!!.onStarted()
+            if (paneMode.single) requestingAdviceMessage!!.show() else fetchingProductsListener?.onStarted()
         }
 
         override fun doInBackground(vararg nothing: Void): List<Product> {
@@ -133,10 +178,10 @@ class ChooseProfileAndProductFragment : Fragment() {
         }
 
         override fun onPostExecute(products: List<Product>) {
-            fetchingProductsListener?.onCompleted()
+            if (paneMode.single) requestingAdviceMessage!!.dismiss() else fetchingProductsListener?.onCompleted()
             updateSuggestedProductsList(products)
             if (taskFailed) {
-                fetchingProductsListener?.onFailure()
+                if (paneMode.single) failedMessage!!.show() else fetchingProductsListener?.onFailure()
             }
         }
 
@@ -152,6 +197,6 @@ class ChooseProfileAndProductFragment : Fragment() {
 
     companion object {
 
-        fun newInstance() = ChooseProfileAndProductFragment()
+        fun newInstanceForSinglePaneMode() = ChooseProfileAndProductFragment(PaneMode(single = true))
     }
 }

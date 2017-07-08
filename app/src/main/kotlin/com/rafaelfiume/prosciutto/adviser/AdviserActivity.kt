@@ -32,44 +32,39 @@ class AdviserActivity : AppCompatActivity(), OnProductSelectedListener, OnFetchi
         }
     }
 
-    override fun onStarted()   { requestingAdviceMessage!!.show()    }
-    override fun onCompleted() { requestingAdviceMessage!!.dismiss() }
-    override fun onFailure()   { failedMessage!!.show()              }
+    override fun onStarted()   { requestingAdviceMessage?.show()    }
+    override fun onCompleted() { requestingAdviceMessage?.dismiss() }
+    override fun onFailure()   { failedMessage?.show()              }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_container)
 
-        val toolbar = findViewById(R.id.main_toolbar) as Toolbar
-        this.setSupportActionBar(toolbar)
-        toolbar.setTitle(R.string.main_toolbar_title)
-
-        val fab = findViewById(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener { FetchSalumesAction().perform() }
-
-        this.requestingAdviceMessage = Snackbar
-                .make(findViewById(R.id.coordinator_layout), "Asking for advice...", Snackbar.LENGTH_INDEFINITE)
-
-        this.failedMessage = Snackbar
-                .make(findViewById(R.id.coordinator_layout), "Failed", Snackbar.LENGTH_LONG)
-                .setAction("Retry") { FetchSalumesAction().perform() }
-
-        // However, if we're being restored from a previous state,
-        // then we don't need to do anything or else we could end up with overlapping fragments.
-        if (savedInstanceState != null) {
-            return
-        }
-
         if (findViewById(R.id.fragment_container) != null) { // Check to see it we are in a small screen
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything or else we could end up with overlapping fragments.
+            if (savedInstanceState != null) {
+                return
+            }
             supportFragmentManager
                     .beginTransaction()
-                        .add(R.id.fragment_container, ChooseProfileAndProductFragment.newInstance(), "CHOOSE_PROF_PROD_FRAG")
+                        .add(R.id.fragment_container, ChooseProfileAndProductFragment.newInstanceForSinglePaneMode(), "CHOOSE_PROF_PROD_FRAG")
                     .commit()
 
-        } else { // TODO Configure the toolbar ONLY if in dual pane mode
-            //val toolbar = findViewById(R.id.main_toolbar) as Toolbar
-            //setSupportActionBar(toolbar)
-            //setTitle(R.string.main_toolbar_title)
+        } else { // Configure the toolbar and other stuff ONLY if in dual pane mode
+            val toolbar = findViewById(R.id.main_toolbar) as Toolbar
+            this.setSupportActionBar(toolbar)
+            toolbar.setTitle(R.string.main_toolbar_title)
+
+            val fab = findViewById(R.id.fab) as FloatingActionButton
+            fab.setOnClickListener { FetchSalumesAction().perform() }
+
+            this.requestingAdviceMessage = Snackbar
+                    .make(findViewById(R.id.coordinator_layout), "Asking for advice...", Snackbar.LENGTH_INDEFINITE)
+
+            this.failedMessage = Snackbar
+                    .make(findViewById(R.id.coordinator_layout), "Failed", Snackbar.LENGTH_LONG)
+                    .setAction("Retry") { FetchSalumesAction().perform() }
         }
     }
 
