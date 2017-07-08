@@ -4,15 +4,17 @@ This [post](https://rafaelfiume.com/2013/04/07/dragons-unicorns-and-titans-an-ag
 
 Select a customer profile to see a list of suggested products for him/her. 
 
- ![app](docs/image/choose-profile.png) ![app](docs/image/list-of-products.png)
+ ![app](docs/images/choose-profile.png) ![app](docs/images/list-of-products.png)
 
 Click in one of the listed products to know more about it. 
 
- ![app](docs/image/prod-desc-expanded.png) ![app](docs/image/prod-desc-collapsed.png) 
+ ![app](docs/images/prod-desc-expanded.png) ![app](docs/images/prod-desc-collapsed.png) 
 
-Images and content in the "About Variety" section are retrieved from Wikipedia.  
+Two pane layout when in large screens.
  
- ![app](docs/image/prod-desc-expanded-hor.png)
+ ![app](docs/images/prosciutto-tablet.png)
+ 
+ 
 
 ## Most Interesting Things Happening Here...
 
