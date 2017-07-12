@@ -19,8 +19,8 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="@dimen/activity_horizontal_margin"
-            app:expandedTitleMarginEnd="@dimen/activity_horizontal_margin"
+            app:expandedTitleMarginStart="@dimen/screen_edge_horizontal_margins_mobile"
+            app:expandedTitleMarginEnd="@dimen/screen_edge_horizontal_margins_mobile"
             android:fitsSystemWindows="true">
             <ImageView
                 android:id="@+id/backdrop"

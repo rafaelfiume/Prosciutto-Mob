@@ -2,8 +2,13 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/choose_root_layout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
-    <include layout="@layout/content_choose_profile_and_product" />
+    <include layout="@layout/content_choose_profile_and_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_between_content_areas"
+        android:layout_marginStart="@dimen/screen_edge_horizontal_margins_tablet"
+        android:layout_marginEnd="@dimen/space_between_content_areas"/>
 </FrameLayout>

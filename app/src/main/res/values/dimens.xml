@@ -2,9 +2,8 @@
     <!-- Source: https://material.io/guidelines/layout/metrics-keylines.html#metrics-keylines-keylines-spacing -->
 
     <!-- Mobile -->
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="screen_edge_horizontal_margins_mobile">16dp</dimen>
+    <dimen name="screen_edge_horizontal_margins_mobile">8dp</dimen> <!-- Material design recommends 16 dp, but 8dp is looking better (maybe due to card views?) -->
+    <dimen name="edge_from_card_view_mobile">4dp</dimen>
 
     <!-- General -->
     <dimen name="space_between_content_areas">8dp</dimen>
@@ -13,5 +12,5 @@
     <dimen name="detail_backdrop_height">256dp</dimen>
 
     <!-- Tablets -->
-    <dimen name="screen_edge_horizontal_margins_tablet">24dp</dimen>
+    <dimen name="screen_edge_horizontal_margins_tablet">12dp</dimen> <!-- Material design recommends 24 dp, but 12dp is looking better (maybe due to card views?) -->
 </resources>

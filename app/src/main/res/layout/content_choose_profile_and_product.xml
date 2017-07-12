@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<merge>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/choose_root_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:layout_height="wrap_content">
 
     <RadioGroup
         android:id="@+id/profile_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <RadioButton
             android:id="@+id/magic_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/magic_option" />
-
         <RadioButton
             android:id="@+id/healthy_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/healthy_option" />
-
         <RadioButton
             android:id="@+id/expert_option"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/expert_option" />
-
         <RadioButton
             android:id="@+id/gourmet_option"
             android:layout_width="match_parent"
@@ -44,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/profile_options"
-        android:paddingTop="@dimen/space_between_content_areas" />
+        android:paddingTop="@dimen/space_between_content_areas"
+        android:paddingStart="@dimen/screen_edge_horizontal_margins_mobile"/>
 
 </RelativeLayout>
-</merge>
