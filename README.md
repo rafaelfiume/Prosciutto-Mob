@@ -14,9 +14,9 @@ Two pane layout when in large screens.
  
  ![app](docs/images/prosciutto-tablet.png)
  
- 
+(Source of images and content in the 'About' section: [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Contributing_to_Wikipedia) )
 
-## Most Interesting Things Happening Here...
+## A Few Other Interesting Things Happening Here...
 
 * Written in Kotlin :)
 * It consumes a [microservice](https://github.com/rafaelfiume/Salume) deployed into Heroku
