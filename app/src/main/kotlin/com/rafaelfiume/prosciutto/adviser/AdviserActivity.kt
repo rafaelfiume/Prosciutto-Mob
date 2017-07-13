@@ -12,11 +12,10 @@ import com.rafaelfiume.prosciutto.adviser.domain.Product
 
 class AdviserActivity : AppCompatActivity(), OnProductSelectedListener {
 
-    private lateinit var  chooseFragmentTag: String
+    private lateinit var chooseFragmentTag: String
+    private lateinit var listener: OnFetchingContentListener
 
-    private var listener: OnFetchingContentListener? = null
-
-    override fun onFragmentInteraction(product: Product) {
+    override fun onSelected(product: Product) {
         val isLargeScreen = whenInLargeScreenShowDetailsOf(product)
 
         if (!isLargeScreen) {
@@ -102,7 +101,7 @@ class AdviserActivity : AppCompatActivity(), OnProductSelectedListener {
         fab.setOnClickListener { FetchSalumesAction().perform() }
 
         val snackbarView = findViewById(R.id.coordinator_layout)
-        this.listener = OnFetchingProductListener(snackbarView, View.OnClickListener { FetchSalumesAction().perform() })
+        this.listener = OnFetchingContentListener(snackbarView, View.OnClickListener { FetchSalumesAction().perform() })
     }
 
     inner class FetchSalumesAction {

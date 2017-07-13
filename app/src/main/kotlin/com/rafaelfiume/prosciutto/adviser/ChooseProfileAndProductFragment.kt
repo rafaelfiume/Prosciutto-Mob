@@ -28,7 +28,7 @@ private const val LIST_OF_RECOMMENDED_PRODUCTS = "recommended_products"
 class ChooseProfileAndProductFragment() : Fragment() {
 
     interface OnProductSelectedListener {
-        fun onFragmentInteraction(product: Product)
+        fun onSelected(product: Product)
     }
 
     private lateinit var chooseFragmentTag: String
@@ -44,7 +44,7 @@ class ChooseProfileAndProductFragment() : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        setUpProductSelectListener(context)
+        setUpProductSelectedListener(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -107,10 +107,10 @@ class ChooseProfileAndProductFragment() : Fragment() {
     }
 
     fun fetchSalumes() {
-        GetProductAdvice(fetchingProductsCallback()).execute()
+        GetProductAdvice(getOnFetchContentListener()).execute()
     }
 
-    private fun setUpProductSelectListener(context: Context) {
+    private fun setUpProductSelectedListener(context: Context) {
         this.productSelectedListener =
                 context as? OnProductSelectedListener
                         ?: throw ClassCastException(context.toString() + " must implement OnProductSelectedListener")
@@ -122,10 +122,10 @@ class ChooseProfileAndProductFragment() : Fragment() {
         this.query = MAGIC
     }
 
-    private fun fetchingProductsCallback(): OnFetchingContentListener {
+    private fun getOnFetchContentListener(): OnFetchingContentListener {
         if (paneMode.single) { // small screen
             val snackbarView = view!!.findViewById(R.id.coordinator_layout)
-            return OnFetchingProductListener(snackbarView, OnClickListener { fetchSalumes() })
+            return OnFetchingContentListener(snackbarView, OnClickListener { fetchSalumes() })
 
         } else {
             return (context as? AdviserActivity)?.listener()
@@ -133,13 +133,13 @@ class ChooseProfileAndProductFragment() : Fragment() {
         }
     }
 
-    inner class GetProductAdvice(val fetchingProductsListener: OnFetchingContentListener) : AsyncTask<Void, Void, List<Product>>() {
+    inner class GetProductAdvice(val listener: OnFetchingContentListener) : AsyncTask<Void, Void, List<Product>>() {
 
         private var taskFailed = false
 
         override fun onPreExecute() {
             cleanSuggestedProductsList()
-            fetchingProductsListener.onStarted()
+            listener.onStarted()
         }
 
         override fun doInBackground(vararg nothing: Void): List<Product> = try {
@@ -152,11 +152,11 @@ class ChooseProfileAndProductFragment() : Fragment() {
         }
 
         override fun onPostExecute(products: List<Product>) {
-            fetchingProductsListener.onCompleted()
+            listener.onCompleted()
             updateSuggestedProductsList(products)
 
             if (taskFailed) {
-                fetchingProductsListener.onFailure()
+                listener.onFailure()
             }
         }
 
