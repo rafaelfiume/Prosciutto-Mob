@@ -1,4 +1,8 @@
 <resources>
+
+    <string name="tag_choose_fragment">CHOOSE_PROF_PROD_FRAG</string>
+
+    <!-- Labels -->
     <string name="app_name">Prosciutto</string>
     <string name="main_toolbar_title">Choose a Customer Profile</string>
     <string name="action_settings">Settings</string>

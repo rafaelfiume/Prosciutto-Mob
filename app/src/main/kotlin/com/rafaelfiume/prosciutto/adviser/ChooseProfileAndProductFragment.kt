@@ -15,49 +15,42 @@ import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.*
 import java.util.*
 import android.content.Context
 import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.View.OnClickListener
 
 private const val LIST_OF_RECOMMENDED_PRODUCTS = "recommended_products"
 
 /**
- * Use the [ChooseProfileAndProductFragment.newInstanceForSinglePaneMode] factory method to
+ * Use the [ChooseProfileAndProductFragment.newInstanceForSmallScreen] factory method to
  * create an instance of this fragment.
  */
 class ChooseProfileAndProductFragment() : Fragment() {
-
-    private var paneMode: PaneMode = PaneMode(single = false)
-
-    constructor(paneMode: PaneMode) : this() {
-        this.paneMode = paneMode
-    }
 
     interface OnProductSelectedListener {
         fun onFragmentInteraction(product: Product)
     }
 
-    interface OnFetchingProductsListener {
-        fun onStarted()
-        fun onCompleted()
-        fun onFailure()
-    }
-
+    private lateinit var chooseFragmentTag: String
+    private var paneMode: PaneMode = PaneMode(single = false)
     private var productSelectedListener: OnProductSelectedListener? = null
-    private var fetchingProductsListener: OnFetchingProductsListener? = null
     private var adapter: ProductAdapter? = null
-    lateinit private var query: ProductAdviserQuery
+    private lateinit var query: ProductAdviserQuery
+
+    constructor(paneMode: PaneMode) : this() {
+        this.paneMode = paneMode
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        // TODO 05/07/2017 : Issue #11 : move this two ugly checks to a unit test
-        ensureActivityHasImplementedProductSelectListenerInterface(context)
-        ensureActivityHasImplementedFetchingProductsListenerInterface(context)
+        setUpProductSelectListener(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_choose_profile_and_product, container, false)
+
+        this.chooseFragmentTag = resources.getString(R.string.tag_choose_fragment)
 
         val listView = view.findViewById(R.id.suggested_products_list) as ListView
         if (this.adapter == null) {
@@ -75,6 +68,7 @@ class ChooseProfileAndProductFragment() : Fragment() {
             }
         }
         setMagicOptionSelectedByDefault(view)
+
         return view
     }
 
@@ -110,27 +104,16 @@ class ChooseProfileAndProductFragment() : Fragment() {
     override fun onDetach() {
         super.onDetach()
         productSelectedListener = null
-        fetchingProductsListener = null
     }
 
     fun fetchSalumes() {
-        GetProductAdvice(fetchingProductsListener).execute()
+        GetProductAdvice(fetchingProductsCallback()).execute()
     }
 
-    private fun ensureActivityHasImplementedProductSelectListenerInterface(context: Context) {
-        try {
-            productSelectedListener = context as OnProductSelectedListener
-        } catch (e: ClassCastException) {
-            throw ClassCastException(context.toString() + " must implement OnProductSelectedListener")
-        }
-    }
-
-    private fun ensureActivityHasImplementedFetchingProductsListenerInterface(context: Context) {
-        try {
-            fetchingProductsListener = context as OnFetchingProductsListener
-        } catch (e: ClassCastException) {
-            throw ClassCastException(context.toString() + " must implement OnFetchingProductsListener")
-        }
+    private fun setUpProductSelectListener(context: Context) {
+        this.productSelectedListener =
+                context as? OnProductSelectedListener
+                        ?: throw ClassCastException(context.toString() + " must implement OnProductSelectedListener")
     }
 
     private fun setMagicOptionSelectedByDefault(v: View) {
@@ -139,49 +122,41 @@ class ChooseProfileAndProductFragment() : Fragment() {
         this.query = MAGIC
     }
 
-    inner class GetProductAdvice(val fetchingProductsListener: OnFetchingProductsListener?) : AsyncTask<Void, Void, List<Product>>() {
+    private fun fetchingProductsCallback(): OnFetchingContentListener {
+        if (paneMode.single) { // small screen
+            val snackbarView = view!!.findViewById(R.id.coordinator_layout)
+            return OnFetchingProductListener(snackbarView, OnClickListener { fetchSalumes() })
+
+        } else {
+            return (context as? AdviserActivity)?.listener()
+                    ?: throw ClassCastException(context.toString() + " must implement OnFetchingContentListener")
+        }
+    }
+
+    inner class GetProductAdvice(val fetchingProductsListener: OnFetchingContentListener) : AsyncTask<Void, Void, List<Product>>() {
 
         private var taskFailed = false
 
-        private val requestingAdviceMessage: Snackbar?
-        private val failedMessage: Snackbar?
-
-        init {
-            // initialise sanackbars if in single pane mode
-            if (paneMode.single) {
-                this.requestingAdviceMessage =
-                        Snackbar.make(view!!.findViewById(R.id.coordinator_layout), "Asking for advice...", Snackbar.LENGTH_INDEFINITE)
-                this.failedMessage = Snackbar
-                        .make(view!!.findViewById(R.id.coordinator_layout), "Failed", Snackbar.LENGTH_LONG)
-                        .setAction("Retry") { fetchSalumes() }
-            }
-            else {
-                this.requestingAdviceMessage = null
-                this.failedMessage = null
-            }
-        }
-
         override fun onPreExecute() {
             cleanSuggestedProductsList()
-            if (paneMode.single) requestingAdviceMessage!!.show() else fetchingProductsListener?.onStarted()
+            fetchingProductsListener.onStarted()
         }
 
-        override fun doInBackground(vararg nothing: Void): List<Product> {
-            try {
-                return query.suggestedProducts()
+        override fun doInBackground(vararg nothing: Void): List<Product> = try {
+            query.suggestedProducts()
 
-            } catch (e: Exception) {
-                Log.e("CHOOSE_PROF_PROD_FRAG", "error when querying salume supplier", e)
-                this.taskFailed = true
-                return ArrayList()
-            }
+        } catch (e: Exception) {
+            Log.e(chooseFragmentTag, "error when querying salume supplier", e)
+            this.taskFailed = true
+            ArrayList()
         }
 
         override fun onPostExecute(products: List<Product>) {
-            if (paneMode.single) requestingAdviceMessage!!.dismiss() else fetchingProductsListener?.onCompleted()
+            fetchingProductsListener.onCompleted()
             updateSuggestedProductsList(products)
+
             if (taskFailed) {
-                if (paneMode.single) failedMessage!!.show() else fetchingProductsListener?.onFailure()
+                fetchingProductsListener.onFailure()
             }
         }
 
@@ -197,6 +172,6 @@ class ChooseProfileAndProductFragment() : Fragment() {
 
     companion object {
 
-        fun newInstanceForSinglePaneMode() = ChooseProfileAndProductFragment(PaneMode(single = true))
+        fun newInstanceForSmallScreen() = ChooseProfileAndProductFragment(PaneMode(single = true))
     }
 }

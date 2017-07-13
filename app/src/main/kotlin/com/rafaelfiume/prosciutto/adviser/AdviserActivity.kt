@@ -2,71 +2,48 @@ package com.rafaelfiume.prosciutto.adviser
 
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import com.rafaelfiume.prosciutto.adviser.ChooseProfileAndProductFragment.OnFetchingProductsListener
+import android.view.View
 import com.rafaelfiume.prosciutto.adviser.ChooseProfileAndProductFragment.OnProductSelectedListener
 import com.rafaelfiume.prosciutto.adviser.domain.Product
 
-class AdviserActivity : AppCompatActivity(), OnProductSelectedListener, OnFetchingProductsListener {
+class AdviserActivity : AppCompatActivity(), OnProductSelectedListener {
 
-    private var requestingAdviceMessage: Snackbar? = null
-    private var failedMessage: Snackbar? = null
+    private lateinit var  chooseFragmentTag: String
+
+    private var listener: OnFetchingContentListener? = null
 
     override fun onFragmentInteraction(product: Product) {
-        val showDetailsFrag = supportFragmentManager.findFragmentById(R.id.fragment_show_advised_product_details)
+        val isLargeScreen = whenInLargeScreenShowDetailsOf(product)
 
-        if (showDetailsFrag is ShowAdvisedProductDetailsFragment) { // If article frag is available, we're in two-pane layout...
-            showDetailsFrag.updateProduct(product)
-
-        } else { // Here we're in the one-pane layout and must swap frags...
-            val newFragment = ShowAdvisedProductDetailsFragment.newInstance(product)
-            supportFragmentManager
-                    .beginTransaction()
-                        .replace(R.id.fragment_container, newFragment)
-                    .addToBackStack(null)
-                    .commit()
+        if (!isLargeScreen) {
+            goToDetailsScreenAndShow(product)
         }
     }
-
-    override fun onStarted()   { requestingAdviceMessage?.show()    }
-    override fun onCompleted() { requestingAdviceMessage?.dismiss() }
-    override fun onFailure()   { failedMessage?.show()              }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_container)
 
-        if (findViewById(R.id.fragment_container) != null) { // Check to see it we are in a small screen
-            // However, if we're being restored from a previous state,
-            // then we don't need to do anything or else we could end up with overlapping fragments.
-            if (savedInstanceState != null) {
-                return
+        this.chooseFragmentTag = resources.getString(R.string.tag_choose_fragment)
+
+        if (isSmallScreen()) {
+            if (areWeBeingRestoredFromPrevious(savedInstanceState)) {
+                return // do nothing or else we could end up with overlapping fragments
             }
-            supportFragmentManager
-                    .beginTransaction()
-                        .add(R.id.fragment_container, ChooseProfileAndProductFragment.newInstanceForSinglePaneMode(), "CHOOSE_PROF_PROD_FRAG")
-                    .commit()
+            showChooseProfileAndProductScreen()
 
-        } else { // Configure the toolbar and other stuff ONLY if in dual pane mode
-            val toolbar = findViewById(R.id.main_toolbar) as Toolbar
-            this.setSupportActionBar(toolbar)
-            toolbar.setTitle(R.string.main_toolbar_title)
-
-            val fab = findViewById(R.id.fab) as FloatingActionButton
-            fab.setOnClickListener { FetchSalumesAction().perform() }
-
-            this.requestingAdviceMessage = Snackbar
-                    .make(findViewById(R.id.coordinator_layout), "Asking for advice...", Snackbar.LENGTH_INDEFINITE)
-
-            this.failedMessage = Snackbar
-                    .make(findViewById(R.id.coordinator_layout), "Failed", Snackbar.LENGTH_LONG)
-                    .setAction("Retry") { FetchSalumesAction().perform() }
+        } else { // large screen
+            configureLargeScreenLayout()
         }
     }
+
+    private fun areWeBeingRestoredFromPrevious(savedInstanceState: Bundle?) = savedInstanceState != null
+
+    private fun isSmallScreen() = findViewById(R.id.fragment_container) != null
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -88,9 +65,49 @@ class AdviserActivity : AppCompatActivity(), OnProductSelectedListener, OnFetchi
         return super.onOptionsItemSelected(item)
     }
 
+    fun listener() = this.listener
+
+    private fun whenInLargeScreenShowDetailsOf(product: Product): Boolean {
+        val showDetailsFrag = supportFragmentManager.findFragmentById(R.id.fragment_show_advised_product_details)
+        if (showDetailsFrag is ShowAdvisedProductDetailsFragment) { // If frag is available, we're in two-pane layout...
+            showDetailsFrag.updateProduct(product)
+            return true
+        }
+        return false
+    }
+
+    private fun goToDetailsScreenAndShow(product: Product) {
+        val newFragment = ShowAdvisedProductDetailsFragment.newInstance(product)
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, newFragment)
+                .addToBackStack(null)
+                .commit()
+    }
+
+    private fun showChooseProfileAndProductScreen() {
+        val fragment = ChooseProfileAndProductFragment.newInstanceForSmallScreen()
+        supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container, fragment, chooseFragmentTag)
+                .commit()
+    }
+
+    private fun configureLargeScreenLayout() {
+        val toolbar = findViewById(R.id.main_toolbar) as Toolbar
+        this.setSupportActionBar(toolbar)
+        toolbar.setTitle(R.string.main_toolbar_title)
+
+        val fab = findViewById(R.id.fab) as FloatingActionButton
+        fab.setOnClickListener { FetchSalumesAction().perform() }
+
+        val snackbarView = findViewById(R.id.coordinator_layout)
+        this.listener = OnFetchingProductListener(snackbarView, View.OnClickListener { FetchSalumesAction().perform() })
+    }
+
     inner class FetchSalumesAction {
         fun perform() {
-            val frag = supportFragmentManager.findFragmentByTag("CHOOSE_PROF_PROD_FRAG") as ChooseProfileAndProductFragment
+            val frag = supportFragmentManager.findFragmentByTag(chooseFragmentTag) as ChooseProfileAndProductFragment
             frag.fetchSalumes()
         }
 

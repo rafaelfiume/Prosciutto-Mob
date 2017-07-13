@@ -30,7 +30,7 @@
 
         <fragment
             android:id="@+id/fragment_choose_profile_and_product"
-            android:tag="CHOOSE_PROF_PROD_FRAG"
+            android:tag="@string/tag_choose_fragment"
             android:name="com.rafaelfiume.prosciutto.adviser.ChooseProfileAndProductFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
