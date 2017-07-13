@@ -9,9 +9,9 @@ import java.util.ArrayList
 
 import javax.xml.xpath.XPathExpressionException
 
-import com.rafaelfiume.prosciutto.adviser.util.Xml.getValueFrom
-import com.rafaelfiume.prosciutto.adviser.util.Xml.xmlFrom
-import com.rafaelfiume.prosciutto.adviser.util.Xml.xpath
+import com.rafaelfiume.prosciutto.adviser.xml.Xml.getValueFrom
+import com.rafaelfiume.prosciutto.adviser.xml.Xml.xmlFrom
+import com.rafaelfiume.prosciutto.adviser.xml.Xml.xpath
 import javax.xml.xpath.XPathConstants.NODESET
 
 class ProductAdviserParser {

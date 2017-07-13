@@ -4,8 +4,8 @@ import android.util.Log
 
 import com.rafaelfiume.prosciutto.adviser.domain.ProductDescription
 
-import com.rafaelfiume.prosciutto.adviser.util.Xml.getValueFrom
-import com.rafaelfiume.prosciutto.adviser.util.Xml.xmlFrom
+import com.rafaelfiume.prosciutto.adviser.xml.Xml.getValueFrom
+import com.rafaelfiume.prosciutto.adviser.xml.Xml.xmlFrom
 
 class ProductDescriptionParser {
 

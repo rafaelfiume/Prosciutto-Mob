@@ -1,4 +1,4 @@
-package com.rafaelfiume.prosciutto.adviser.util
+package com.rafaelfiume.prosciutto.adviser.xml
 
 import org.w3c.dom.Document
 import org.w3c.dom.Node
