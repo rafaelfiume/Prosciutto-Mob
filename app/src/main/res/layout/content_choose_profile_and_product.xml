@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <RadioGroup
-        android:id="@+id/profile_options"
+        android:id="@+id/profileOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -33,10 +33,10 @@
     </RadioGroup>
 
     <ListView
-        android:id="@+id/suggested_products_list"
+        android:id="@+id/productsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profile_options"
+        android:layout_below="@id/profileOptions"
         android:paddingTop="@dimen/space_between_content_areas"
         android:paddingStart="@dimen/screen_edge_horizontal_margins_mobile"/>
 

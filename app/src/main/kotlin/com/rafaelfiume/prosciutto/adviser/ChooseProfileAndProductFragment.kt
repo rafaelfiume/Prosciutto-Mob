@@ -53,9 +53,9 @@ class ChooseProfileAndProductFragment() : Fragment() {
         if (this.adapter == null) {
             this.adapter = ProductAdapter(this.activity, OnSuggestedProductClickListenerFactory(this.productSelectedListener!!))
         }
-        view?.suggested_products_list?.adapter = this.adapter
+        view?.productsList?.adapter = this.adapter
 
-        view?.profile_options?.setOnCheckedChangeListener { _, checkedId ->
+        view?.profileOptions?.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.magic_option -> this.query = MAGIC
                 R.id.healthy_option -> this.query = HEALTHY
@@ -106,13 +106,13 @@ class ChooseProfileAndProductFragment() : Fragment() {
     }
 
     private fun setMagicOptionSelectedByDefault(view: View) {
-        view.profile_options?.check(R.id.magic_option)
+        view.profileOptions?.check(R.id.magic_option)
         this.query = MAGIC
     }
 
     private fun getOnFetchContentListener(): OnFetchingContentListener {
         if (paneMode.single) { // small screen
-            return OnFetchingContentListener(view?.coordinator_layout, OnClickListener { fetchSalumes() })
+            return OnFetchingContentListener(view?.coordinatorLayout, OnClickListener { fetchSalumes() })
 
         } else {
             return (context as? AdviserActivity)?.listener()
@@ -122,8 +122,8 @@ class ChooseProfileAndProductFragment() : Fragment() {
 
     private fun adjustToolbarAndFabInSinglePaneLayout() {
         val appCompatActivity = (activity!! as AppCompatActivity) // this smells like... smell
-        appCompatActivity.setSupportActionBar(view?.main_toolbar)
-        view?.main_toolbar?.setTitle(R.string.main_toolbar_title)
+        appCompatActivity.setSupportActionBar(view?.mainToolbar)
+        view?.mainToolbar?.setTitle(R.string.main_toolbar_title)
 
         view?.fab?.setOnClickListener { fetchSalumes() }
     }

@@ -59,14 +59,14 @@ class AdviserEndToEndSadPathTest {
         onView(withId(R.id.fab)).perform(click())
 
         // Then...
-        onView(withId(R.id.suggested_products_list)).check(matches(anEmptyList()))
+        onView(withId(R.id.productsList)).check(matches(anEmptyList()))
         onView(withText("Failed")).check(matches(isDisplayed()))
 
         // Trying again...
         onView(withText("Retry")).perform(click())
 
         // Still nothing. Server is not behaving
-        onView(withId(R.id.suggested_products_list)).check(matches(anEmptyList()))
+        onView(withId(R.id.productsList)).check(matches(anEmptyList()))
         onView(withText("Failed")).check(matches(isDisplayed()))
     }
 
@@ -84,7 +84,7 @@ class AdviserEndToEndSadPathTest {
         onView(withId(R.id.fab)).perform(click())
 
         // Then...
-        onView(withId(R.id.suggested_products_list)).check(matches(anEmptyList()))
+        onView(withId(R.id.productsList)).check(matches(anEmptyList()))
         onView(withText("Failed")).check(matches(isDisplayed()))
         onView(withText("Retry")).check(matches(isDisplayed()))
     }

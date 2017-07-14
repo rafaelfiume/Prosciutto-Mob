@@ -7,9 +7,9 @@ import android.view.MenuItem
 import android.view.View
 import com.rafaelfiume.prosciutto.adviser.ChooseProfileAndProductFragment.OnProductSelectedListener
 import com.rafaelfiume.prosciutto.adviser.domain.Product
-import kotlinx.android.synthetic.main.fragment_container.coordinator_layout
+import kotlinx.android.synthetic.main.fragment_container.coordinatorLayout
 import kotlinx.android.synthetic.main.fragment_container.fab
-import kotlinx.android.synthetic.main.fragment_container.main_toolbar
+import kotlinx.android.synthetic.main.fragment_container.mainToolbar
 
 class AdviserActivity : AppCompatActivity(), OnProductSelectedListener {
 
@@ -94,12 +94,12 @@ class AdviserActivity : AppCompatActivity(), OnProductSelectedListener {
     }
 
     private fun configureLargeScreenLayout() {
-        setSupportActionBar(main_toolbar)
-        main_toolbar.setTitle(R.string.main_toolbar_title)
+        setSupportActionBar(mainToolbar)
+        mainToolbar.setTitle(R.string.main_toolbar_title)
 
         fab.setOnClickListener { FetchSalumesAction().perform() }
 
-        this.listener = OnFetchingContentListener(coordinator_layout, View.OnClickListener { FetchSalumesAction().perform() })
+        this.listener = OnFetchingContentListener(coordinatorLayout, View.OnClickListener { FetchSalumesAction().perform() })
     }
 
     inner class FetchSalumesAction {

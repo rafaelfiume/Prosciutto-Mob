@@ -61,18 +61,18 @@ class AdviserEndToEndHappyPathTest {
         onView(withId(R.id.fab)).perform(click())
 
         // When the user selects the second listed product
-        onData(`is`(instanceOf<Any>(Product::class.java))).inAdapterView(withId(R.id.suggested_products_list)).atPosition(1).check(matches(allOf(
+        onData(`is`(instanceOf<Any>(Product::class.java))).inAdapterView(withId(R.id.productsList)).atPosition(1).check(matches(allOf(
                 hasDescendant(withText(containsString("(Traditional More Expensive) Premium"))),
                 hasDescendant(withText(containsString("EUR 73,23")))))).perform(click())
 
         // Then the suggested product is...
-        onView(withId(R.id.p_detail_name)).check(matches(withText("(Traditional More Expensive) Premium")))
-        onView(withId(R.id.p_detail_price)).check(matches(withText("EUR 73,23")))
-        onView(withId(R.id.p_detail_reputation)).check(matches(withText("traditional")))
-        onView(withId(R.id.p_detail_fat)).check(matches(withText("38,00")))
-        onView(withId(R.id.description_label)).check(matches(withText(containsString("About the Chorizo Variety:"))))
+        onView(withId(R.id.productName)).check(matches(withText("(Traditional More Expensive) Premium")))
+        onView(withId(R.id.productPrice)).check(matches(withText("EUR 73,23")))
+        onView(withId(R.id.productReputation)).check(matches(withText("traditional")))
+        onView(withId(R.id.productFat)).check(matches(withText("38,00")))
+        onView(withId(R.id.aboutLabel)).check(matches(withText(containsString("About the Chorizo Variety:"))))
         // TODO 29/06/2017 : Issue #9 : This is brittle since it depends on real content from production
-        onView(withId(R.id.p_detail_description)).check(matches(withText(containsString("Chorizo (chouriço in portoghese, chorizu in asturiano, chourizo in galiziano, xoriço in catalano)"))))
+        onView(withId(R.id.productDescription)).check(matches(withText(containsString("Chorizo (chouriço in portoghese, chorizu in asturiano, chourizo in galiziano, xoriço in catalano)"))))
     }
 
     @Test
@@ -81,7 +81,7 @@ class AdviserEndToEndHappyPathTest {
         onView(withId(expert_option)).perform(click())
         onView(withId(expert_option)).check(matches(ViewMatchers.isChecked()))
         onView(withId(R.id.fab)).perform(click())
-        onData(`is`(instanceOf<Any>(Product::class.java))).inAdapterView(withId(R.id.suggested_products_list)).atPosition(1).check(matches(allOf(
+        onData(`is`(instanceOf<Any>(Product::class.java))).inAdapterView(withId(R.id.productsList)).atPosition(1).check(matches(allOf(
                 hasDescendant(withText(containsString("(Traditional More Expensive) Premium"))),
                 hasDescendant(withText(containsString("EUR 73,23")))))).perform(click())
 
@@ -89,7 +89,7 @@ class AdviserEndToEndHappyPathTest {
         pressBack()
 
         // Then
-        onData(`is`(instanceOf<Any>(Product::class.java))).inAdapterView(withId(R.id.suggested_products_list)).atPosition(1).check(matches(allOf(
+        onData(`is`(instanceOf<Any>(Product::class.java))).inAdapterView(withId(R.id.productsList)).atPosition(1).check(matches(allOf(
                 hasDescendant(withText(containsString("(Traditional More Expensive) Premium"))),
                 hasDescendant(withText(containsString("EUR 73,23"))))))
     }

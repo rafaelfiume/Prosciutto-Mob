@@ -41,14 +41,14 @@ class ShowAdvisedProductDetailsFragment : Fragment() {
     }
 
     private fun loadScreen(product: Product, view: View) {
-        view.collapsing_toolbar.title = product.name
+        view.collapsingToolbar.title = product.name
 
         Glide.with(this).load(product.imageUrl).centerCrop().into(view.backdrop)
 
-        view.p_detail_name.text = product.name
-        view.p_detail_price.text = product.price
-        view.p_detail_reputation.text = product.reputation
-        view.p_detail_fat.text = product.fatPercentage
+        view.productName.text = product.name
+        view.productPrice.text = product.price
+        view.productReputation.text = product.reputation
+        view.productFat.text = product.fatPercentage
         loadProductDescription(product, view)
     }
 
@@ -72,8 +72,8 @@ class ShowAdvisedProductDetailsFragment : Fragment() {
         }
 
         override fun onPostExecute(description: ProductDescription) {
-            view.description_label.text = "About the ${product.variety} Variety:"
-            view.p_detail_description.text = description.value
+            view.aboutLabel.text = "About the ${product.variety} Variety:"
+            view.productDescription.text = description.value
         }
     }
 
