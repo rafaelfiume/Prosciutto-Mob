@@ -1,20 +1,17 @@
 package com.rafaelfiume.prosciutto.adviser
 
-import android.support.v4.app.Fragment
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.rafaelfiume.prosciutto.adviser.domain.Product
 import com.rafaelfiume.prosciutto.adviser.domain.ProductDescription
 import com.rafaelfiume.prosciutto.adviser.integration.ProductDescriptionQuery
+import kotlinx.android.synthetic.main.content_show_advised_product_details.view.*
+import kotlinx.android.synthetic.main.fragment_show_advised_product_details.view.*
 
 /**
  * Use the [ShowAdvisedProductDetailsFragment.newInstance] factory method to
@@ -40,31 +37,23 @@ class ShowAdvisedProductDetailsFragment : Fragment() {
     }
 
     fun updateProduct(product: Product) {
-        val view = activity.findViewById(R.id.fragment_show_advised_product_details)
-        loadScreen(product, view)
+        loadScreen(product, view!!)
     }
 
     private fun loadScreen(product: Product, view: View) {
-        val collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
-        collapsingToolbarLayout.title = product.name
+        view.collapsing_toolbar.title = product.name
 
-        val imageView = view.findViewById(R.id.backdrop) as ImageView
-        Glide.with(this).load(product.imageUrl).centerCrop().into(imageView)
+        Glide.with(this).load(product.imageUrl).centerCrop().into(view.backdrop)
 
-        setValueFor(R.id.p_detail_name, product.name, view)
-        setValueFor(R.id.p_detail_price, product.price, view)
-        setValueFor(R.id.p_detail_reputation, product.reputation, view)
-        setValueFor(R.id.p_detail_fat, product.fatPercentage, view)
+        view.p_detail_name.text = product.name
+        view.p_detail_price.text = product.price
+        view.p_detail_reputation.text = product.reputation
+        view.p_detail_fat.text = product.fatPercentage
         loadProductDescription(product, view)
     }
 
     private fun loadProductDescription(product: Product, view: View) {
         GetProductDescription(product, view).execute()
-    }
-
-    private fun setValueFor(viewId: Int, value: String, view: View) {
-        val tvName = view.findViewById(viewId) as TextView
-        tvName.text = value
     }
 
     internal inner class GetProductDescription(
@@ -83,8 +72,8 @@ class ShowAdvisedProductDetailsFragment : Fragment() {
         }
 
         override fun onPostExecute(description: ProductDescription) {
-            setValueFor(R.id.description_label, "About the ${product.variety} Variety:", view)
-            setValueFor(R.id.p_detail_description, description.value, view)
+            view.description_label.text = "About the ${product.variety} Variety:"
+            view.p_detail_description.text = description.value
         }
     }
 

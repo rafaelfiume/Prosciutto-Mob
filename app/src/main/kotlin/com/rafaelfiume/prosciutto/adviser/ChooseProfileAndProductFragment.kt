@@ -1,23 +1,21 @@
 package com.rafaelfiume.prosciutto.adviser
 
-import android.support.v4.app.Fragment
+import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.ListView
-import android.widget.RadioGroup
 import com.rafaelfiume.prosciutto.adviser.domain.Product
 import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery
 import com.rafaelfiume.prosciutto.adviser.integration.ProductAdviserQuery.*
 import java.util.*
-import android.content.Context
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.view.View.OnClickListener
+import kotlinx.android.synthetic.main.content_choose_profile_and_product.view.*
+import kotlinx.android.synthetic.main.fragment_choose_profile_and_product.view.*
 
 private const val LIST_OF_RECOMMENDED_PRODUCTS = "recommended_products"
 
@@ -52,14 +50,12 @@ class ChooseProfileAndProductFragment() : Fragment() {
 
         this.chooseFragmentTag = resources.getString(R.string.tag_choose_fragment)
 
-        val listView = view.findViewById(R.id.suggested_products_list) as ListView
         if (this.adapter == null) {
             this.adapter = ProductAdapter(this.activity, OnSuggestedProductClickListenerFactory(this.productSelectedListener!!))
         }
-        listView.adapter = this.adapter
+        view?.suggested_products_list?.adapter = this.adapter
 
-        val profileOptions = view.findViewById(R.id.profile_options) as RadioGroup
-        profileOptions.setOnCheckedChangeListener { _, checkedId ->
+        view?.profile_options?.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.magic_option -> this.query = MAGIC
                 R.id.healthy_option -> this.query = HEALTHY
@@ -89,15 +85,8 @@ class ChooseProfileAndProductFragment() : Fragment() {
             this.paneMode = paneMode
         }
 
-        // adjustSinglePaneModeLayout
         if (this.paneMode.single) {
-            val toolbar = view!!.findViewById(R.id.main_toolbar) as Toolbar
-            val appCompatActivity = (activity!! as AppCompatActivity) // this smells like... smell
-            appCompatActivity.setSupportActionBar(toolbar)
-            toolbar.setTitle(R.string.main_toolbar_title)
-
-            val fab = view!!.findViewById(R.id.fab) as FloatingActionButton
-            fab.setOnClickListener { fetchSalumes() }
+            adjustToolbarAndFabInSinglePaneLayout()
         }
     }
 
@@ -116,21 +105,27 @@ class ChooseProfileAndProductFragment() : Fragment() {
                         ?: throw ClassCastException(context.toString() + " must implement OnProductSelectedListener")
     }
 
-    private fun setMagicOptionSelectedByDefault(v: View) {
-        val options = v.findViewById(R.id.profile_options) as RadioGroup
-        options.check(R.id.magic_option)
+    private fun setMagicOptionSelectedByDefault(view: View) {
+        view.profile_options?.check(R.id.magic_option)
         this.query = MAGIC
     }
 
     private fun getOnFetchContentListener(): OnFetchingContentListener {
         if (paneMode.single) { // small screen
-            val snackbarView = view!!.findViewById(R.id.coordinator_layout)
-            return OnFetchingContentListener(snackbarView, OnClickListener { fetchSalumes() })
+            return OnFetchingContentListener(view?.coordinator_layout, OnClickListener { fetchSalumes() })
 
         } else {
             return (context as? AdviserActivity)?.listener()
                     ?: throw ClassCastException(context.toString() + " must implement OnFetchingContentListener")
         }
+    }
+
+    private fun adjustToolbarAndFabInSinglePaneLayout() {
+        val appCompatActivity = (activity!! as AppCompatActivity) // this smells like... smell
+        appCompatActivity.setSupportActionBar(view?.main_toolbar)
+        view?.main_toolbar?.setTitle(R.string.main_toolbar_title)
+
+        view?.fab?.setOnClickListener { fetchSalumes() }
     }
 
     inner class GetProductAdvice(val listener: OnFetchingContentListener) : AsyncTask<Void, Void, List<Product>>() {

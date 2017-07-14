@@ -1,14 +1,15 @@
 package com.rafaelfiume.prosciutto.adviser
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.rafaelfiume.prosciutto.adviser.ChooseProfileAndProductFragment.OnProductSelectedListener
 import com.rafaelfiume.prosciutto.adviser.domain.Product
+import kotlinx.android.synthetic.main.fragment_container.coordinator_layout
+import kotlinx.android.synthetic.main.fragment_container.fab
+import kotlinx.android.synthetic.main.fragment_container.main_toolbar
 
 class AdviserActivity : AppCompatActivity(), OnProductSelectedListener {
 
@@ -93,15 +94,12 @@ class AdviserActivity : AppCompatActivity(), OnProductSelectedListener {
     }
 
     private fun configureLargeScreenLayout() {
-        val toolbar = findViewById(R.id.main_toolbar) as Toolbar
-        this.setSupportActionBar(toolbar)
-        toolbar.setTitle(R.string.main_toolbar_title)
+        setSupportActionBar(main_toolbar)
+        main_toolbar.setTitle(R.string.main_toolbar_title)
 
-        val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { FetchSalumesAction().perform() }
 
-        val snackbarView = findViewById(R.id.coordinator_layout)
-        this.listener = OnFetchingContentListener(snackbarView, View.OnClickListener { FetchSalumesAction().perform() })
+        this.listener = OnFetchingContentListener(coordinator_layout, View.OnClickListener { FetchSalumesAction().perform() })
     }
 
     inner class FetchSalumesAction {
